@@ -16,7 +16,7 @@ import com.mygdx.game.Main;
 public class GroundFloor implements Screen {
 
     private Main myGame;
-    private Texture stair = new Texture("Stairs.png");
+    private Texture stairs = new Texture("Stairs.png");
 
 
     private TmxMapLoader mapLoader; //helps load the map
