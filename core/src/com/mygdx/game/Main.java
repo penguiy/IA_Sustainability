@@ -16,10 +16,13 @@ public class Main extends Game {
 	private Screen currScreen;
 	private Hud hud;
 
+	private boolean dayEnd;
+
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		hud = new Hud();
+		hud = new Hud(this);
 		currScreen = new GroundFloor(this);
 		setScreen(currScreen);
 	}
@@ -41,5 +44,13 @@ public class Main extends Game {
 
 	public Hud getHud() {
 		return hud;
+	}
+
+	public boolean isDayEnd() {
+		return dayEnd;
+	}
+
+	public void setDayEnd(boolean dayEnd) {
+		this.dayEnd = dayEnd;
 	}
 }
