@@ -11,13 +11,15 @@ import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.GroundFloor;
 
 public class Main extends Game {
-	SpriteBatch batch;
-	Texture img;
-	Screen currScreen;
+	private SpriteBatch batch;
+	private Texture img;
+	private Screen currScreen;
+	private Hud hud;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		hud = new Hud();
 		currScreen = new GroundFloor(this);
 		setScreen(currScreen);
 	}
@@ -35,5 +37,9 @@ public class Main extends Game {
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
+	}
+
+	public Hud getHud() {
+		return hud;
 	}
 }

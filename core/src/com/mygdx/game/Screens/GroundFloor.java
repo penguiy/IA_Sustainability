@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Con;
+import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
 
 public class GroundFloor implements Screen {
@@ -25,8 +26,12 @@ public class GroundFloor implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
+    private Hud hud;
+
     public GroundFloor(Main game){
         this.myGame = game;
+        this.hud = game.getHud();
+
         mapLoader = new TmxMapLoader(); //create an instance of built-in map loader object
         map = mapLoader.load(Con.GROUND_FLOOR_MAP); //using map loader object, load the tiled map that you made
         renderer = new OrthogonalTiledMapRenderer(map); //render the map.
@@ -55,7 +60,7 @@ public class GroundFloor implements Screen {
 
         renderer.render();
         myGame.getBatch().begin();
-
+        hud.getStage().draw();
         myGame.getBatch().end();
         myGame.getBatch().setProjectionMatrix(camera.combined); //updates our batch with our Camera's view and projection matrices.
 
