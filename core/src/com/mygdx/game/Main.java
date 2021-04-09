@@ -1,14 +1,13 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Screens.GroundFloor;
-import com.mygdx.game.Screens.GroundFloor;
+import com.mygdx.game.Screens.StreetView;
 
 public class Main extends Game {
 	private SpriteBatch batch;
@@ -17,22 +16,51 @@ public class Main extends Game {
 	private Hud hud;
 
 	private boolean dayEnd;
-
-
+	private ScreenDisplay displaying;
+	private ScreenDisplay prevDisplayed;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		hud = new Hud(this);
 		currScreen = new GroundFloor(this);
+		displaying = ScreenDisplay.GROUND;
+		prevDisplayed = ScreenDisplay.GROUND;
 		setScreen(currScreen);
 	}
 
 	@Override
 	public void render () {
 		super.render();
+		handleInput();
+		if (displaying != prevDisplayed) {
+			currScreen.dispose();
+			switch (displaying) {
+				case STREET:
+					currScreen = new StreetView(this);
+					setScreen(currScreen);
+					prevDisplayed = ScreenDisplay.STREET;
+					break;
+				case GROUND:
+					currScreen = new GroundFloor(this);
+					setScreen(currScreen);
+					prevDisplayed = ScreenDisplay.GROUND;
+					break;
+			}
+		}
+	}
+	private void handleInput(){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+			if(displaying == ScreenDisplay.GROUND){
+				displaying = ScreenDisplay.STREET;
+			}
+			else{
+				displaying = ScreenDisplay.GROUND;
+			}
+
+		}
 	}
 
-	public SpriteBatch getBatch() {
+	public SpriteBatch getBatch(){
 		return batch;
 	}
 
@@ -52,5 +80,10 @@ public class Main extends Game {
 
 	public void setDayEnd(boolean dayEnd) {
 		this.dayEnd = dayEnd;
+	}
+
+	//use to change the screen for outside classes
+	public void changeScreen(ScreenDisplay displaying) {
+		this.displaying = displaying;
 	}
 }

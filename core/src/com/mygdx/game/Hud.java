@@ -61,9 +61,8 @@ public class Hud {
         settings = new ImageButton(settingsDrawable);
 
         table.add(dayIcon);
-        table.add(day).padLeft(8);
-        table.add(new Label("    ", labelStyle)).expandX();
-        table.add(timeIcon).center();
+        table.add(day).padLeft(8).padRight(18);
+        table.add(timeIcon).center().padRight(8);
         table.add(time);
         table.add(new Label("    ", labelStyle)).expandX();
         table.add(settings).right();
