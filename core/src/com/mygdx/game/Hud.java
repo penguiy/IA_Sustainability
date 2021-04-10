@@ -67,6 +67,7 @@ public class Hud {
         table.add(new Label("    ", labelStyle)).expandX();
         table.add(settings).right();
         table.row();
+        table.add(new Label("    ", labelStyle));
         table.add(money).right();
 
         stage.addActor(table);
@@ -96,6 +97,7 @@ public class Hud {
             time.setText(hourString + ":" + minuteString);
             totalDeltaTime = 0;
         }
+        money.setText(game.getMousePos());
 //        if(game.isDayEnd()){
 //            dayNum += 1;
 //            hours = 7;

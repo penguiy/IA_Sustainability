@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 
@@ -18,6 +19,9 @@ public class Main extends Game {
 	private boolean dayEnd;
 	private ScreenDisplay displaying;
 	private ScreenDisplay prevDisplayed;
+
+	private String mousePos;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -49,14 +53,15 @@ public class Main extends Game {
 		}
 	}
 	private void handleInput(){
-		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+			//Add an condition to check if it is over the sprite
+			mousePos = Gdx.input.getX() +"," +Gdx.input.getY();
 			if(displaying == ScreenDisplay.GROUND){
 				displaying = ScreenDisplay.STREET;
 			}
 			else{
 				displaying = ScreenDisplay.GROUND;
 			}
-
 		}
 	}
 
@@ -80,6 +85,10 @@ public class Main extends Game {
 
 	public void setDayEnd(boolean dayEnd) {
 		this.dayEnd = dayEnd;
+	}
+
+	public String getMousePos(){
+		return this.mousePos;
 	}
 
 	//use to change the screen for outside classes
