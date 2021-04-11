@@ -4,8 +4,10 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
@@ -21,6 +23,8 @@ public class Main extends Game {
 	private ScreenDisplay prevDisplayed;
 
 	private String mousePos;
+	private Vector3 touchPos;
+	private OrthographicCamera camera;
 
 	@Override
 	public void create () {
@@ -29,6 +33,9 @@ public class Main extends Game {
 		currScreen = new GroundFloor(this);
 		displaying = ScreenDisplay.GROUND;
 		prevDisplayed = ScreenDisplay.GROUND;
+		touchPos = new Vector3();
+		camera = new OrthographicCamera();
+		camera.setToOrtho(true, Con.WIDTH, Con.HEIGHT);
 		setScreen(currScreen);
 	}
 
@@ -54,8 +61,10 @@ public class Main extends Game {
 	}
 	private void handleInput(){
 		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+			touchPos.set(Gdx.input.getX(),Gdx.input.getY(),0);
+			camera.unproject(touchPos);
 			//Add an condition to check if it is over the sprite
-			mousePos = Gdx.input.getX() +"," +Gdx.input.getY();
+			mousePos = touchPos.x +"," + touchPos.y;
 			if(displaying == ScreenDisplay.GROUND){
 				displaying = ScreenDisplay.STREET;
 			}
@@ -94,5 +103,13 @@ public class Main extends Game {
 	//use to change the screen for outside classes
 	public void changeScreen(ScreenDisplay displaying) {
 		this.displaying = displaying;
+	}
+
+	public void setDisplaying(ScreenDisplay displaying) {
+		this.displaying = displaying;
+	}
+
+	public void setPrevDisplayed(ScreenDisplay prevDisplayed) {
+		this.prevDisplayed = prevDisplayed;
 	}
 }

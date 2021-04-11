@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
+import com.mygdx.game.Sprites.Navi;
 
 public class GroundFloor implements Screen {
 
@@ -33,6 +34,10 @@ public class GroundFloor implements Screen {
     private Hud hud;
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
+
+    //Navi sprites to move around
+    private Navi Street;
+    private Navi firstFloor;
 
     public GroundFloor(Main game){
         this.myGame = game;
