@@ -97,7 +97,7 @@ public class Hud {
             time.setText(hourString + ":" + minuteString);
             totalDeltaTime = 0;
         }
-        money.setText(game.getMousePos());
+        //money.setText(game.getData());
 //        if(game.isDayEnd()){
 //            dayNum += 1;
 //            hours = 7;

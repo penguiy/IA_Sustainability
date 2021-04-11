@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +15,6 @@ import com.mygdx.game.Screens.StreetView;
 
 public class Main extends Game {
 	private SpriteBatch batch;
-	private Texture img;
 	private Screen currScreen;
 	private Hud hud;
 
@@ -22,9 +22,9 @@ public class Main extends Game {
 	private ScreenDisplay displaying;
 	private ScreenDisplay prevDisplayed;
 
-	private String mousePos;
-	private Vector3 touchPos;
-	private OrthographicCamera camera;
+
+	private String data;
+
 
 	@Override
 	public void create () {
@@ -33,10 +33,8 @@ public class Main extends Game {
 		currScreen = new GroundFloor(this);
 		displaying = ScreenDisplay.GROUND;
 		prevDisplayed = ScreenDisplay.GROUND;
-		touchPos = new Vector3();
-		camera = new OrthographicCamera();
-		camera.setToOrtho(true, Con.WIDTH, Con.HEIGHT);
 		setScreen(currScreen);
+		render();
 	}
 
 	@Override
@@ -60,18 +58,6 @@ public class Main extends Game {
 		}
 	}
 	private void handleInput(){
-		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-			touchPos.set(Gdx.input.getX(),Gdx.input.getY(),0);
-			camera.unproject(touchPos);
-			//Add an condition to check if it is over the sprite
-			mousePos = touchPos.x +"," + touchPos.y;
-			if(displaying == ScreenDisplay.GROUND){
-				displaying = ScreenDisplay.STREET;
-			}
-			else{
-				displaying = ScreenDisplay.GROUND;
-			}
-		}
 	}
 
 	public SpriteBatch getBatch(){
@@ -81,7 +67,6 @@ public class Main extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 
 	public Hud getHud() {
@@ -96,8 +81,11 @@ public class Main extends Game {
 		this.dayEnd = dayEnd;
 	}
 
-	public String getMousePos(){
-		return this.mousePos;
+	public String getData(){
+		return this.data;
+	}
+	public void setDataLabel(String Data) {
+		this.data = data;
 	}
 
 	//use to change the screen for outside classes
@@ -105,11 +93,4 @@ public class Main extends Game {
 		this.displaying = displaying;
 	}
 
-	public void setDisplaying(ScreenDisplay displaying) {
-		this.displaying = displaying;
-	}
-
-	public void setPrevDisplayed(ScreenDisplay prevDisplayed) {
-		this.prevDisplayed = prevDisplayed;
-	}
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -61,6 +62,7 @@ public class StreetView implements Screen {
     @Override
     public void render(float delta) {
         update(delta);
+        handleInput();
         box2DDebugRenderer.render(world, camera.combined);
         //clear screen
         Gdx.gl.glClearColor(0, 1, 1, 1);
@@ -73,6 +75,10 @@ public class StreetView implements Screen {
 
         hud.getStage().draw();
         myGame.getBatch().setProjectionMatrix(camera.combined); //updates our batch with our Camera's view and projection matrices.
+
+    }
+
+    public void handleInput(){
 
     }
 
@@ -101,4 +107,5 @@ public class StreetView implements Screen {
         map.dispose();
         renderer.dispose();
     }
+
 }
