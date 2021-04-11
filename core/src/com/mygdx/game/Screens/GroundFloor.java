@@ -126,7 +126,7 @@ public class GroundFloor implements Screen {
     public void clickFixture(){
         BodyDef bodyDef = new BodyDef();
         touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        camera.unproject(touchPos);
+        viewport.unproject(touchPos);
         bodyDef.position.set(touchPos.x,touchPos.y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         clickBody = world.createBody(bodyDef);

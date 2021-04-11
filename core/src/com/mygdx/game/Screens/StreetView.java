@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,7 +11,11 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -33,6 +38,11 @@ public class StreetView implements Screen {
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
 
+    private Vector3 touchPos;
+    private Body clickBody;
+
+
+
     public StreetView(Main game) {
         this.myGame = game;
         this.hud = game.getHud();
@@ -45,10 +55,16 @@ public class StreetView implements Screen {
         camera = new OrthographicCamera();
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
+
+        touchPos = new Vector3();
     }
 
     private void update(float dt) {
         world.step(1 / 60f, 6, 2);
+        if(clickBody != null) {
+            world.destroyBody(clickBody);
+            clickBody = null;
+        }
         camera.update();
         hud.update(dt);
         renderer.setView(camera); //sets the view from our camera so it would render only what our camera can see.
@@ -63,7 +79,6 @@ public class StreetView implements Screen {
     public void render(float delta) {
         update(delta);
         handleInput();
-        box2DDebugRenderer.render(world, camera.combined);
         //clear screen
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -75,11 +90,28 @@ public class StreetView implements Screen {
 
         hud.getStage().draw();
         myGame.getBatch().setProjectionMatrix(camera.combined); //updates our batch with our Camera's view and projection matrices.
-
+        box2DDebugRenderer.render(world,camera.combined);
     }
 
     public void handleInput(){
 
+        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            clickFixture();
+        }
+    }
+    public void clickFixture(){
+        BodyDef bodyDef = new BodyDef();
+        touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        viewport.unproject(touchPos);
+        bodyDef.position.set(touchPos.x,touchPos.y);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        clickBody = world.createBody(bodyDef);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        CircleShape click = new CircleShape();
+        click.setRadius(4);
+        fixtureDef.shape = click;
+        clickBody.createFixture(fixtureDef).setUserData(this);
     }
 
     @Override
