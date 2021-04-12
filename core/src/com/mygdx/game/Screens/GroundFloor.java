@@ -75,7 +75,7 @@ public class GroundFloor implements Screen {
 
         touchPos = new Vector3();
 
-        streetNavi = new Navi(world, 32,168, myGame, ScreenDisplay.STREET);
+        streetNavi = new Navi(world, 32,Con.STREET_NAVI_Y, myGame, ScreenDisplay.STREET);
     }
     private void update(float dt)
     {

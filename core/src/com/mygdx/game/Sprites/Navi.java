@@ -3,6 +3,7 @@ package com.mygdx.game.Sprites;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -19,6 +20,7 @@ public class Navi extends Sprite {
     private Main game;
     private Body body;
     private ScreenDisplay changeScreen;
+    private TextureRegion region;
 
     public Navi(World world, float x, float y, Main game, ScreenDisplay screen){
         this.world = world;
@@ -26,7 +28,20 @@ public class Navi extends Sprite {
         this.changeScreen = screen;
         setPosition(x,y);
         setBounds(getX(),getY(),Con.NAVI_WIDTH,Con.NAVI_HEIGHT);
-        setRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
+        region = new TextureRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
+        setRegion(region);
+        defineBody();
+    }
+    public Navi(World world, float x, float y, Main game, ScreenDisplay screen, boolean flipX, boolean flipY){
+        this.world = world;
+        this.game = game;
+        this.changeScreen = screen;
+        setPosition(x,y);
+        setBounds(getX(),getY(),Con.NAVI_WIDTH,Con.NAVI_HEIGHT);
+        region = new TextureRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
+        region.flip(flipX,flipY);
+
+        setRegion(region);
         defineBody();
     }
 

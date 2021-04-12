@@ -22,6 +22,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
+import com.mygdx.game.ScreenDisplay;
+import com.mygdx.game.Sprites.Navi;
+import com.mygdx.game.Utils.WorldContactListener;
 
 public class StreetView implements Screen {
 
@@ -41,12 +44,14 @@ public class StreetView implements Screen {
     private Vector3 touchPos;
     private Body clickBody;
 
+    private Navi schoolNavi;
 
 
     public StreetView(Main game) {
         this.myGame = game;
         this.hud = game.getHud();
         this.world = new World(new Vector2(0, 0), true);
+        world.setContactListener(new WorldContactListener());
         box2DDebugRenderer = new Box2DDebugRenderer();
 
         mapLoader = new TmxMapLoader(); //create an instance of built-in map loader object
@@ -57,6 +62,8 @@ public class StreetView implements Screen {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
 
         touchPos = new Vector3();
+        schoolNavi = new Navi(world, Con.WIDTH-145,Con.STREET_NAVI_Y, myGame, ScreenDisplay.GROUND,true,false);
+
     }
 
     private void update(float dt) {
@@ -65,6 +72,7 @@ public class StreetView implements Screen {
             world.destroyBody(clickBody);
             clickBody = null;
         }
+        schoolNavi.update(dt);
         camera.update();
         hud.update(dt);
         renderer.setView(camera); //sets the view from our camera so it would render only what our camera can see.
@@ -86,6 +94,7 @@ public class StreetView implements Screen {
         renderer.render();
         myGame.getBatch().begin();
 
+        schoolNavi.draw(myGame.getBatch());
         myGame.getBatch().end();
 
         hud.getStage().draw();

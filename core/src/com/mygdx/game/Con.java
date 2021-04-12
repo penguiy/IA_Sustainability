@@ -18,5 +18,6 @@ public class Con {
     public static final String NAVI_SIDE_TEXTURE = "Navi Side-1.png.png";
     public static final int NAVI_WIDTH = 25;
     public static final int NAVI_HEIGHT = 25;
+    public static final int STREET_NAVI_Y = 168;
 
 }
