@@ -63,11 +63,10 @@ public class StreetView implements Screen {
 
         touchPos = new Vector3();
         schoolNavi = new Navi(world, Con.WIDTH-145,Con.STREET_NAVI_Y, myGame, ScreenDisplay.GROUND,true,false);
-
     }
 
     private void update(float dt) {
-        world.step(1 / 60f, 6, 2);
+        world.step(1/60f, 6, 2);
         if(clickBody != null) {
             world.destroyBody(clickBody);
             clickBody = null;

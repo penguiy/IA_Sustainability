@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -48,7 +49,6 @@ public class GroundFloor implements Screen {
     private Box2DDebugRenderer box2DDebugRenderer;
 
     private Body clickBody;
-
     //Navi sprites to move around
     private Vector3 touchPos;
 
@@ -60,6 +60,7 @@ public class GroundFloor implements Screen {
     }
 
     public GroundFloor(Main game){
+
         this.myGame = game;
         this.hud = game.getHud();
         this.world = new World(new Vector2(0,0),true);
@@ -115,7 +116,7 @@ public class GroundFloor implements Screen {
         myGame.getBatch().setProjectionMatrix(camera.combined); //updates our batch with our Camera's view and projection matrices.
 
         box2DDebugRenderer.render(world,camera.combined);
-
+        System.out.println("natural");
     }
     public void handleInput(){
 

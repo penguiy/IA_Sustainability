@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Hud {
+
+
     private Main game;
 
     private Viewport viewport;
@@ -32,6 +34,7 @@ public class Hud {
     private int hours;
     private int minutes;
     private float totalDeltaTime;
+    private boolean dayEnd;
 
     private Image dayIcon;
     private Image timeIcon;
@@ -46,11 +49,16 @@ public class Hud {
         table.setFillParent(true);
         table.debug();
 
+        dayNum = 1;
+        hourString = "07";
+        minuteString = ""+ 00;
+        hours = 7;
+        minutes = 0;
         totalDeltaTime = 0;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
-        day = new Label("Day " + Integer.toString(dayNum), labelStyle);
-        time = new Label( "00:00",  labelStyle);
+        day = new Label("Day " + dayNum, labelStyle);
+        time = new Label(hourString + ":" + minuteString, labelStyle);
         money = new Label(bank, labelStyle);
 
 
@@ -74,30 +82,35 @@ public class Hud {
     }
     public void update(float dt){
         //Day end? -> Day count +1, else stay same
-        //Day end? -> set back to 07:00, else increase by 00:01
-        totalDeltaTime += dt;
-        if(totalDeltaTime >= 1){
-            minutes++;
-            if(minutes > 59){
-                hours++;
-                minutes = 0;
+        if(!dayEnd) {
+            totalDeltaTime += dt;
+            if (hours >= Con.FINAL_HOUR) {
+                //Day end menu
+                dayNum++;
+                day.setText("Day " + dayNum);
+                hours = 7;
+                totalDeltaTime = 0;
+                dayEnd = true;
+            } else if (totalDeltaTime >= 0.1) {
+                minutes++;
+                if (minutes > 59) {
+                    hours++;
+                    minutes = 0;
+                }
+                if (hours < 10) {
+                    hourString = "0" + hours;
+                } else {
+                    hourString = Integer.toString(hours);
+                }
+                if (minutes < 10) {
+                    minuteString = "0" + minutes;
+                } else {
+                    minuteString = Integer.toString(minutes);
+                }
+                time.setText(hourString + ":" + minuteString);
+                totalDeltaTime = 0;
             }
-            if(hours < 10){
-                hourString = "0" + hours;
-            }
-            else{
-                hourString = Integer.toString(hours);
-            }
-            if(minutes < 10){
-                minuteString = "0" + minutes;
-            }
-            else{
-                minuteString = Integer.toString(minutes);
-            }
-            time.setText(hourString + ":" + minuteString);
-            totalDeltaTime = 0;
-        }
-        //money.setText(game.getData());
+            //money.setText(game.getData());
 //        if(game.isDayEnd()){
 //            dayNum += 1;
 //            hours = 7;
@@ -107,9 +120,21 @@ public class Hud {
 //        else{
 //
 //        }
+        }
     }
     public Stage getStage() {
         return stage;
+    }
+
+    public int getDayNum() {
+        return dayNum;
+    }
+    public int getHours() {
+        return hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
     }
 
 }

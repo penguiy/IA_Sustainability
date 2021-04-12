@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
@@ -19,16 +21,13 @@ public class WorldContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         Fixture objectA = contact.getFixtureA();
         Fixture objectB = contact.getFixtureB();
-        System.out.println(objectA.getUserData().getClass().toString());
-        System.out.println(objectB.getUserData().getClass().toString());
+
 
         if(objectB.getUserData() instanceof GroundFloor && objectA.getUserData() instanceof Navi){
-            GroundFloor screen = (GroundFloor) objectB.getUserData();
             Navi navi = (Navi) objectA.getUserData();
             navi.changeScreen();
         }
         else if(objectB.getUserData() instanceof StreetView && objectA.getUserData() instanceof Navi){
-            StreetView screen = (StreetView) objectB.getUserData();
             Navi navi = (Navi) objectA.getUserData();
             navi.changeScreen();
         }

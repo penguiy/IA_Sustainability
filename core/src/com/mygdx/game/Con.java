@@ -19,5 +19,7 @@ public class Con {
     public static final int NAVI_WIDTH = 25;
     public static final int NAVI_HEIGHT = 25;
     public static final int STREET_NAVI_Y = 168;
+    public static final int FINAL_HOUR = 16;
+    public static final float FADE_TIME_CONSTANT = 1000;
 
 }
