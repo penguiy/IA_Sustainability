@@ -35,11 +35,10 @@ public class Fade implements Screen {
         if(totalDeltaTime < 1 && !fadeIn){
             totalDeltaTime += delta;
         }
-        else if(totalDeltaTime >= 0) {
+        else{
             fadeIn = true;
             totalDeltaTime -= delta;
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            switch(to) {
+            switch (to) {
                 case GROUND:
                     game.getGroundFloor().render(delta);
                     break;
@@ -47,16 +46,17 @@ public class Fade implements Screen {
                     game.getStreetView().render(delta);
                     break;
             }
-
-        }
-        else{
-            switch (to){
-                case GROUND:
-                    game.setScreen(game.getGroundFloor());
-                    break;
-                case STREET:
-                    game.setScreen(game.getStreetView());
-                    break;
+            if(totalDeltaTime <= 0) {
+                switch (to) {
+                    case GROUND:
+                        totalDeltaTime = 0;
+                        game.setScreen(game.getGroundFloor());
+                        break;
+                    case STREET:
+                        totalDeltaTime = 0;
+                        game.setScreen(game.getStreetView());
+                        break;
+                }
             }
         }
         Gdx.gl.glEnable(GL20.GL_BLEND);

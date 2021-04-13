@@ -24,10 +24,14 @@ public class WorldContactListener implements ContactListener {
 
 
         if(objectB.getUserData() instanceof GroundFloor && objectA.getUserData() instanceof Navi){
+            GroundFloor screen = (GroundFloor) objectB.getUserData();
+           // screen.getHud().setPaused(true);
             Navi navi = (Navi) objectA.getUserData();
             navi.changeScreen();
         }
         else if(objectB.getUserData() instanceof StreetView && objectA.getUserData() instanceof Navi){
+            StreetView screen = (StreetView) objectB.getUserData();
+         //   screen.getHud().setPaused(true);
             Navi navi = (Navi) objectA.getUserData();
             navi.changeScreen();
         }

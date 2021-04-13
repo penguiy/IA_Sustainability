@@ -74,6 +74,7 @@ public class GroundFloor implements Screen {
         touchPos = new Vector3();
 
         streetNavi = new Navi(world, 32,Con.STREET_NAVI_Y, myGame, ScreenDisplay.STREET);
+
     }
     private void update(float dt)
     {
@@ -115,9 +116,17 @@ public class GroundFloor implements Screen {
         box2DDebugRenderer.render(world,camera.combined);
     }
     public void handleInput(){
-
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             clickFixture();
+        }
+        if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))) {
+            System.out.println("space pressed");
+            if(hud.isDayEnd()){
+                this.hud.setDayEnd(false);
+            }
+            else {
+                this.hud.setDayEnd(true);
+            }
         }
     }
     public void clickFixture(){
@@ -167,5 +176,8 @@ public class GroundFloor implements Screen {
 
     public OrthogonalTiledMapRenderer getRenderer() {
         return renderer;
+    }
+    public Hud getHud() {
+        return hud;
     }
 }

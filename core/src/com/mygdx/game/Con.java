@@ -22,6 +22,7 @@ public class Con {
 
     //Temporary Data
     public static final String NAVI_SIDE_TEXTURE = "Navi Side-1.png.png";
+    public static final String CAR_TEXTURE = "Car base-4.png.png";
     public static final int NAVI_WIDTH = 25;
     public static final int NAVI_HEIGHT = 25;
     public static final int STREET_NAVI_Y = 168;

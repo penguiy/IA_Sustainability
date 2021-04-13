@@ -23,13 +23,13 @@ import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
+import com.mygdx.game.Sprites.Car;
 import com.mygdx.game.Sprites.Navi;
 import com.mygdx.game.Utils.WorldContactListener;
 
 public class StreetView implements Screen {
 
     private Main myGame;
-    private Texture stairs = new Texture("Stairs.png");
 
     private TmxMapLoader mapLoader; //helps load the map
     private TiledMap map; //the loaded map object
@@ -45,6 +45,9 @@ public class StreetView implements Screen {
     private Body clickBody;
 
     private Navi schoolNavi;
+
+    private Car car;
+    private Car car2;
 
 
     public StreetView(Main game) {
@@ -63,6 +66,8 @@ public class StreetView implements Screen {
 
         touchPos = new Vector3();
         schoolNavi = new Navi(world, Con.WIDTH-145,Con.STREET_NAVI_Y, myGame, ScreenDisplay.GROUND,true,false);
+        car = new Car(world, 115,0-(36+18), myGame);
+        car2 = new Car(world, 115,0-(96+18), myGame);
     }
 
     private void update(float dt) {
@@ -86,16 +91,20 @@ public class StreetView implements Screen {
     public void render(float delta) {
         update(delta);
         handleInput();
+
+        car.dropOff(delta);
+        car2.dropOff(delta);
         //clear screen
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-        myGame.getBatch().begin();
 
+        myGame.getBatch().begin();
+        car.draw(myGame.getBatch());
+        car2.draw(myGame.getBatch());
         schoolNavi.draw(myGame.getBatch());
         myGame.getBatch().end();
-
         hud.getStage().draw();
         myGame.getBatch().setProjectionMatrix(camera.combined); //updates our batch with our Camera's view and projection matrices.
         box2DDebugRenderer.render(world,camera.combined);
@@ -146,13 +155,6 @@ public class StreetView implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
-    }
-    public World getWorld() {
-        return world;
-    }
-
-    public OrthogonalTiledMapRenderer getRenderer() {
-        return renderer;
     }
 
 }

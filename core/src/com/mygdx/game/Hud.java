@@ -1,9 +1,12 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -14,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Hud {
+public class Hud extends Actor {
 
 
     private Main game;
@@ -34,6 +37,8 @@ public class Hud {
     private int hours;
     private int minutes;
     private float totalDeltaTime;
+
+    boolean paused;
     private boolean dayEnd;
 
     private Image dayIcon;
@@ -82,7 +87,7 @@ public class Hud {
     }
     public void update(float dt){
         //Day end? -> Day count +1, else stay same
-        if(!dayEnd) {
+        if(!dayEnd && !paused) {
             totalDeltaTime += dt;
             if (hours >= Con.FINAL_HOUR) {
                 //Day end menu
@@ -115,7 +120,7 @@ public class Hud {
             }
             //money.setText(game.getData());
 //        if(game.isDayEnd()){
-//            dayNum += 1;
+//            dayNum  += 1;
 //            hours = 7;
 //            minutes = 0;
 //            game.setDayEnd(false);
@@ -125,6 +130,8 @@ public class Hud {
 //        }
         }
     }
+
+
     public Stage getStage() {
         return stage;
     }
@@ -139,5 +146,21 @@ public class Hud {
     public int getMinutes() {
         return minutes;
     }
+    public boolean isDayEnd() {
+        return dayEnd;
+    }
+
+    public void setDayEnd(boolean dayEnd) {
+        this.dayEnd = dayEnd;
+    }
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+
+
 
 }
