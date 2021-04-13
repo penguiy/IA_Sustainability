@@ -55,9 +55,6 @@ public class GroundFloor implements Screen {
     private Navi streetNavi;
 //    private Navi firstFloorNavi;
 
-    public World getWorld() {
-        return world;
-    }
 
     public GroundFloor(Main game){
 
@@ -116,7 +113,6 @@ public class GroundFloor implements Screen {
         myGame.getBatch().setProjectionMatrix(camera.combined); //updates our batch with our Camera's view and projection matrices.
 
         box2DDebugRenderer.render(world,camera.combined);
-        System.out.println("natural");
     }
     public void handleInput(){
 
@@ -164,5 +160,12 @@ public class GroundFloor implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
+    }
+    public World getWorld() {
+        return world;
+    }
+
+    public OrthogonalTiledMapRenderer getRenderer() {
+        return renderer;
     }
 }

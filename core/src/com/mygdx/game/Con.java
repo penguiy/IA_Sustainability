@@ -1,5 +1,11 @@
 package com.mygdx.game;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+
 public class Con {
     //Sizes
     public static final int WIDTH = 560; //Viewport width
@@ -20,6 +26,13 @@ public class Con {
     public static final int NAVI_HEIGHT = 25;
     public static final int STREET_NAVI_Y = 168;
     public static final int FINAL_HOUR = 16;
-    public static final float FADE_TIME_CONSTANT = 1000;
+    public static final HashMap<ScreenDisplay,String> STRING_TO_MAP_DICT = new HashMap<ScreenDisplay,String>(){{
+        put(ScreenDisplay.GROUND, GROUND_FLOOR_MAP);
+        put(ScreenDisplay.STREET, STREET_VIEW_MAP);
+    }};
+    public static final ArrayList<ScreenDisplay> ALL_SCREENS = new ArrayList<ScreenDisplay>(){{
+        add(ScreenDisplay.GROUND);
+        add(ScreenDisplay.STREET);
+    }};
 
 }

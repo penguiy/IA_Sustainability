@@ -147,5 +147,12 @@ public class StreetView implements Screen {
         map.dispose();
         renderer.dispose();
     }
+    public World getWorld() {
+        return world;
+    }
+
+    public OrthogonalTiledMapRenderer getRenderer() {
+        return renderer;
+    }
 
 }

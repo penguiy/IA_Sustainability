@@ -41,18 +41,17 @@ public class Fade implements Screen {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             switch(to) {
                 case GROUND:
-                    System.out.println("forced");
                     game.getGroundFloor().render(delta);
                     break;
                 case STREET:
                     game.getStreetView().render(delta);
                     break;
             }
+
         }
         else{
             switch (to){
                 case GROUND:
-                    System.out.println("ooga booga");
                     game.setScreen(game.getGroundFloor());
                     break;
                 case STREET:

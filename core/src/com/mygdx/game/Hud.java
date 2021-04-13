@@ -87,11 +87,14 @@ public class Hud {
             if (hours >= Con.FINAL_HOUR) {
                 //Day end menu
                 dayNum++;
+
                 day.setText("Day " + dayNum);
                 hours = 7;
+                System.out.println("next day");
                 totalDeltaTime = 0;
                 dayEnd = true;
-            } else if (totalDeltaTime >= 0.1) {
+            }
+            else if (totalDeltaTime >= 0.1) {
                 minutes++;
                 if (minutes > 59) {
                     hours++;

@@ -108,4 +108,5 @@ public class Main extends Game {
 	public StreetView getStreetView() {
 		return streetView;
 	}
+
 }
