@@ -56,7 +56,7 @@ public class Hud extends Actor {
 
         dayNum = 1;
         hourString = "07";
-        minuteString = ""+ 00;
+        minuteString = "00";
         hours = 7;
         minutes = 0;
         totalDeltaTime = 0;
@@ -99,7 +99,7 @@ public class Hud extends Actor {
                 totalDeltaTime = 0;
                 dayEnd = true;
             }
-            else if (totalDeltaTime >= 0.1) {
+            else if (totalDeltaTime >= 1.6) {
                 minutes++;
                 if (minutes > 59) {
                     hours++;

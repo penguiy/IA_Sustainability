@@ -13,7 +13,7 @@ public class Con {
 
 
 
-    //File Paths
+    //File Paths/Strings
     public static final String GROUND_FLOOR_MAP = "iteration 1 - Ground floor.tmx";
     public static final String STREET_VIEW_MAP = "iteration 1 - Street view.tmx";
     public static final String DAY_ICON = "icons8-calendar-30.png";
@@ -35,5 +35,11 @@ public class Con {
         add(ScreenDisplay.GROUND);
         add(ScreenDisplay.STREET);
     }};
+    //Mapping Out
+    public static final String PASSABLE_STRING = "Passable";
+    public static final boolean PASSABLE = false;
+    public static final boolean UNPASSABLE = false;
+
+
 
 }

@@ -18,6 +18,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Screens.Fade;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
+import com.mygdx.game.Sprites.TempSprite;
+import com.mygdx.game.Utils.SpriteManager;
 
 public class Main extends Game {
 	private SpriteBatch batch;
@@ -31,22 +33,26 @@ public class Main extends Game {
 
 	private String data;
 
+
+	private SpriteManager spriteManager;
+
 	//Screens
 	private GroundFloor groundFloor;
 	private StreetView streetView;
-
-	public Stage stage;
 
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		hud = new Hud(this);
+
+		spriteManager = new SpriteManager();
 		groundFloor = new GroundFloor(this);
 		streetView = new StreetView(this);
 
 		displaying = ScreenDisplay.STREET;
 		prevDisplayed = ScreenDisplay.STREET;
+		;
 		currScreen = new Fade(this);
 		setScreen(currScreen);
 		render();
@@ -115,6 +121,10 @@ public class Main extends Game {
 
 	public StreetView getStreetView() {
 		return streetView;
+	}
+
+	public SpriteManager getSpriteManager() {
+		return spriteManager;
 	}
 
 }

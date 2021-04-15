@@ -41,6 +41,7 @@ public class Car extends Sprite {
         bodyDef.type = BodyDef.BodyType.StaticBody;
         body = world.createBody(bodyDef);
     }
+
     //TODO:Use similar idea to code different sequences, Use when reach "X" position change what im rendering
     public void dropOff(float delta) {
         if(true/* If no other car is in anim */) {
@@ -62,7 +63,7 @@ public class Car extends Sprite {
 //      else if(getY() <= 220 && !turning){
 //            this.setPosition(getX(), getY() + 0.7f);
 //      }
-            else if (getX() > 48) {
+            else if (getX() > 47) {
                 turning = true;
                 this.rotate(0.5f);
                 //System.out.println(getX());
@@ -101,10 +102,9 @@ public class Car extends Sprite {
 //      else if(getY() <= 220 && !turning){
 //            this.setPosition(getX(), getY() + 0.7f);
 //    }
-        else if(getX() > 48){
+        else if(getX() > 47){
             turning = true;
             this.rotate(0.5f);
-            //System.out.println(getX());
             if(getX() >= 96.7){
                 this.setPosition(getX()-delta-0.1f,getY() +0.33f+delta/2);
             }
@@ -122,7 +122,8 @@ public class Car extends Sprite {
             this.setPosition(getX(),getY()-0.7f);
         }
     }
-        public Body getBody() {
+
+    public Body getBody() {
         return body;
     }
 }

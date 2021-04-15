@@ -5,8 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -25,6 +27,7 @@ import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Sprites.Car;
 import com.mygdx.game.Sprites.Navi;
+import com.mygdx.game.Utils.SpriteManager;
 import com.mygdx.game.Utils.WorldContactListener;
 
 public class StreetView implements Screen {
@@ -54,6 +57,7 @@ public class StreetView implements Screen {
         this.myGame = game;
         this.hud = game.getHud();
         this.world = new World(new Vector2(0, 0), true);
+
         world.setContactListener(new WorldContactListener());
         box2DDebugRenderer = new Box2DDebugRenderer();
 
@@ -63,11 +67,11 @@ public class StreetView implements Screen {
         camera = new OrthographicCamera();
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
-
+        myGame.getSpriteManager().mapOut(map);
         touchPos = new Vector3();
         schoolNavi = new Navi(world, Con.WIDTH-145,Con.STREET_NAVI_Y, myGame, ScreenDisplay.GROUND,true,false);
         car = new Car(world, 115,0-(36+18), myGame);
-        car2 = new Car(world, 115,0-(96+18), myGame);
+        car2 = new Car(world, 115,0-(150+18), myGame);
     }
 
     private void update(float dt) {
@@ -76,9 +80,9 @@ public class StreetView implements Screen {
             world.destroyBody(clickBody);
             clickBody = null;
         }
+        hud.update(dt);
         schoolNavi.update(dt);
         camera.update();
-        hud.update(dt);
         renderer.setView(camera); //sets the view from our camera so it would render only what our camera can see.
     }
 
@@ -94,6 +98,7 @@ public class StreetView implements Screen {
 
         car.dropOff(delta);
         car2.dropOff(delta);
+
         //clear screen
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -103,6 +108,7 @@ public class StreetView implements Screen {
         myGame.getBatch().begin();
         car.draw(myGame.getBatch());
         car2.draw(myGame.getBatch());
+
         schoolNavi.draw(myGame.getBatch());
         myGame.getBatch().end();
         hud.getStage().draw();
@@ -120,6 +126,7 @@ public class StreetView implements Screen {
         BodyDef bodyDef = new BodyDef();
         touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         viewport.unproject(touchPos);
+        System.out.println("("+touchPos.x+","+touchPos.y+")");
         bodyDef.position.set(touchPos.x,touchPos.y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         clickBody = world.createBody(bodyDef);

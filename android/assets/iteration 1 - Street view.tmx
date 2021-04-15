@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="35" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="2">
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="35" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="2">
  <tileset firstgid="1" source="menu.tsx"/>
- <layer id="1" name="Tile Layer 1" width="35" height="24">
+ <layer id="3" name="Passable" width="35" height="24">
   <data encoding="base64" compression="zlib">
-   eJxz5WRgcB3FgxpvEoZgPSHsGCaPjDlZGBjmsJGHrwvgxvjcgcs9tHILur3i3ITdNBjcgoxH3TJwcURM+gW5hVxMbbfMZCUfUyOOsJUz5ODB4pZ9TIPHLYzMg8ctLoPILaSmF2Lz9EhzCzFxNOqWUbeQ6paBrBuR3UNJ3YgPAwAmL8fH
+   eJxjYBgFgx1sEoZgPSHsGCaPjEFgDhv5GJ9bcLkDl3to5RZ0e8W5CbtpMLgFGY+6ZeDiiJj0SytAjltmslKGiXULrjjCVs6Qg0kJF1q6ZR/T4HELI/PgcYvLIHILqemF2DxNC/cMZrcQE0ejbhl1C6luoQUgNh8hu4fSuhEXBgBL9TB1
+  </data>
+ </layer>
+ <layer id="1" name="Unpassable" width="35" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxz5WRgcB3FgxqTAzhZyNMHA9cFsONRt1DPLZSC4eqWwRRHILdQgodrHNHCHaNuGXULPdwy2MqXUbeMumWoumW41I24AAD3V5Ls
   </data>
  </layer>
 </map>

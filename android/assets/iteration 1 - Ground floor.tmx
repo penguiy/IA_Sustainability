@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="35" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="5">
  <tileset firstgid="1" source="menu.tsx"/>
- <layer id="3" name="Floor" width="35" height="24" locked="1">
+ <layer id="3" name="Passable" width="35" height="24">
   <data encoding="base64" compression="zlib">
-   eJzbJMzAsGkUj+JRPIpH8SgeYLyPaeDdAMOMzAPvBhh2GWC3iHND8ECHw2BzyygexaN4+GIAkwGCtw==
+   eJxjYBgFgx1sEsaNCcnTE4+6ZdQtg9kt6PaRmv+oCWayoroFxCcGk6qeFDMHA97HNPBugGFG5oF3Awy7DLBb0PPCYHELJXmWGDW49GGzn5Q8i64emxpsGJs+mFvIzdPIYUGpPnLNGnXLqFsGo1sAyTLmnQ==
   </data>
  </layer>
- <layer id="1" name="Walls" width="35" height="24" locked="1">
+ <layer id="2" name="Unpassable" width="35" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFwwVwsgy0CxBg1C3YwahbsAN6uAVkBzZMqTw5eCYrdgwD5MqTg0fBKBiqgJI8S4waXPqQaXLyNLp6bGqwYWz6YG4hN0+TW/Zi00dpOT7qllG3DCa3AAAa8Sea
-  </data>
- </layer>
- <layer id="2" name="HUD" width="35" height="24" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJztwzENAAAIA7C9CJt/S7ggHG3STlJfBwAAbiwH5R//
+   eJxz5WRgcB3FgxrjA5ws+OXpCUbdgh2MugU7oLdb0O0D8YnBpKonxcxRMAqGAhDnhuDBAJDdQkmeJUYNLn3INDl5mtwyAJs+SsuTUbeMumXULdjFAKRoJOU=
   </data>
  </layer>
 </map>
