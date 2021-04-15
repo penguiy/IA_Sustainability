@@ -1,6 +1,9 @@
 package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.Screens.Tile;
+
+import java.util.ArrayList;
 
 
 public abstract class SpriteBase extends Sprite {
@@ -14,13 +17,15 @@ public abstract class SpriteBase extends Sprite {
     }
 
     //Calculate distance to point
-    public int calcSteps(){
+    public ArrayList<Tile> calcSteps(int x, int y){
         //openSet
         //closedSet
-        return 0;
+        return null;
     }
 
     public void moveAround(float[] bounds){
 
+    }
+    public void update(float delta){
     }
 }

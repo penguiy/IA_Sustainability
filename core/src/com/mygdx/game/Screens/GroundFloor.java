@@ -60,7 +60,7 @@ public class GroundFloor implements Screen {
 
         this.myGame = game;
         this.hud = game.getHud();
-        this.world = new World(new Vector2(0,0),true);
+        this.world = new World(new Vector2(0, 0), true);
         world.setContactListener(new WorldContactListener());
         box2DDebugRenderer = new Box2DDebugRenderer();
 
@@ -71,8 +71,9 @@ public class GroundFloor implements Screen {
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
 
-        touchPos = new Vector3();
+        //myGame.getSpriteManager().mapOut(map);
 
+        touchPos = new Vector3();
         streetNavi = new Navi(world, 32,Con.STREET_NAVI_Y, myGame, ScreenDisplay.STREET);
 
     }

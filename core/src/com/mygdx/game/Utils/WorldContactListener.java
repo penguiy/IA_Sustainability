@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Sprites.Navi;
+import com.mygdx.game.Sprites.TempSprite;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,12 @@ public class WorldContactListener implements ContactListener {
             Navi navi = (Navi) objectA.getUserData();
             navi.changeScreen();
         }
-
+        else if(objectB.getUserData() instanceof StreetView && objectA.getUserData() instanceof TempSprite){
+            System.out.println("detected");
+        }
+        else if(objectA.getUserData() instanceof StreetView && objectB.getUserData() instanceof TempSprite){
+            System.out.println("detected");
+        }
     }
 
     @Override

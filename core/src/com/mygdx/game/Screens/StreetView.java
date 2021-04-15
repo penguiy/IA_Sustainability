@@ -27,6 +27,8 @@ import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Sprites.Car;
 import com.mygdx.game.Sprites.Navi;
+import com.mygdx.game.Sprites.SpriteBase;
+import com.mygdx.game.Sprites.TempSprite;
 import com.mygdx.game.Utils.SpriteManager;
 import com.mygdx.game.Utils.WorldContactListener;
 
@@ -51,13 +53,11 @@ public class StreetView implements Screen {
 
     private Car car;
     private Car car2;
-
-
+    private TempSprite ts;
     public StreetView(Main game) {
         this.myGame = game;
         this.hud = game.getHud();
         this.world = new World(new Vector2(0, 0), true);
-
         world.setContactListener(new WorldContactListener());
         box2DDebugRenderer = new Box2DDebugRenderer();
 
@@ -67,11 +67,15 @@ public class StreetView implements Screen {
         camera = new OrthographicCamera();
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
+
         myGame.getSpriteManager().mapOut(map);
+        myGame.getSpriteManager().setWorld(world);
+
         touchPos = new Vector3();
         schoolNavi = new Navi(world, Con.WIDTH-145,Con.STREET_NAVI_Y, myGame, ScreenDisplay.GROUND,true,false);
         car = new Car(world, 115,0-(36+18), myGame);
         car2 = new Car(world, 115,0-(150+18), myGame);
+
     }
 
     private void update(float dt) {
@@ -79,6 +83,9 @@ public class StreetView implements Screen {
         if(clickBody != null) {
             world.destroyBody(clickBody);
             clickBody = null;
+        }
+        for (SpriteBase sprite: myGame.getSpriteManager().getSpriteList()) {
+            sprite.update(dt);
         }
         hud.update(dt);
         schoolNavi.update(dt);
@@ -108,7 +115,9 @@ public class StreetView implements Screen {
         myGame.getBatch().begin();
         car.draw(myGame.getBatch());
         car2.draw(myGame.getBatch());
-
+        for (SpriteBase sprite: myGame.getSpriteManager().getSpriteList()) {
+            sprite.draw(myGame.getBatch());
+        }
         schoolNavi.draw(myGame.getBatch());
         myGame.getBatch().end();
         hud.getStage().draw();

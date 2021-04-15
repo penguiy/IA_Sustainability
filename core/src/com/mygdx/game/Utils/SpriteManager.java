@@ -1,17 +1,31 @@
 package com.mygdx.game.Utils;
 
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Con;
+import com.mygdx.game.Main;
+import com.mygdx.game.Screens.GroundFloor;
+import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.Tile;
 import com.mygdx.game.Sprites.SpriteBase;
+import com.mygdx.game.Sprites.TempSprite;
 
 import java.util.ArrayList;
 
-public class SpriteManager {
-    ArrayList<SpriteBase> spriteList;
+public class SpriteManager{
 
-    public SpriteManager(){
+
+    private ArrayList<SpriteBase> spriteList;
+
+    private World world;
+    private Main game;
+    public SpriteManager(Main game){
+        this.game = game;
+        spriteList = new ArrayList<>();
+
 
     }
     public Tile[][] getLayout() {
@@ -21,9 +35,8 @@ public class SpriteManager {
     private Tile[][] layout;
     //SpriteHandler should be the only thing changing the positions of the sprites
 
-    public void update(float delta){
 
-    }
+
 
     public void mapOut(TiledMap map){
         this.layout = new Tile[24][35];
@@ -35,11 +48,11 @@ public class SpriteManager {
                 colCount++;
                 if(currCell == null) {
                     System.out.print(" X ");
-                    layout[23-y][x] = new Tile(true);
+                    layout[y][x] = new Tile(true, x,y);
                 }
                 else{
                     System.out.print(" - ");
-                    layout[23-y][x] = new Tile(false);
+                    layout[y][x] = new Tile(false, currCell.getTile(),x,y);
                 }
                 if(colCount == 35){
                     System.out.print("\n");
@@ -48,6 +61,11 @@ public class SpriteManager {
             }
         }
     }
-
-
+    public ArrayList<SpriteBase> getSpriteList() {
+        return spriteList;
+    }
+    public void setWorld(World world) {
+        this.world = world;
+        spriteList.add(new TempSprite(world,game, new float[]{294,168}));
+    }
 }
