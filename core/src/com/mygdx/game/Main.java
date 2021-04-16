@@ -56,8 +56,8 @@ public class Main extends Game {
 
 		displaying = ScreenDisplay.STREET;
 		prevDisplayed = ScreenDisplay.STREET;;
-		//currScreen = new Fade(this);
-		currScreen = streetView;
+		currScreen = new Fade(this);
+		//currScreen = streetView;
 		setScreen(currScreen);
 		render();
 	}
