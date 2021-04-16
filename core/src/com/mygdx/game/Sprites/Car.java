@@ -14,6 +14,7 @@ import com.mygdx.game.Con;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 
+//Meme animations that i'll have to redo and spent way too long on so i could feel like i was being productive
 public class Car extends Sprite {
     private World world;
     private Main game;

@@ -16,6 +16,7 @@ import com.mygdx.game.Sprites.TempSprite;
 
 import java.util.ArrayList;
 
+//Contain all the sprites and tell them to move
 public class SpriteManager{
 
 

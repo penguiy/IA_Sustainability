@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 
+//Tiles in the map for when mapping it out to path
 public class Tile {
     private float g;
     private float h;

@@ -15,6 +15,7 @@ import com.mygdx.game.Screens.Tile;
 import java.util.ArrayList;
 import java.util.Collections;
 
+//Temp class to test out how I'll build sprites
 public class TempSprite extends SpriteBase {
     private World world;
     private Main game;
