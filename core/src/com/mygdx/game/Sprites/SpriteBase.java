@@ -32,7 +32,7 @@ public abstract class SpriteBase extends Sprite {
     public void moveAround(float[] bounds) {
     }
 
-    public void move(int day, int hour, int sec) {
+    public void move(float delta, int day, int hour, int sec) {
     }
 
     public void update(float delta){

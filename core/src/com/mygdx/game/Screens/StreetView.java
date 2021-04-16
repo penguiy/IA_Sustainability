@@ -53,7 +53,6 @@ public class StreetView implements Screen {
 
     private Car car;
     private Car car2;
-    private TempSprite ts;
     public StreetView(Main game) {
         this.myGame = game;
         this.hud = game.getHud();
@@ -73,9 +72,10 @@ public class StreetView implements Screen {
 
         touchPos = new Vector3();
         schoolNavi = new Navi(world, Con.WIDTH-145,Con.STREET_NAVI_Y, myGame, ScreenDisplay.GROUND,true,false);
+
+        //Temps
         car = new Car(world, 115,0-(36+18), myGame);
         car2 = new Car(world, 115,0-(150+18), myGame);
-
     }
 
     private void update(float dt) {
@@ -102,10 +102,6 @@ public class StreetView implements Screen {
     public void render(float delta) {
         update(delta);
         handleInput();
-
-        for (SpriteBase sprite: myGame.getSpriteManager().getSpriteList()) {
-            sprite.update(delta);
-        }
         car.dropOff(delta);
         car2.dropOff(delta);
         //clear screen

@@ -13,6 +13,7 @@ import com.mygdx.game.Main;
 import com.mygdx.game.Screens.Tile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TempSprite extends SpriteBase {
     private World world;
@@ -21,6 +22,7 @@ public class TempSprite extends SpriteBase {
 
     private TextureRegion region;
     private int coordX, coordY;
+    private float totalDeltaTimeMove, totalDeltaTime;
     private boolean pathing;
 
     private ArrayList<Tile> currPathing;
@@ -31,16 +33,18 @@ public class TempSprite extends SpriteBase {
         super();
         this.world = world;
         this.game = game;
+        totalDeltaTime = 0;
+        coordX = 0;
+        coordY = 0;
         setPosition(pos[0], pos[1]);
         setBounds(getX(), getY(),16,16);
         currPathing = new ArrayList<>();
         region = new TextureRegion(new Texture("Stairs.png"));
         setRegion(region);
         defineBody();
-        locate(getX(),getY());
+        locate(body.getPosition().x,body.getPosition().y);
         //Temporary
         calcSteps(28,8);
-        System.out.println("("+coordX+","+ coordY+")");
     }
 
     public void defineBody(){
@@ -51,15 +55,16 @@ public class TempSprite extends SpriteBase {
 
         FixtureDef fixtureDef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(9,9);
+        shape.setAsBox(8,8);
         fixtureDef.shape = shape;
         body.createFixture(fixtureDef).setUserData(this);
+
     }
 
     @Override
     public void update(float delta) {
-            move(game.getHud().getDayNum()%2,game.getHud().getHours(),game.getHud().getMinutes());
-            setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y - getHeight()/2);
+            move(delta, game.getHud().getDayNum() % 2, game.getHud().getHours(), game.getHud().getMinutes());
+            this.setPosition(body.getPosition().x - getWidth() / 2f,body.getPosition().y - getHeight() / 2f);
     }
 
     @Override
@@ -68,9 +73,33 @@ public class TempSprite extends SpriteBase {
     }
 
     @Override
-    public void move(int day ,int hour, int sec) {
+    public void move(float delta, int day ,int hour, int sec) {
         int[] time = new int[]{day,hour,sec};
-        body.setLinearVelocity(0.0f, 20f);
+        if(currPathing.size() > 0) {
+            Tile nextStep = currPathing.get(0);
+            //moved to next box frame by frame
+
+//            System.out.println(""+(16*nextStep.getX())+","+(Con.HEIGHT-(16*nextStep.getY())));
+//            System.out.println(""+nextStep.getX()+","+nextStep.getY());
+//            setPosition((float)16*nextStep.getX(),(float)Con.HEIGHT-(16*(nextStep.getY()+1)));
+//            currPathing.remove(0);
+
+            //Using linear velocity
+            Vector2 fv = new Vector2((nextStep.getX()-coordX)*20, (coordY-nextStep.getY())*20);
+            body.setLinearVelocity(fv);
+            setPosition(body.getPosition().x,body.getPosition().y);
+            totalDeltaTime += delta;
+            if(totalDeltaTime >= 0.8f){
+                locate(body.getPosition().x, body.getPosition().y);
+                totalDeltaTime = 0;
+                System.out.println("Pixel: "+getX()+","+(Con.HEIGHT-getY()));
+                System.out.println("Current: "+toString());
+                System.out.println("Next: "+nextStep);
+                System.out.println("Remaining: "+currPathing);
+                System.out.println("Velocity: "+fv+"\n");
+                currPathing.remove(0);
+            }
+        }
 //        if(this.getSchedule().keySet().contains(time) || pathing){
 //            int[] endPos = getSchedule().get(time);
 //            calcSteps(endPos[0], endPos[1]);
@@ -85,7 +114,6 @@ public class TempSprite extends SpriteBase {
     //Run calcSteps at Key times in the schedule for each sprite
     @Override
     public ArrayList<Tile> calcSteps(int endX, int endY){
-        System.out.println("calc start");
         ArrayList<Tile> openSet = new ArrayList<>();
         ArrayList<Tile> closedSet = new ArrayList<>();
         Tile pos = game.getSpriteManager().getLayout()[coordY][coordX];
@@ -93,7 +121,7 @@ public class TempSprite extends SpriteBase {
         currPathing.clear();
 
         //define start (current position)
-        locate(this.getX(),this.getY());
+        locate(body.getPosition().x,body.getPosition().y);
         openSet.add(pos);
     //A* algorithm
         while (openSet.size() > 0){
@@ -113,11 +141,10 @@ public class TempSprite extends SpriteBase {
                 while(trace!= pos) {
                     //bug fix, change the path tile colours
                     trace.getTile().setTextureRegion(new TextureRegion(new Texture("Stairs.png")));
-
                     pathing.add(trace);
                     trace = trace.getParent();
-
                 }
+                Collections.reverse(pathing);
                 currPathing = pathing;
                 return pathing;
             }
@@ -184,8 +211,18 @@ public class TempSprite extends SpriteBase {
     }
 
     public void locate(float x, float y){
-        coordX = Math.round(x)/16;
-        coordY = Math.round(Con.HEIGHT-y)/16;
+        setCoordX(Math.round(x)/16);
+        setCoordY(Math.round(Con.HEIGHT-y)/16);
     }
 
+    public void setCoordX(int coordX) {
+        this.coordX = coordX;
+    }
+    public void setCoordY(int coordY){
+        this.coordY = coordY;
+    }
+
+    public String toString(){
+        return "("+coordX+","+coordY+")";
+    }
 }
