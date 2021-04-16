@@ -49,20 +49,6 @@ public class Car extends Sprite {
                 this.setPosition(getX(), getY() + 0.7f);
                 anim = true;
             }
-//      else if(anim){
-//           if not cycled to door open && !doorOpen
-//                switch to current frame + 1
-//           else if frame = door open frame
-//                if doorOpen is false
-//                     Tells a sprite handler to draw it in X screen
-//           else if not cycled to close door frame
-//                switch to current frame - 1
-//           else
-//                anim = false
-//      }
-//      else if(getY() <= 220 && !turning){
-//            this.setPosition(getX(), getY() + 0.7f);
-//      }
             else if (getX() > 47) {
                 turning = true;
                 this.rotate(0.5f);
@@ -79,47 +65,6 @@ public class Car extends Sprite {
             } else {
                 this.setPosition(getX(), getY() - 0.7f);
             }
-        }
-    }
-
-    public void pickUp(float delta){
-        if(getY() <= 220/*110*/ && !turning){
-            this.setPosition(getX(), getY() + 0.7f);
-            anim = true;
-        }
-//      else if(anim){
-//           if not cycled to door open && !doorOpen
-//                switch to current frame + 1
-//           else if frame = door open frame
-//                if doorOpen is false
-//                     (Sprite should already be at car)
-//                     tell Sprite handler to no longer draw the sprite
-//           else if not cycled to close door frame
-//                switch to current frame - 1
-//           else
-//                annim = false
-//      }
-//      else if(getY() <= 220 && !turning){
-//            this.setPosition(getX(), getY() + 0.7f);
-//    }
-        else if(getX() > 47){
-            turning = true;
-            this.rotate(0.5f);
-            if(getX() >= 96.7){
-                this.setPosition(getX()-delta-0.1f,getY() +0.33f+delta/2);
-            }
-            else if(getX() > 96.7){
-                this.setPosition(getX()-0.07f,getY()+0.05f);
-            }
-            else if(getX() > 96.4){
-                this.setPosition(getX()-0.07f,getY()+0.07f);
-            }
-            else{
-                this.setPosition(getX()-0.25f,getY() -0.03f+delta);
-            }
-        }
-        else{
-            this.setPosition(getX(),getY()-0.7f);
         }
     }
 

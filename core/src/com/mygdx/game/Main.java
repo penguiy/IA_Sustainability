@@ -49,7 +49,7 @@ public class Main extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		hud = new Hud(this);
-		spriteManager = new SpriteManager(this);
+		spriteManager = new SpriteManager(this, hud);
 
 		groundFloor = new GroundFloor(this);
 		streetView = new StreetView(this);

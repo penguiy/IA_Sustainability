@@ -103,9 +103,11 @@ public class StreetView implements Screen {
         update(delta);
         handleInput();
 
+        for (SpriteBase sprite: myGame.getSpriteManager().getSpriteList()) {
+            sprite.update(delta);
+        }
         car.dropOff(delta);
         car2.dropOff(delta);
-
         //clear screen
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -126,7 +128,6 @@ public class StreetView implements Screen {
     }
 
     public void handleInput(){
-
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             clickFixture();
         }

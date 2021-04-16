@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Con;
+import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
@@ -22,11 +23,10 @@ public class SpriteManager{
 
     private World world;
     private Main game;
-    public SpriteManager(Main game){
+
+    public SpriteManager(Main game, Hud hud){
         this.game = game;
         spriteList = new ArrayList<>();
-
-
     }
     public Tile[][] getLayout() {
         return layout;

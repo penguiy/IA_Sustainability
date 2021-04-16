@@ -2,6 +2,7 @@ package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -20,12 +21,14 @@ public class TempSprite extends SpriteBase {
 
     private TextureRegion region;
     private int coordX, coordY;
+    private boolean pathing;
 
     private ArrayList<Tile> currPathing;
 
 
 
     public TempSprite(World world, Main game, float[] pos){
+        super();
         this.world = world;
         this.game = game;
         setPosition(pos[0], pos[1]);
@@ -55,10 +58,31 @@ public class TempSprite extends SpriteBase {
 
     @Override
     public void update(float delta) {
+            move(game.getHud().getDayNum()%2,game.getHud().getHours(),game.getHud().getMinutes());
             setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y - getHeight()/2);
     }
 
-    //Run calcSteps at Key times for each sprite
+    @Override
+    public void moveAround(float[] bounds) {
+        super.moveAround(bounds);
+    }
+
+    @Override
+    public void move(int day ,int hour, int sec) {
+        int[] time = new int[]{day,hour,sec};
+        body.setLinearVelocity(0.0f, 20f);
+//        if(this.getSchedule().keySet().contains(time) || pathing){
+//            int[] endPos = getSchedule().get(time);
+//            calcSteps(endPos[0], endPos[1]);
+//            pathing = true;
+//        }
+//        else{
+//            //moveAround();
+//        }
+
+    }
+
+    //Run calcSteps at Key times in the schedule for each sprite
     @Override
     public ArrayList<Tile> calcSteps(int endX, int endY){
         System.out.println("calc start");
@@ -156,7 +180,6 @@ public class TempSprite extends SpriteBase {
 
     public float heuristic(Tile point1, Tile point2){
         float dist =(float) Math.abs(point1.getY() - point2.getY()) + Math.abs(point1.getX() - point2.getX());
-
         return dist;
     }
 
