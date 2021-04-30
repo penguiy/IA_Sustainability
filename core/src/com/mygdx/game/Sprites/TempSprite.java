@@ -71,6 +71,7 @@ public class TempSprite extends SpriteBase {
     @Override
     public void moveAround(float[] bounds) {
         super.moveAround(bounds);
+        //Run calcsteps to a randomly generated square within a certain bound(constant for different room)
     }
 
     @Override
@@ -78,13 +79,6 @@ public class TempSprite extends SpriteBase {
         int[] time = new int[]{day,hour,sec};
         if(currPathing.size() > 0) {
             Tile nextStep = currPathing.get(0);
-            //moved to next box frame by frame
-
-//            System.out.println(""+(16*nextStep.getX())+","+(Con.HEIGHT-(16*nextStep.getY())));
-//            System.out.println(""+nextStep.getX()+","+nextStep.getY());
-//            setPosition((float)16*nextStep.getX(),(float)Con.HEIGHT-(16*(nextStep.getY()+1)));
-//            currPathing.remove(0);
-
             //Using linear velocity
             Vector2 fv = new Vector2((nextStep.getX()-coordX)*20, (coordY-nextStep.getY())*20);
             body.setLinearVelocity(fv);
@@ -100,6 +94,9 @@ public class TempSprite extends SpriteBase {
                 System.out.println("Velocity: "+fv+"\n");
                 currPathing.remove(0);
             }
+        }
+        else{
+            body.setLinearVelocity(0,0);
         }
 //        if(this.getSchedule().keySet().contains(time) || pathing){
 //            int[] endPos = getSchedule().get(time);
