@@ -69,4 +69,9 @@ public class SpriteManager{
         this.world = world;
         spriteList.add(new TempSprite(world,game, new float[]{294,168}));
     }
+
+    // If bigschedule.contains current time from current day
+    // Make bubble appear
+
+
 }

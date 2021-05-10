@@ -23,7 +23,7 @@ public class WorldContactListener implements ContactListener {
         Fixture objectA = contact.getFixtureA();
         Fixture objectB = contact.getFixtureB();
 
-
+//Generalise this into 1 method using inputproccessor
         if(objectB.getUserData() instanceof GroundFloor && objectA.getUserData() instanceof Navi){
             GroundFloor screen = (GroundFloor) objectB.getUserData();
            // screen.getHud().setPaused(true);
@@ -39,9 +39,9 @@ public class WorldContactListener implements ContactListener {
         else if(objectB.getUserData() instanceof StreetView && objectA.getUserData() instanceof TempSprite){
             System.out.println("detected");
         }
-        else if(objectA.getUserData() instanceof StreetView && objectB.getUserData() instanceof TempSprite){
-            System.out.println("detected");
-        }
+        /*
+        Else if( click a flag, gain points);
+         */
     }
 
     @Override
