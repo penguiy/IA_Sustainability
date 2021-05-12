@@ -3,6 +3,11 @@ package com.mygdx.game.Utils;
 import com.badlogic.gdx.InputProcessor;
 
 public class InputListener implements InputProcessor {
+
+    public InputListener(){
+
+    }
+
     @Override
     public boolean keyDown(int i) {
         return false;
