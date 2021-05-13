@@ -42,7 +42,10 @@ public class SpriteManager{
     private boolean interval = false;
 
 
-
+    /**
+     * Creates a 2D array of Cells from the TiledMap and stores it in layout
+     * @param map
+     */
     public void mapOut(TiledMap map){
         this.layout = new Tile[24][35];
         TiledMapTileLayer passable = (TiledMapTileLayer)map.getLayers().get(Con.PASSABLE_STRING);
@@ -74,10 +77,8 @@ public class SpriteManager{
         spriteList.add(new TempSprite(world,game, new float[]{294,168}));
     }
 
-    //Every 10min raise a flag
-
     /**
-     * Raises a flag if the every 10 in-game minutes
+     * Raises a flag, checks the odds of a self-resolution and adds points if needed every 10 in-game minutes
      */
     public void flagRaise(){
         if(!interval) {

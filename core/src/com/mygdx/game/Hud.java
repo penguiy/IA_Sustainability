@@ -104,7 +104,7 @@ public class Hud extends Actor {
                 day.setText("Day " + dayNum);
                 totalDeltaTime = 0;
             }
-            else if (totalDeltaTime >= 0.01) {
+            else if (totalDeltaTime >= 1.6) {
                 minutes++;
                 if (minutes > 59) {
                     hours++;
@@ -124,15 +124,6 @@ public class Hud extends Actor {
                 totalDeltaTime = 0;
             }
             money.setText(game.getPlayer().getPoints());
-//        if(game.isDayEnd()){
-//            dayNum  += 1;
-//            hours = 7;
-//            minutes = 0;
-//            game.setDayEnd(false);
-//        }
-//        else{
-//
-//        }
         }
     }
 

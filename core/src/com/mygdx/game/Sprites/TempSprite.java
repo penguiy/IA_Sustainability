@@ -48,6 +48,9 @@ public class TempSprite extends SpriteBase {
         calcSteps(28,8);
     }
 
+    /**
+     * Creates the Body and Fixture of the sprite
+     */
     public void defineBody(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(getX(),getY());
