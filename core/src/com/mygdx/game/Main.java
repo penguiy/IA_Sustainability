@@ -33,8 +33,6 @@ public class Main extends Game {
 	private ScreenDisplay displaying;
 	private ScreenDisplay prevDisplayed;
 
-	private String data;
-
 	private GameState gameState;
 
 	private SpriteManager spriteManager;

@@ -14,7 +14,9 @@ public class Con {
     public static final int NAVI_WIDTH = 25;
     public static final int NAVI_HEIGHT = 25;
     public static final int STREET_NAVI_Y = 168;
-    public static final int FINAL_HOUR = 16;
+    public static final int FINAL_HOUR = 15;
+    public static final int FINAL_MIN = 59;
+
 
 
     //File Paths/Strings
@@ -43,17 +45,20 @@ public class Con {
 
 
     //Flag Things
+    public static final String[] TRIGGERS = new String[]{"WATER","FOOD","LIGHT","AC","TRASH"};
     public static final HashMap<String,Integer> BASE_ODDS = new HashMap<String,Integer>(){{
-        put("TAP", 0);
+        put("WATER", 0);
         put("FOOD", 0);
         put("LIGHT", 0);
         put("AC", 0);
+        put("TRASH", 0);
     }};
     public static final HashMap<String,Integer> BASE_MULTI = new HashMap<String,Integer>(){{
-        put("TAP", 1);
+        put("WATER", 1);
         put("FOOD", 1);
         put("LIGHT", 1);
         put("AC", 1);
+        put("TRASH", 1);
     }};
 
 

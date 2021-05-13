@@ -15,6 +15,9 @@ import com.mygdx.game.Sprites.SpriteBase;
 import com.mygdx.game.Sprites.TempSprite;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import javax.management.remote.rmi._RMIConnection_Stub;
 
 //Contain all the sprites and tell them to move
 public class SpriteManager{
@@ -36,6 +39,7 @@ public class SpriteManager{
     private Tile[][] layout;
     //SpriteHandler should be the only thing changing the positions of the sprites
 
+    private boolean interval = false;
 
 
 
@@ -70,15 +74,37 @@ public class SpriteManager{
         spriteList.add(new TempSprite(world,game, new float[]{294,168}));
     }
 
-    // If bigschedule.contains current time from current day
+    //Every 10min raise a flag
+
+    /**
+     * Raises a flag if the every 10 in-game minutes
+     */
     public void flagRaise(){
-        if(game.getHud().getMinutes()%10 == 0){
-            //make sure this only runs once
-            System.out.println("Flag HAPPENED");
-            //run odds on the bubble based off things
-            //if selfResolve fail
-                // Make bubble appear
-            //else add points
+        if(!interval) {
+            if (game.getHud().getMinutes() % 10 == 0) {
+                //make sure this only runs once
+                System.out.println("Flag HAPPENED");
+                //Choose area
+                Random random = new Random();
+                int index = random.nextInt(5);
+                int selfResolve = game.getPlayer().getOdds().get(Con.TRIGGERS[index]);
+                //Choose event, get odds
+                int flag = random.nextInt(100);
+                //if selfResolve fail
+                System.out.println(flag);
+                if (flag <= 100 - selfResolve) {
+                    //Make bubble appear
+                    System.out.println("Self Resolve Fail");
+                } else {
+                    //add points
+                    System.out.println("Self Resolve Success");
+
+                }
+                interval = true;
+            }
+        }
+        else if(game.getHud().getMinutes() % 10 != 0){
+            interval = false;
         }
     }
 }
