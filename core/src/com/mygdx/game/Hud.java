@@ -38,7 +38,6 @@ public class Hud extends Actor {
     private int minutes;
     private float totalDeltaTime;
 
-    boolean paused;
     private boolean dayEnd;
 
     private Image dayIcon;
@@ -56,9 +55,9 @@ public class Hud extends Actor {
 
         dayNum = 1;
         hourString = "07";
-        minuteString = "00";
+        minuteString = "55";
         hours = 7;
-        minutes = 0;
+        minutes = 55;
         totalDeltaTime = 0;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
@@ -80,14 +79,19 @@ public class Hud extends Actor {
         table.add(new Label("    ", labelStyle)).expandX();
         table.add(settings).right();
         table.row();
-        table.add(new Label("    ", labelStyle));
+        table.add();
+        table.add();
+        table.add();
+        table.add();
+        table.add();
+
         table.add(money).right();
 
         stage.addActor(table);
     }
     public void update(float dt){
         //Day end? -> Day count +1, else stay same
-        if(!dayEnd && !paused) {
+        if(!dayEnd) {
             totalDeltaTime += dt;
             if (hours >= Con.FINAL_HOUR) {
                 //Day end menu
@@ -95,6 +99,7 @@ public class Hud extends Actor {
 
                 day.setText("Day " + dayNum);
                 hours = 7;
+                minutes = 55;
                 System.out.println("next day");
                 totalDeltaTime = 0;
                 dayEnd = true;
@@ -118,7 +123,7 @@ public class Hud extends Actor {
                 time.setText(hourString + ":" + minuteString);
                 totalDeltaTime = 0;
             }
-            //money.setText(game.getData());
+            money.setText(game.getPlayer().getPoints());
 //        if(game.isDayEnd()){
 //            dayNum  += 1;
 //            hours = 7;
@@ -153,14 +158,5 @@ public class Hud extends Actor {
     public void setDayEnd(boolean dayEnd) {
         this.dayEnd = dayEnd;
     }
-    public boolean isPaused() {
-        return paused;
-    }
-
-    public void setPaused(boolean paused) {
-        this.paused = paused;
-    }
-
-
 
 }

@@ -71,7 +71,14 @@ public class SpriteManager{
     }
 
     // If bigschedule.contains current time from current day
-    // Make bubble appear
-
-
+    public void flagRaise(){
+        if(game.getHud().getMinutes()%10 == 0){
+            //make sure this only runs once
+            System.out.println("Flag HAPPENED");
+            //run odds on the bubble based off things
+            //if selfResolve fail
+                // Make bubble appear
+            //else add points
+        }
+    }
 }

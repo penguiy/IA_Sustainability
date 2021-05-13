@@ -10,7 +10,11 @@ public class Con {
     //Sizes
     public static final int WIDTH = 560; //Viewport width
     public static final int HEIGHT = 384; //Viewport height
-
+    //Constants
+    public static final int NAVI_WIDTH = 25;
+    public static final int NAVI_HEIGHT = 25;
+    public static final int STREET_NAVI_Y = 168;
+    public static final int FINAL_HOUR = 16;
 
 
     //File Paths/Strings
@@ -23,10 +27,8 @@ public class Con {
     //Temporary Data
     public static final String NAVI_SIDE_TEXTURE = "Navi Side-1.png.png";
     public static final String CAR_TEXTURE = "Car base-4.png.png";
-    public static final int NAVI_WIDTH = 25;
-    public static final int NAVI_HEIGHT = 25;
-    public static final int STREET_NAVI_Y = 168;
-    public static final int FINAL_HOUR = 16;
+
+    //Screen Data
     public static final HashMap<ScreenDisplay,String> STRING_TO_MAP_DICT = new HashMap<ScreenDisplay,String>(){{
         put(ScreenDisplay.GROUND, GROUND_FLOOR_MAP);
         put(ScreenDisplay.STREET, STREET_VIEW_MAP);
@@ -35,11 +37,24 @@ public class Con {
         add(ScreenDisplay.GROUND);
         add(ScreenDisplay.STREET);
     }};
+
     //Mapping Out
     public static final String PASSABLE_STRING = "Passable";
-    public static final boolean PASSABLE = false;
-    public static final boolean UNPASSABLE = false;
 
+
+    //Flag Things
+    public static final HashMap<String,Integer> BASE_ODDS = new HashMap<String,Integer>(){{
+        put("TAP", 0);
+        put("FOOD", 0);
+        put("LIGHT", 0);
+        put("AC", 0);
+    }};
+    public static final HashMap<String,Integer> BASE_MULTI = new HashMap<String,Integer>(){{
+        put("TAP", 1);
+        put("FOOD", 1);
+        put("LIGHT", 1);
+        put("AC", 1);
+    }};
 
 
 }

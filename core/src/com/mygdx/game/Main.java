@@ -35,6 +35,7 @@ public class Main extends Game {
 
 	private String data;
 
+	private GameState gameState;
 
 	private SpriteManager spriteManager;
 
@@ -42,6 +43,7 @@ public class Main extends Game {
 	private GroundFloor groundFloor;
 	private StreetView streetView;
 
+	private Player player;
 
 
 
@@ -57,6 +59,7 @@ public class Main extends Game {
 		displaying = ScreenDisplay.STREET;
 		prevDisplayed = ScreenDisplay.STREET;;
 		currScreen = new Fade(this);
+		player = new Player();
 		//currScreen = streetView;
 		setScreen(currScreen);
 		render();
@@ -65,7 +68,7 @@ public class Main extends Game {
 	@Override
 	public void render(){
 		super.render();
-		handleInput();
+		spriteManager.flagRaise();
 		if (displaying != prevDisplayed) {
 			currScreen.dispose();
 			currScreen = new Fade(this);
@@ -80,8 +83,6 @@ public class Main extends Game {
 					break;
 			}
 		}
-	}
-	private void handleInput(){
 	}
 
 	public SpriteBatch getBatch(){
@@ -129,6 +130,11 @@ public class Main extends Game {
 
 	public SpriteManager getSpriteManager() {
 		return spriteManager;
+	}
+
+
+	public Player getPlayer() {
+		return player;
 	}
 
 
