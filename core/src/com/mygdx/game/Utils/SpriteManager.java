@@ -1,9 +1,15 @@
 package com.mygdx.game.Utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
@@ -88,7 +94,9 @@ public class SpriteManager{
                 //Choose area
                 Random random = new Random();
                 int index = random.nextInt(5);
-                int selfResolve = game.getPlayer().getOdds().get(Con.TRIGGERS[index]);
+                //int selfResolve = game.getPlayer().getOdds().get(Con.TRIGGERS[index]);
+                int selfResolve = 50;
+
                 //Choose event, get odds
                 int flag = random.nextInt(100);
                 //if selfResolve fail
@@ -99,6 +107,7 @@ public class SpriteManager{
                 } else {
                     //add points
                     System.out.println("Self Resolve Success");
+                    game.getPlayer().setPoints(game.getPlayer().getPoints()+1);
 
                 }
                 interval = true;
