@@ -6,9 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -26,10 +23,9 @@ import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Sprites.Car;
+import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.Navi;
-import com.mygdx.game.Sprites.SpriteBase;
 import com.mygdx.game.Sprites.TempSprite;
-import com.mygdx.game.Utils.SpriteManager;
 import com.mygdx.game.Utils.WorldContactListener;
 
 public class StreetView implements Screen {
@@ -84,8 +80,11 @@ public class StreetView implements Screen {
             world.destroyBody(clickBody);
             clickBody = null;
         }
-        for (SpriteBase sprite: myGame.getSpriteManager().getSpriteList()) {
+        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.update(dt);
+        }
+        for (Flag flag: myGame.getSpriteManager().getFlagList()) {
+            flag.update(dt);
         }
         hud.update(dt);
         schoolNavi.update(dt);
@@ -113,8 +112,11 @@ public class StreetView implements Screen {
         myGame.getBatch().begin();
         car.draw(myGame.getBatch());
         car2.draw(myGame.getBatch());
-        for (SpriteBase sprite: myGame.getSpriteManager().getSpriteList()) {
+        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.draw(myGame.getBatch());
+        }
+        for (Flag flag: myGame.getSpriteManager().getFlagList()) {
+            flag.draw(myGame.getBatch());
         }
         schoolNavi.draw(myGame.getBatch());
         myGame.getBatch().end();

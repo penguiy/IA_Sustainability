@@ -12,14 +12,14 @@ import com.mygdx.game.Con;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 
-public class Flag extends SpriteBase {
+public class Flag extends Sprite {
     private World world;
     private Main game;
     private Body body;
     private TextureRegion region;
     private String type;
 
-    public Flag(World world, float x, float y, Main game, ScreenDisplay screen, String type){
+    public Flag(World world, float x, float y, Main game, String type){
         super();
         this.world = world;
         this.game = game;
@@ -61,6 +61,7 @@ public class Flag extends SpriteBase {
         fixtureDef.shape = shape;
         body.createFixture(fixtureDef).setUserData(this);
     }
+
     public void update(float dt){
         setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y-getHeight()/2);
     }

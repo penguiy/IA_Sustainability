@@ -1,6 +1,7 @@
 package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 //Temp class to test out how I'll build sprites
-public class TempSprite extends SpriteBase {
+public class TempSprite extends Sprite {
     private World world;
     private Main game;
     private Body body;
@@ -64,19 +65,15 @@ public class TempSprite extends SpriteBase {
 
     }
 
-    @Override
     public void update(float delta) {
             move(delta, game.getHud().getDayNum() % 2, game.getHud().getHours(), game.getHud().getMinutes());
             this.setPosition(body.getPosition().x - getWidth() / 2f,body.getPosition().y - getHeight() / 2f);
     }
 
-    @Override
     public void moveAround(float[] bounds) {
-        super.moveAround(bounds);
         //Run calcsteps to a randomly generated square within a certain bound(constant for different room)
     }
 
-    @Override
     public void move(float delta, int day ,int hour, int sec) {
         int[] time = new int[]{day,hour,sec};
         if(currPathing.size() > 0) {
@@ -112,7 +109,6 @@ public class TempSprite extends SpriteBase {
     }
 
     //Run calcSteps at Key times in the schedule for each sprite
-    @Override
     public ArrayList<Tile> calcSteps(int endX, int endY){
         ArrayList<Tile> openSet = new ArrayList<>();
         ArrayList<Tile> closedSet = new ArrayList<>();

@@ -1,35 +1,25 @@
 package com.mygdx.game.Utils;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
-import com.mygdx.game.Screens.GroundFloor;
-import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.Tile;
-import com.mygdx.game.Sprites.SpriteBase;
+import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.TempSprite;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.management.remote.rmi._RMIConnection_Stub;
-
 //Contain all the sprites and tell them to move
 public class SpriteManager{
 
 
-    private ArrayList<SpriteBase> spriteList;
+    private ArrayList<TempSprite> peopleList;
+    private ArrayList<Flag> flagList;
+
 
     private World world;
     private Main game;
@@ -46,7 +36,8 @@ public class SpriteManager{
 
     public SpriteManager(Main game, Hud hud){
         this.game = game;
-        spriteList = new ArrayList<>();
+        peopleList = new ArrayList<>();
+        flagList = new ArrayList<>();
     }
 
     /**
@@ -77,13 +68,17 @@ public class SpriteManager{
         }
     }
 
-    public ArrayList<SpriteBase> getSpriteList() {
-        return spriteList;
+    public ArrayList<TempSprite> getSpriteList() {
+        return peopleList;
+    }
+
+    public ArrayList<Flag> getFlagList() {
+        return flagList;
     }
 
     public void setWorld(World world) {
         this.world = world;
-        spriteList.add(new TempSprite(world,game, new float[]{294,168}));
+        peopleList.add(new TempSprite(world,game, new float[]{294,168}));
     }
 
     /**
@@ -97,8 +92,7 @@ public class SpriteManager{
                 //Choose area
                 Random random = new Random();
                 int index = random.nextInt(5);
-                //int selfResolve = game.getPlayer().getOdds().get(Con.TRIGGERS[index]);
-                int selfResolve = 50;
+                int selfResolve = game.getPlayer().getOdds().get(Con.TRIGGERS[index]);
 
                 //Choose event, get odds
                 int flag = random.nextInt(100);
@@ -106,6 +100,7 @@ public class SpriteManager{
                 System.out.println(flag);
                 if (flag <= 100 - selfResolve) {
                     //Make bubble appear
+                    flagList.add(new Flag(world,0,0,game,Con.TRIGGERS[index]));
                     System.out.println("Self Resolve Fail");
                 } else {
                     //add points
