@@ -23,8 +23,11 @@ public class Player {
         return points;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void addPoints(int points) {
+        this.points += points;
+    }
+    public void subPoints(int points){
+        this.points -= points;
     }
 
     public HashMap<String, Integer> getOdds() {
@@ -35,7 +38,7 @@ public class Player {
         this.odds.put(section,newOdds);
     }
     public HashMap<String, Integer> getMulti() {
-        return odds;
+        return multiplier;
     }
 
     public void setMultiplier(String section, int newMulti) {

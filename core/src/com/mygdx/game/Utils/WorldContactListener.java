@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
+import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.Navi;
 import com.mygdx.game.Sprites.TempSprite;
 
@@ -24,20 +25,16 @@ public class WorldContactListener implements ContactListener {
         Fixture objectB = contact.getFixtureB();
 
 //Generalise this into 1 method using inputproccessor
-        if(objectB.getUserData() instanceof GroundFloor && objectA.getUserData() instanceof Navi){
-            GroundFloor screen = (GroundFloor) objectB.getUserData();
-           // screen.getHud().setPaused(true);
-            Navi navi = (Navi) objectA.getUserData();
-            navi.changeScreen();
-        }
-        else if(objectB.getUserData() instanceof StreetView && objectA.getUserData() instanceof Navi){
-            StreetView screen = (StreetView) objectB.getUserData();
-         //   screen.getHud().setPaused(true);
+        if(objectA.getUserData() instanceof Navi){
             Navi navi = (Navi) objectA.getUserData();
             navi.changeScreen();
         }
         else if(objectB.getUserData() instanceof StreetView && objectA.getUserData() instanceof TempSprite){
             System.out.println("detected");
+        }
+        else if(objectA.getUserData() instanceof Flag){
+            Flag flag = (Flag) objectA.getUserData();
+            flag.addPoints();
         }
         /*
         Else if( click a flag, gain points);

@@ -16,7 +16,6 @@ public class Con {
     public static final int STREET_NAVI_Y = 168;
     public static final int FINAL_HOUR = 15;
     public static final int FINAL_MIN = 59;
-    public static final int BASE_POINTS = 1;
 
 
 
@@ -55,6 +54,13 @@ public class Con {
         put("TRASH", 0);
     }};
     public static final HashMap<String,Integer> BASE_MULTI = new HashMap<String,Integer>(){{
+        put("WATER", 1);
+        put("FOOD", 1);
+        put("LIGHT", 1);
+        put("AC", 1);
+        put("TRASH", 1);
+    }};
+    public static final HashMap<String,Integer> BASE_POINTS = new HashMap<String,Integer>(){{
         put("WATER", 1);
         put("FOOD", 1);
         put("LIGHT", 1);

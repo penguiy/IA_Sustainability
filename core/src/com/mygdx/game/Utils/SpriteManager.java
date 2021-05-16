@@ -93,7 +93,6 @@ public class SpriteManager{
                 Random random = new Random();
                 int index = random.nextInt(5);
                 int selfResolve = game.getPlayer().getOdds().get(Con.TRIGGERS[index]);
-
                 //Choose event, get odds
                 int flag = random.nextInt(100);
                 //if selfResolve fail
@@ -105,7 +104,6 @@ public class SpriteManager{
                 } else {
                     //add points
                     System.out.println("Self Resolve Success");
-                    game.getPlayer().setPoints(game.getPlayer().getPoints() + Con.BASE_POINTS);
                 }
                 interval = true;
             }

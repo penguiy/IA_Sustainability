@@ -19,6 +19,18 @@ public class Flag extends Sprite {
     private TextureRegion region;
     private String type;
 
+    public Body getBody() {
+        return body;
+    }
+
+    public TextureRegion getRegion() {
+        return region;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     public Flag(World world, float x, float y, Main game, String type){
         super();
         this.world = world;
@@ -67,6 +79,6 @@ public class Flag extends Sprite {
     }
 
     public void addPoints(){
-        game.getPlayer().setPoints(game.getPlayer().getPoints() + Con.BASE_POINTS * game.getPlayer().getMulti().get(type));
+        game.getPlayer().addPoints(Con.BASE_POINTS.get(type) * game.getPlayer().getMulti().get(type));
     }
 }
