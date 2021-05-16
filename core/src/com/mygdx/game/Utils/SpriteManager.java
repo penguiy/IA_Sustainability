@@ -34,10 +34,6 @@ public class SpriteManager{
     private World world;
     private Main game;
 
-    public SpriteManager(Main game, Hud hud){
-        this.game = game;
-        spriteList = new ArrayList<>();
-    }
     public Tile[][] getLayout() {
         return layout;
     }
@@ -47,6 +43,11 @@ public class SpriteManager{
 
     private boolean interval = false;
 
+
+    public SpriteManager(Main game, Hud hud){
+        this.game = game;
+        spriteList = new ArrayList<>();
+    }
 
     /**
      * Creates a 2D array of Cells from the TiledMap and stores it in layout
@@ -75,9 +76,11 @@ public class SpriteManager{
             }
         }
     }
+
     public ArrayList<SpriteBase> getSpriteList() {
         return spriteList;
     }
+
     public void setWorld(World world) {
         this.world = world;
         spriteList.add(new TempSprite(world,game, new float[]{294,168}));
@@ -107,8 +110,7 @@ public class SpriteManager{
                 } else {
                     //add points
                     System.out.println("Self Resolve Success");
-                    game.getPlayer().setPoints(game.getPlayer().getPoints()+1);
-
+                    game.getPlayer().setPoints(game.getPlayer().getPoints() + Con.BASE_POINTS);
                 }
                 interval = true;
             }

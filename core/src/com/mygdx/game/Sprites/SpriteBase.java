@@ -8,20 +8,15 @@ import java.util.HashMap;
 
 
 public abstract class SpriteBase extends Sprite {
-    //Schedule - At XX:XX time on HUD
-    // should probably add days as well
-    private HashMap<int[],int[]> schedule;
+
+
     //onScreen - boolean of whether sprite is on screen to be drawn
     private boolean onScreen;
     //Position - Where the sprite actually is
-    private float[] position;
 
-    public HashMap<int[], int[]> getSchedule() {
-        return schedule;
-    }
 
     public SpriteBase(){
-        schedule = new HashMap<>();
+
     }
 
     //Calculate distance to point
@@ -38,11 +33,12 @@ public abstract class SpriteBase extends Sprite {
     public void update(float delta){
     }
 
-    public void locatePosition(){
-        position = new float[]{getX(),getY()};
-    }
 
     public boolean isOnScreen() {
         return onScreen;
+    }
+
+    public void setOnScreen(boolean onScreen) {
+        this.onScreen = onScreen;
     }
 }

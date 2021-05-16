@@ -12,19 +12,38 @@ import com.mygdx.game.Con;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 
-public class Flag extends Sprite {
+public class Flag extends SpriteBase {
     private World world;
     private Main game;
     private Body body;
-    private ScreenDisplay changeScreen;
     private TextureRegion region;
+    private String type;
 
-    public Flag(World world, float x, float y, Main game, ScreenDisplay screen){
+    public Flag(World world, float x, float y, Main game, ScreenDisplay screen, String type){
+        super();
         this.world = world;
         this.game = game;
-        this.changeScreen = screen;
+        this.type = type;
         setPosition(x,y);
         setBounds(getX(),getY(), Con.NAVI_WIDTH,Con.NAVI_HEIGHT);
+        /*switch (type){
+            case Con.AC_WASTE:
+                region =
+                break;
+            case Con.FOOD_WASTE:
+                region =
+                break;
+            case Con.LIGHT_WASTE:
+                region =
+                break;
+            case Con.TRASH_WASTE:
+                region =
+                break;
+            case Con.WATER_WASTE:
+                region =
+                break;
+        }*/
+        //temp
         region = new TextureRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
         setRegion(region);
         defineBody();
@@ -47,7 +66,6 @@ public class Flag extends Sprite {
     }
 
     public void addPoints(){
-        //Add points
+        game.getPlayer().setPoints(game.getPlayer().getPoints() + Con.BASE_POINTS * game.getPlayer().getMulti().get(type));
     }
-
 }

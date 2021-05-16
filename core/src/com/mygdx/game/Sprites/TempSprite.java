@@ -24,7 +24,6 @@ public class TempSprite extends SpriteBase {
     private TextureRegion region;
     private int coordX, coordY;
     private float totalDeltaTime;
-    private boolean pathing;
 
     private ArrayList<Tile> currPathing;
 

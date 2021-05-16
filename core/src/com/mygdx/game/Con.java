@@ -16,6 +16,7 @@ public class Con {
     public static final int STREET_NAVI_Y = 168;
     public static final int FINAL_HOUR = 15;
     public static final int FINAL_MIN = 59;
+    public static final int BASE_POINTS = 1;
 
 
 
@@ -60,6 +61,10 @@ public class Con {
         put("AC", 1);
         put("TRASH", 1);
     }};
-
+    public static final String WATER_WASTE = "WATER";
+    public static final String FOOD_WASTE = "FOOD";
+    public static final String LIGHT_WASTE = "LIGHT";
+    public static final String AC_WASTE = "AC";
+    public static final String TRASH_WASTE = "TRASH";
 
 }
