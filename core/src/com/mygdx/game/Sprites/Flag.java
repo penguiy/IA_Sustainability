@@ -13,11 +13,33 @@ import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 
 public class Flag extends Sprite {
+
+
     private World world;
     private Main game;
     private Body body;
     private TextureRegion region;
     private String type;
+
+    public boolean isClicked() {
+        return clicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
+    }
+
+    private boolean clicked;
+
+    public boolean isTrash() {
+        return trash;
+    }
+
+    public void setTrash(boolean trash) {
+        this.trash = trash;
+    }
+
+    private boolean trash;
 
     public Body getBody() {
         return body;
@@ -32,7 +54,6 @@ public class Flag extends Sprite {
     }
 
     public Flag(World world, float x, float y, Main game, String type){
-        super();
         this.world = world;
         this.game = game;
         this.type = type;
@@ -64,7 +85,7 @@ public class Flag extends Sprite {
     public void defineBody(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(getX(), getY());
-        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bodyDef);
 
         FixtureDef fixtureDef = new FixtureDef();
@@ -81,4 +102,7 @@ public class Flag extends Sprite {
     public void addPoints(){
         game.getPlayer().addPoints(Con.BASE_POINTS.get(type) * game.getPlayer().getMulti().get(type));
     }
+
+
+
 }

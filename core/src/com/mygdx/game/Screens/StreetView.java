@@ -53,7 +53,7 @@ public class StreetView implements Screen {
         this.myGame = game;
         this.hud = game.getHud();
         this.world = new World(new Vector2(0, 0), true);
-        world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener(game));
         box2DDebugRenderer = new Box2DDebugRenderer();
 
         mapLoader = new TmxMapLoader(); //create an instance of built-in map loader object
@@ -85,6 +85,16 @@ public class StreetView implements Screen {
         }
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
             flag.update(dt);
+            if(flag.isClicked()){
+                world.destroyBody(flag.getBody());
+                flag.setTrash(true);
+            }
+        }
+        for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
+            if(myGame.getSpriteManager().getFlagList().get(i).isTrash()){
+                myGame.getSpriteManager().getFlagList().remove(i);
+                i--;
+            }
         }
         hud.update(dt);
         schoolNavi.update(dt);
@@ -116,7 +126,9 @@ public class StreetView implements Screen {
             sprite.draw(myGame.getBatch());
         }
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
-            flag.draw(myGame.getBatch());
+            if(!flag.isClicked()) {
+                flag.draw(myGame.getBatch());
+            }
         }
         schoolNavi.draw(myGame.getBatch());
         myGame.getBatch().end();

@@ -61,7 +61,7 @@ public class GroundFloor implements Screen {
         this.myGame = game;
         this.hud = game.getHud();
         this.world = new World(new Vector2(0, 0), true);
-        world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener(game));
         box2DDebugRenderer = new Box2DDebugRenderer();
 
         mapLoader = new TmxMapLoader(); //create an instance of built-in map loader object

@@ -18,6 +18,11 @@ public class SpriteManager{
 
 
     private ArrayList<TempSprite> peopleList;
+
+    public void setFlagList(ArrayList<Flag> flagList) {
+        this.flagList = flagList;
+    }
+
     private ArrayList<Flag> flagList;
 
 
