@@ -83,7 +83,8 @@ public class SpriteManager{
 
     public void setWorld(World world) {
         this.world = world;
-        peopleList.add(new TempSprite(world,game, new float[]{294,168}));
+        //FIGURE OUT WHAT THE HELL THE POS[] DOES
+        peopleList.add(new TempSprite(world, game, new float[]{294,168}));
     }
 
     /**

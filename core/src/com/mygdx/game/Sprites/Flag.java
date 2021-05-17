@@ -31,15 +31,6 @@ public class Flag extends Sprite {
 
     private boolean clicked;
 
-    public boolean isTrash() {
-        return trash;
-    }
-
-    public void setTrash(boolean trash) {
-        this.trash = trash;
-    }
-
-    private boolean trash;
 
     public Body getBody() {
         return body;

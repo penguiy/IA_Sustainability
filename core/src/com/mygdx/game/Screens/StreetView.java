@@ -87,11 +87,10 @@ public class StreetView implements Screen {
             flag.update(dt);
             if(flag.isClicked()){
                 world.destroyBody(flag.getBody());
-                flag.setTrash(true);
             }
         }
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
-            if(myGame.getSpriteManager().getFlagList().get(i).isTrash()){
+            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
                 myGame.getSpriteManager().getFlagList().remove(i);
                 i--;
             }
