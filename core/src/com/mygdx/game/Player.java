@@ -26,9 +26,18 @@ public class Player {
         return points;
     }
 
+    /**
+     * Add points to the count
+     * @param points : Amount of points to be added
+     */
     public void addPoints(int points) {
         this.points += points;
     }
+
+    /**
+     * Subtract points from the count
+     * @param points : Amount of points to be subtracted
+     */
     public void subPoints(int points){
         this.points -= points;
     }
@@ -37,6 +46,11 @@ public class Player {
         return odds;
     }
 
+    /**
+     * Edit the odds of a self-resolve flag for a given type of event
+     * @param section : Event that causes the flag (Water, Electricity, Food etc.)
+     * @param newOdds : Percentage out of 100 of a self-resolution
+     */
     public void setOdds(String section, int newOdds) {
         this.odds.put(section,newOdds);
     }
@@ -44,6 +58,11 @@ public class Player {
         return multiplier;
     }
 
+    /**
+     * Edit the points multiplier for a given type of event
+     * @param section : Event that causes the flag (Water, Electricity, Food etc.)
+     * @param newMulti : Multiplier value
+     */
     public void setMultiplier(String section, int newMulti) {
         this.odds.put(section,newMulti);
     }

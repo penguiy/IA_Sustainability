@@ -75,6 +75,9 @@ public class Flag extends Sprite {
         defineBody();
     }
 
+    /**
+     * Create the body and fixture for the Flag
+     */
     public void defineBody(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(getX(), getY());
@@ -92,6 +95,9 @@ public class Flag extends Sprite {
         setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y-getHeight()/2);
     }
 
+    /**
+     * Add points to the Player object based on the multiplier
+     */
     public void addPoints(){
         game.getPlayer().addPoints(Con.BASE_POINTS.get(type) * game.getPlayer().getMulti().get(type));
     }

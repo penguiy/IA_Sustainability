@@ -140,6 +140,10 @@ public class StreetView implements Screen {
             clickFixture();
         }
     }
+
+    /**
+     * Creates a temporary fixture at mouse click position
+     */
     public void clickFixture(){
         BodyDef bodyDef = new BodyDef();
         touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);

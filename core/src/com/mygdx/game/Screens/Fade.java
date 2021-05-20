@@ -33,10 +33,12 @@ public class Fade implements Screen {
     @Override
     public void render(float delta) {
         if(totalDeltaTime < 1 && !fadeIn){
+            //When block is not solid decrease transparency
             totalDeltaTime += delta;
         }
         else{
             fadeIn = true;
+            //When block is solid increase transparency
             totalDeltaTime -= delta;
             switch (to) {
                 case GROUND:
@@ -67,6 +69,7 @@ public class Fade implements Screen {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
         shapeRenderer.begin(ShapeType.Filled);
+        //Change the opacity of the block based on render
         shapeRenderer.setColor(0, 0, 0, totalDeltaTime);
 
         shapeRenderer.rect(0, 0, Con.WIDTH * 10, Con.HEIGHT * 10); // Need to change number to account for viewport

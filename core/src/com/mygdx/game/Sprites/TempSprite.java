@@ -66,16 +66,23 @@ public class TempSprite extends Sprite {
     }
 
     public void update(float delta) {
-            move(delta, game.getHud().getDayNum() % 2, game.getHud().getHours(), game.getHud().getMinutes());
+            move(delta);
             this.setPosition(body.getPosition().x - getWidth() / 2f,body.getPosition().y - getHeight() / 2f);
     }
 
+    /**
+     * Chooses a location on the map to move to
+     * @param bounds : Location coord
+     */
     public void moveAround(float[] bounds) {
         //Run calcsteps to a randomly generated square within a certain bound(constant for different room)
     }
 
-    public void move(float delta, int day ,int hour, int sec) {
-        int[] time = new int[]{day,hour,sec};
+    /**
+     * Move according to the currPathing Arraylist
+     * @param delta : delta time
+     */
+    public void move(float delta) {
         if(currPathing.size() > 0) {
             Tile nextStep = currPathing.get(0);
             //Using linear velocity
@@ -109,6 +116,14 @@ public class TempSprite extends Sprite {
     }
 
     //Run calcSteps at Key times in the schedule for each sprite
+
+    /**
+     * Algorithm to calculate the optimal path from current location to endX,endY using A* algorithm
+     *
+     * @param endX : Ending X coordinate on the mapped out 2d Array
+     * @param endY : Ending Y coordinate on the mapped out 2d Array
+     * @return ArrayList of the Tiles that should be passed sequentially
+     */
     public ArrayList<Tile> calcSteps(int endX, int endY){
         ArrayList<Tile> openSet = new ArrayList<>();
         ArrayList<Tile> closedSet = new ArrayList<>();
@@ -180,6 +195,12 @@ public class TempSprite extends Sprite {
         return null;
     }
     //Create an ArrayList of Tiles that are adjacent to origin
+
+    /**
+     * Create an arrayList of neighboring tiles if there is
+     * @param origin : center point of all the neighbors
+     * @return Arraylist of the neighboring tiles
+     */
     public ArrayList<Tile> getNeighbors(Tile origin) {
         ArrayList<Tile> TBR = new ArrayList<>();
         if (origin.getY() != 0){
@@ -201,11 +222,22 @@ public class TempSprite extends Sprite {
         return TBR;
     }
 
+    /**
+     * Manhattan distance between two points in the array
+     * @param point1 : Starting point
+     * @param point2 : Ending point
+     * @return Lowest amount of steps to reach point 2 from point 1
+     */
     public float heuristic(Tile point1, Tile point2){
         float dist =(float) Math.abs(point1.getY() - point2.getY()) + Math.abs(point1.getX() - point2.getX());
         return dist;
     }
 
+    /**
+     * locates the sprite in the array pixel coordinates to array coordinates
+     * @param x : x position pixels
+     * @param y : y position pixels
+     */
     public void locate(float x, float y){
         setCoordX(Math.round(x)/16);
         setCoordY(Math.round(Con.HEIGHT-y)/16);
