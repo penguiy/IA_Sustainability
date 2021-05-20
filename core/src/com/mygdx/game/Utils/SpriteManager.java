@@ -45,33 +45,7 @@ public class SpriteManager{
         flagList = new ArrayList<>();
     }
 
-    /**
-     * Creates a 2D array of Cells from the TiledMap and stores it in layout
-     * @param map
-     */
-    public void mapOut(TiledMap map){
-        this.layout = new Tile[24][35];
-        TiledMapTileLayer passable = (TiledMapTileLayer)map.getLayers().get(Con.PASSABLE_STRING);
-        int colCount = 0;
-        for(int y = 0; y < 24; y++){
-            for (int x = 0; x < 35; x++){
-                TiledMapTileLayer.Cell currCell = passable.getCell(x,23-y);
-                colCount++;
-                if(currCell == null) {
-                    System.out.print(" X ");
-                    layout[y][x] = new Tile(true, x,y);
-                }
-                else{
-                    System.out.print(" - ");
-                    layout[y][x] = new Tile(false, currCell.getTile(),x,y);
-                }
-                if(colCount == 35){
-                    System.out.print("\n");
-                    colCount=0;
-                }
-            }
-        }
-    }
+
 
     public ArrayList<TempSprite> getSpriteList() {
         return peopleList;
@@ -84,7 +58,7 @@ public class SpriteManager{
     public void setWorld(World world) {
         this.world = world;
         //FIGURE OUT WHAT THE HELL THE POS[] DOES
-        peopleList.add(new TempSprite(world, game, new float[]{294,168}));
+        //peopleList.add(new TempSprite(world, game, new float[]{294,168}));
     }
 
     /**
@@ -117,5 +91,15 @@ public class SpriteManager{
         else if(game.getHud().getMinutes() % 10 != 0){
             interval = false;
         }
+    }
+
+    /**
+     * Give location of flag
+     * @param x x coordinate in mapped out array
+     * @param y y coordinate in mapped out array
+     */
+    public int[] FlagLocation(int x,int y){
+        //TODO use this to place flags in distinct locations
+        return new int[]{x * 16 - 8, (Con.HEIGHT - y) * 16 - 8};
     }
 }

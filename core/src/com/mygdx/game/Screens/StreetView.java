@@ -63,8 +63,6 @@ public class StreetView implements Screen {
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
 
-        myGame.getSpriteManager().mapOut(map);
-        myGame.getSpriteManager().setWorld(world);
 
         touchPos = new Vector3();
         schoolNavi = new Navi(world, Con.WIDTH-145,Con.STREET_NAVI_Y, myGame, ScreenDisplay.GROUND,true,false);
@@ -183,4 +181,11 @@ public class StreetView implements Screen {
         renderer.dispose();
     }
 
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public World getWorld() {
+        return world;
+    }
 }

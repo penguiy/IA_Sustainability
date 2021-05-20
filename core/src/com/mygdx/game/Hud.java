@@ -85,7 +85,7 @@ public class Hud extends Actor {
         table.add();
         table.add();
 
-        table.add(money).right();
+        table.add(money).padRight(4);
 
         stage.addActor(table);
     }

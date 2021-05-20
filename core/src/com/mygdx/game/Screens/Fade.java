@@ -50,10 +50,14 @@ public class Fade implements Screen {
                 switch (to) {
                     case GROUND:
                         totalDeltaTime = 0;
+                        game.mapOut(game.getGroundFloor().getMap());
+                        game.getSpriteManager().setWorld(game.getGroundFloor().getWorld());
                         game.setScreen(game.getGroundFloor());
                         break;
                     case STREET:
                         totalDeltaTime = 0;
+                        game.mapOut(game.getStreetView().getMap());
+                        game.getSpriteManager().setWorld(game.getStreetView().getWorld());
                         game.setScreen(game.getStreetView());
                         break;
                 }
@@ -61,9 +65,12 @@ public class Fade implements Screen {
         }
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(0, 0, 0, totalDeltaTime);
-        shapeRenderer.rect(0, 0, Con.WIDTH * 2, Con.HEIGHT * 2); // Need to change number to account for viewport size
+
+        shapeRenderer.rect(0, 0, Con.WIDTH * 10, Con.HEIGHT * 10); // Need to change number to account for viewport
+        // size
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }

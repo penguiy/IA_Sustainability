@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="35" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="5">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="35" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="5">
  <tileset firstgid="1" source="menu.tsx"/>
- <layer id="3" name="Passable" width="35" height="24">
+ <layer id="3" name="Actual Passable" width="35" height="24">
   <data encoding="base64" compression="zlib">
    eJxjYBgFgx1sEsaNCcnTE4+6ZdQtg9kt6PaRmv+oCWayoroFxCcGk6qeFDMHA97HNPBugGFG5oF3Awy7DLBb0PPCYHELJXmWGDW49GGzn5Q8i64emxpsGJs+mFvIzdPIYUGpPnLNGnXLqFsGo1sAyTLmnQ==
+  </data>
+ </layer>
+ <layer id="8" name="Passable" width="35" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt02WQlVUcB2CBXbpbpEHSDUBi6e7ukN4ABVw6XHZpFCUFwYCxEAUUUMAWQSUEJZUuFVDSpMNnh/eTY+A3P3jmPvOb93/e371n5sy9667/1399FaEoxSjOvZSgZLBfmjKU5T7CCCeCSMpRngrcT0UqUZkqRFGValSnBjWpRW3qUJd6RBNDLHH0oz8PBmcZwEAG8TDxDGYIQxnGcEYwklGMZgyPkMBYEkliHOOZwEQmMZkpLOFVXmMpy1jO68FZVrCSVbzJW6xmDWt5m3d4l/d4nw/4kI9Yx8esZwOf8CmfsZFNbGYLpznDWc5xngv8GJzlZ37hV37jIpe4zBWuco3r3OAmt5KLKXxISSpCCCU1aUhLOtKTgYyEEU4EkZSjPBVS3D5LRVmJylQhiqpUozo1qEktalOHutSjPg1oSCMa04SmNKM5LWhJK+IZzBCGMozhjAjOMkqOZgyPkMBYEkliHOOZwEQmMZkpTOVRHmMaj/ME05nBTGYxmznB762Wa1gbPN/JWu/dDf/i/TtZF33fJS5zhatc4zo3uMmt5N9M6f5JSSpCCCU1aUhLOtKTgYxkIjNZyEo2spODnOQiN3nISxRVqUZ1alCTWtSmDnWpR30a0JBGNKYJTWlGc1rQkla0pg1taUd7OtCRTnSmC13pRgJjSSSJcYxnAhOZxGSmMJVHeYxpPM4TTGcGM5nFbObwJHOZx1PMZwFP8wzP8hwLWcQ6PmY9G/iET/mMjWxiM1v4nK1s4wu+ZDs72MkudrOHr/iavexjPwc4yCEOc4SjHON48v2ncv+EEEpq0pCWdKQnAxnJRGaykJVsZCcHOclFbvKQl7vJxz3kpwAFKURhilCUYhSnAQ1pRGOa0JRmNKcFLWlFa9rQlna0pwMd6URnutCVbjxAd3rQk170pg99iSaGWOJS/fX/a4a9mX+zn7zm21/wD+/82VocdJb8obvV8za+4Eu2s4Od7GI3e/gq6O2V+9jPAQ5yiMMc4SjHOM43fBv0TsiTnOL7YHZanuEs55LvP8T9k5VsZCcHOclFbvKQN+R2P5+8h/wUoCCFKEwRilKM4txLiaBXSpamDGWDWZgMJ4JI2tCWdrSnAx3pRGe60JVuQb+77EFPetGbPvQlmhhiiaMf/YPeQ3IAAxkUzOLlYIYwlLnM4ynms4CneYZneY6FLAr6z8sXeJGXeJnFvMISXuU1lrKM5UHvDbmClawKZm/J1axhLXvZx34OcJBDHOYIRznG8aD/rfyOE5zkFN/zA6c5w1nOcZ4LQe8n+TO/8GswuygvcZkr5At1/+SnAAUpRGGKUJRiFA+93S8hS1KK0pShLPcRRjgRRFKO8kHvflmRSlQOZlGyKtWoTnd60JNe9KYPfYkmhljign5/+SAPMYCBDOJh4hnMEIYyjOFBb6QcxWjGBLMEOZZEkvgdl/As3A==
   </data>
  </layer>
  <layer id="2" name="Unpassable" width="35" height="24">

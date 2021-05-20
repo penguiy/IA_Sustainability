@@ -112,8 +112,8 @@ public class TempSprite extends Sprite {
     public ArrayList<Tile> calcSteps(int endX, int endY){
         ArrayList<Tile> openSet = new ArrayList<>();
         ArrayList<Tile> closedSet = new ArrayList<>();
-        Tile pos = game.getSpriteManager().getLayout()[coordY][coordX];
-        Tile end = game.getSpriteManager().getLayout()[endY][endX];
+        Tile pos = game.getLayout()[coordY][coordX];
+        Tile end = game.getLayout()[endY][endX];
         currPathing.clear();
 
         //define start (current position)
@@ -183,19 +183,19 @@ public class TempSprite extends Sprite {
     public ArrayList<Tile> getNeighbors(Tile origin) {
         ArrayList<Tile> TBR = new ArrayList<>();
         if (origin.getY() != 0){
-            Tile n1 = game.getSpriteManager().getLayout()[origin.getY() - 1][origin.getX()];
+            Tile n1 = game.getLayout()[origin.getY() - 1][origin.getX()];
             TBR.add(n1);
         }
         if (origin.getY() < 23) {
-            Tile n2 = game.getSpriteManager().getLayout()[origin.getY() + 1][origin.getX()];
+            Tile n2 = game.getLayout()[origin.getY() + 1][origin.getX()];
             TBR.add(n2);
         }
         if (origin.getX() != 0) {
-            Tile n3 = game.getSpriteManager().getLayout()[origin.getY()][origin.getX() - 1];
+            Tile n3 = game.getLayout()[origin.getY()][origin.getX() - 1];
             TBR.add(n3);
         }
         if (origin.getX() < 34) {
-            Tile n4 = game.getSpriteManager().getLayout()[origin.getY()][origin.getX() + 1];
+            Tile n4 = game.getLayout()[origin.getY()][origin.getX() + 1];
             TBR.add(n4);
         }
         return TBR;

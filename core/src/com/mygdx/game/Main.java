@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
@@ -20,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Screens.Fade;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
+import com.mygdx.game.Screens.Tile;
 import com.mygdx.game.Sprites.TempSprite;
 import com.mygdx.game.Utils.SpriteManager;
 
@@ -42,15 +45,15 @@ public class Main extends Game {
 	private StreetView streetView;
 
 	private Player player;
-
+	private Tile[][] layout;
 
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		hud = new Hud(this);
-		spriteManager = new SpriteManager(this, hud);
 
+		spriteManager = new SpriteManager(this, hud);
 		groundFloor = new GroundFloor(this);
 		streetView = new StreetView(this);
 
@@ -60,6 +63,7 @@ public class Main extends Game {
 		player = new Player();
 		//currScreen = streetView;
 		setScreen(currScreen);
+
 		render();
 	}
 
@@ -70,19 +74,44 @@ public class Main extends Game {
 		if (displaying != prevDisplayed) {
 			currScreen.dispose();
 			currScreen = new Fade(this);
+			setScreen(currScreen);
 			switch (displaying) {
 				case STREET:
-					setScreen(currScreen);
 					prevDisplayed = ScreenDisplay.STREET;
 					break;
 				case GROUND:
-					setScreen(currScreen);
 					prevDisplayed = ScreenDisplay.GROUND;
 					break;
 			}
 		}
 	}
+	/**
+	 * Creates a 2D array of Cells from the TiledMap and stores it in layout
+	 * @param map
+	 */
+	public void mapOut(TiledMap map) {
 
+		this.layout = new Tile[24][35];
+		TiledMapTileLayer passable = (TiledMapTileLayer) map.getLayers().get(Con.PASSABLE_STRING);
+		int colCount = 0;
+		for (int y = 0; y < 24; y++) {
+			for (int x = 0; x < 35; x++) {
+				TiledMapTileLayer.Cell currCell = passable.getCell(x, 23 - y);
+				colCount++;
+				if (currCell == null) {
+					System.out.print(" X ");
+					layout[y][x] = new Tile(true, x, y);
+				} else {
+					System.out.print(" - ");
+					layout[y][x] = new Tile(false, currCell.getTile(), x, y);
+				}
+				if (colCount == 35) {
+					System.out.print("\n");
+					colCount = 0;
+				}
+			}
+		}
+	}
 	public SpriteBatch getBatch(){
 		return batch;
 	}
@@ -136,4 +165,7 @@ public class Main extends Game {
 	}
 
 
+	public Tile[][] getLayout() {
+		return layout;
+	}
 }

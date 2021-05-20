@@ -27,7 +27,9 @@ import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
+import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.Navi;
+import com.mygdx.game.Sprites.TempSprite;
 import com.mygdx.game.Utils.WorldContactListener;
 
 import java.util.Iterator;
@@ -84,6 +86,21 @@ public class GroundFloor implements Screen {
             world.destroyBody(clickBody);
             clickBody = null;
         }
+        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
+            sprite.update(dt);
+        }
+        for (Flag flag: myGame.getSpriteManager().getFlagList()) {
+            flag.update(dt);
+            if(flag.isClicked()){
+                world.destroyBody(flag.getBody());
+            }
+        }
+        for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
+            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
+                myGame.getSpriteManager().getFlagList().remove(i);
+                i--;
+            }
+        }
         camera.update();
         hud.update(dt);
         renderer.setView(camera); //sets the view from our camera so it would render only what our camera can see.
@@ -99,15 +116,21 @@ public class GroundFloor implements Screen {
         update(delta);
         handleInput();
         streetNavi.update(delta);
-        //clear screen
         Gdx.gl.glClearColor(0, 1, 1 ,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
 
         myGame.getBatch().begin();
-//        firstFloorNavi.draw(myGame.getBatch());
-
+        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
+            sprite.draw(myGame.getBatch());
+        }
+        for (Flag flag: myGame.getSpriteManager().getFlagList()) {
+            if(!flag.isClicked()) {
+                flag.draw(myGame.getBatch());
+            }
+        }
+        //        firstFloorNavi.draw(myGame.getBatch());
         streetNavi.draw(myGame.getBatch());
         myGame.getBatch().end();
 
@@ -180,5 +203,9 @@ public class GroundFloor implements Screen {
     }
     public Hud getHud() {
         return hud;
+    }
+
+    public TiledMap getMap() {
+        return map;
     }
 }

@@ -40,7 +40,6 @@ public class Navi extends Sprite {
         setBounds(getX(),getY(),Con.NAVI_WIDTH,Con.NAVI_HEIGHT);
         region = new TextureRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
         region.flip(flipX,flipY);
-
         setRegion(region);
         defineBody();
     }
