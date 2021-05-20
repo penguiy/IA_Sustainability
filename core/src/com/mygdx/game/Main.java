@@ -1,3 +1,4 @@
+//Main Game Class
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
@@ -61,9 +62,7 @@ public class Main extends Game {
 		prevDisplayed = ScreenDisplay.STREET;;
 		currScreen = new Fade(this);
 		player = new Player();
-		//currScreen = streetView;
 		setScreen(currScreen);
-
 		render();
 	}
 

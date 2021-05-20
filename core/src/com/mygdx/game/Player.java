@@ -1,11 +1,14 @@
+//Class that will be stored to the database and used for loading saves
 package com.mygdx.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
     private int points;
     private HashMap<String, Integer> odds;
     private HashMap<String, Integer> multiplier;
+    private ArrayList<String> purchases;
 
     public Player(int points, HashMap<String, Integer> odds, HashMap<String, Integer> multiplier) {
         this.points = points;

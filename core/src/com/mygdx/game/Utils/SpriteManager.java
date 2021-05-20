@@ -1,3 +1,4 @@
+//Class to handle the moving and changes of all sprites
 package com.mygdx.game.Utils;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;

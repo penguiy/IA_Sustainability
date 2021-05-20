@@ -1,3 +1,4 @@
+//Class that raises the event flags that grant points
 package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -20,7 +21,8 @@ public class Flag extends Sprite {
     private Body body;
     private TextureRegion region;
     private String type;
-
+    //USE THIS TO DETERMINE WHICH BODIES TO RENDER on which screen
+    private ScreenDisplay onScreen;
     public boolean isClicked() {
         return clicked;
     }
