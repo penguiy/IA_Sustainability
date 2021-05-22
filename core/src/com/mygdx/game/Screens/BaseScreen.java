@@ -76,7 +76,7 @@ public abstract class BaseScreen implements Screen {
                 sprite.update(dt);
             }
             for (Flag flag: myGame.getSpriteManager().getFlagList()) {
-                flag.update(dt);
+                flag.update();
                 if(flag.isClicked()){
                     world.destroyBody(flag.getBody());
                 }

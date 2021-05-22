@@ -46,6 +46,8 @@ public class Con {
 
     //Flag Things
     public static final String[] TRIGGERS = new String[]{"WATER","FOOD","LIGHT","AC","TRASH"};
+    public static final ScreenDisplay[] LOCATION = new ScreenDisplay[]{ScreenDisplay.STREET, ScreenDisplay.GROUND};
+
     public static final HashMap<String,Integer> BASE_ODDS = new HashMap<String,Integer>(){{
         put("WATER", 0);
         put("FOOD", 0);
@@ -67,6 +69,27 @@ public class Con {
         put("AC", 1);
         put("TRASH", 1);
     }};
+
+    //GROUND FLOOR FLAG POSITIONS
+    public static final ArrayList<int[]> GROUND_FLOOR_POSITIONS = new ArrayList<int[]>(){{
+            add(new int[]{4, 9});//Class
+            add(new int[]{4, 13});//Class
+            add(new int[]{4, 28});//Bathroom
+            add(new int[]{4, 32});//Bathroom
+
+            add(new int[]{16, 9});//Cafeteria 1
+            add(new int[]{18, 32});//Cafeteria 2
+            add(new int[]{17, 17}); //Cafeteria 3
+            add(new int[]{17, 23});//Cafeteria 4
+
+            add(new int[]{11, 6});//Hallway 1
+            add(new int[]{11, 27});//Hallway 2
+            add(new int[]{9, 20});//Hallway 3
+    }};
+    public static final ArrayList<int[]> STREET_POSITIONS = new ArrayList<int[]>(){{
+
+    }};
+
     public static final String WATER_WASTE = "WATER";
     public static final String FOOD_WASTE = "FOOD";
     public static final String LIGHT_WASTE = "LIGHT";

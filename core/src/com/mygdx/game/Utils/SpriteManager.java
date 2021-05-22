@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
+import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Screens.Tile;
 import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.TempSprite;
@@ -19,22 +20,12 @@ public class SpriteManager{
 
 
     private ArrayList<TempSprite> peopleList;
-
-    public void setFlagList(ArrayList<Flag> flagList) {
-        this.flagList = flagList;
-    }
-
     private ArrayList<Flag> flagList;
 
 
     private World world;
     private Main game;
 
-    public Tile[][] getLayout() {
-        return layout;
-    }
-
-    private Tile[][] layout;
     //SpriteHandler should be the only thing changing the positions of the sprites
 
     private boolean interval = false;
@@ -54,6 +45,10 @@ public class SpriteManager{
 
     public ArrayList<Flag> getFlagList() {
         return flagList;
+    }
+
+    public void setFlagList(ArrayList<Flag> flagList) {
+        this.flagList = flagList;
     }
 
     public void setWorld(World world) {
@@ -80,10 +75,56 @@ public class SpriteManager{
                 System.out.println(flag);
                 if (flag <= 100 - selfResolve) {
                     //Make bubble appear
-                    flagList.add(new Flag(world,0,0,game,Con.TRIGGERS[index]));
+                    int location = random.nextInt(3);
+                    //Change screen display later
+                    ArrayList<int[]> taken = new ArrayList<>();
+                    ArrayList<int[]> notTaken = new ArrayList<>();
+                    int[] yx;
+                    for(Flag flagg : flagList) {
+                        taken.add(flagg.getPosition());
+                    }
+                    switch (Con.LOCATION[1]/*Con.LOCATION[location]*/){
+                        case STREET:
+                            for(Flag flagg : flagList) {
+                                taken.add(flagg.getPosition());
+                            }
+                            for (int[] pos : Con.STREET_POSITIONS) {
+                                if(!taken.contains(pos)){
+                                    notTaken.add(pos);
+                                }
+                            }
+                            if(notTaken.isEmpty()){
+                                break;
+                            }
+                            else{
+                                yx = notTaken.get(random.nextInt(notTaken.size()));
+                                flagList.add(new Flag(game.getStreetView().getWorld(), yx, game, Con.TRIGGERS[index],
+                                        ScreenDisplay.STREET));
+                            }
+                            break;
+                        case GROUND:
+                            for(Flag flagg : flagList) {
+                                taken.add(flagg.getPosition());
+                            }
+                            for (int[] pos : Con.GROUND_FLOOR_POSITIONS) {
+                                if(!taken.contains(pos)){
+                                    notTaken.add(pos);
+                                }
+                            }
+                            if(notTaken.isEmpty()){
+                                break;
+                            }
+                            else{
+                                yx = notTaken.get(random.nextInt(notTaken.size()));
+                                flagList.add(new Flag(game.getGroundFloor().getWorld(), yx, game, Con.TRIGGERS[index],
+                                        ScreenDisplay.GROUND));
+                            }
+                            break;
+                    }
                     System.out.println("Self Resolve Fail");
                 } else {
                     //add points
+                    game.getPlayer().addPoints(Con.BASE_POINTS.get(Con.TRIGGERS[index]) * game.getPlayer().getMulti().get(Con.TRIGGERS[index]));
                     System.out.println("Self Resolve Success");
                 }
                 interval = true;
@@ -92,15 +133,5 @@ public class SpriteManager{
         else if(game.getHud().getMinutes() % 10 != 0){
             interval = false;
         }
-    }
-
-    /**
-     * Give location of flag
-     * @param x x coordinate in mapped out array
-     * @param y y coordinate in mapped out array
-     */
-    public int[] FlagLocation(int x,int y){
-        //TODO use this to place flags in distinct locations
-        return new int[]{x * 16 - 8, (Con.HEIGHT - y) * 16 - 8};
     }
 }

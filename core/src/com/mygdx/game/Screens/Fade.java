@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.game.Con;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
+import com.mygdx.game.Sprites.Flag;
 
 public class Fade implements Screen {
     private Main game;
@@ -61,6 +62,7 @@ public class Fade implements Screen {
                         game.mapOut(game.getStreetView().getMap());
                         game.getSpriteManager().setWorld(game.getStreetView().getWorld());
                         game.setScreen(game.getStreetView());
+
                         break;
                 }
             }

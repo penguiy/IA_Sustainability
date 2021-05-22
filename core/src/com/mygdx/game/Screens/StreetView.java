@@ -83,7 +83,9 @@ public class StreetView implements Screen {
             sprite.update(dt);
         }
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
-            flag.update(dt);
+            if(flag.isBodyDefined()) {
+                flag.update();
+            }
             if(flag.isClicked()){
                 world.destroyBody(flag.getBody());
             }
@@ -124,7 +126,7 @@ public class StreetView implements Screen {
             sprite.draw(myGame.getBatch());
         }
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
-            if(!flag.isClicked()) {
+            if(!flag.isClicked() && flag.getScreen() == ScreenDisplay.STREET) {
                 flag.draw(myGame.getBatch());
             }
         }

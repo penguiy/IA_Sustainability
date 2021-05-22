@@ -24,6 +24,7 @@ import com.mygdx.game.Screens.Fade;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.Tile;
+import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.TempSprite;
 import com.mygdx.game.Utils.SpriteManager;
 

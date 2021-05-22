@@ -1,6 +1,7 @@
 //Class that raises the event flags that grant points
 package com.mygdx.game.Sprites;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,13 +17,35 @@ import com.mygdx.game.ScreenDisplay;
 public class Flag extends Sprite {
 
 
-    private World world;
-    private Main game;
+    private final World world;
+    private final Main game;
     private Body body;
     private TextureRegion region;
-    private String type;
+    private final String type;
+    private boolean definedBody = false;
+
+
+    public boolean isBodyDefined() {
+        return definedBody;
+    }
+
+    public void setDefinedBody(boolean definedBody) {
+        this.definedBody = definedBody;
+    }
+
+    public int[] getPosition() {
+        return position;
+    }
+
+    private int[] position;
+
+    public ScreenDisplay getScreen() {
+        return onScreen;
+    }
+
     //USE THIS TO DETERMINE WHICH BODIES TO RENDER on which screen
     private ScreenDisplay onScreen;
+
     public boolean isClicked() {
         return clicked;
     }
@@ -46,11 +69,13 @@ public class Flag extends Sprite {
         return type;
     }
 
-    public Flag(World world, float x, float y, Main game, String type){
+    public Flag(World world, int[] yx, Main game, String type, ScreenDisplay screen){
         this.world = world;
         this.game = game;
         this.type = type;
-        setPosition(x,y);
+        onScreen = screen;
+        this.position = yx;
+        setPosition(yx[1]*16,yx[0]*16);
         setBounds(getX(),getY(), Con.NAVI_WIDTH,Con.NAVI_HEIGHT);
         /*switch (type){
             case Con.AC_WASTE:
@@ -73,6 +98,7 @@ public class Flag extends Sprite {
         region = new TextureRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
         setRegion(region);
         defineBody();
+        //Find a way to wait until on correct screen to define body
     }
 
     /**
@@ -89,9 +115,10 @@ public class Flag extends Sprite {
         shape.setAsBox((float)12.5,(float)12.5);
         fixtureDef.shape = shape;
         body.createFixture(fixtureDef).setUserData(this);
+        update();
     }
 
-    public void update(float dt){
+    public void update(){
         setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y-getHeight()/2);
     }
 
