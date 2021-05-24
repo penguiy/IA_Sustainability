@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.lang.reflect.Array;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
@@ -16,7 +17,7 @@ public class Con {
     public static final int STREET_NAVI_Y = 168;
     public static final int FINAL_HOUR = 15;
     public static final int FINAL_MIN = 59;
-
+    public static final double STANDARD_TIME = 1.6;
 
 
     //File Paths/Strings
@@ -46,7 +47,10 @@ public class Con {
 
     //Flag Things
     public static final String[] TRIGGERS = new String[]{"WATER","FOOD","LIGHT","AC","TRASH"};
-    public static final ScreenDisplay[] LOCATION = new ScreenDisplay[]{ScreenDisplay.STREET, ScreenDisplay.GROUND};
+    public static final ArrayList<ScreenDisplay> LOCATION = new ArrayList<ScreenDisplay>(){{
+            add(ScreenDisplay.STREET);
+            add(ScreenDisplay.GROUND);
+    }};
 
     public static final HashMap<String,Integer> BASE_ODDS = new HashMap<String,Integer>(){{
         put("WATER", 0);
@@ -79,16 +83,32 @@ public class Con {
 
             add(new int[]{16, 9});//Cafeteria 1
             add(new int[]{18, 32});//Cafeteria 2
-            add(new int[]{17, 17}); //Cafeteria 3
-            add(new int[]{17, 23});//Cafeteria 4
+            add(new int[]{20, 25}); //Cafeteria
+            add(new int[]{17, 17}); //Cafeteria
 
             add(new int[]{11, 6});//Hallway 1
             add(new int[]{11, 27});//Hallway 2
             add(new int[]{9, 20});//Hallway 3
     }};
     public static final ArrayList<int[]> STREET_POSITIONS = new ArrayList<int[]>(){{
+            add(new int[]{3, 15});
+            add(new int[]{20, 15});
+            add(new int[]{5, 24});
+            add(new int[]{5, 7});
+
+            add(new int[]{3, 27});
+            add(new int[]{15, 1});
+            add(new int[]{2, 11});
+            add(new int[]{16, 21});
+
+            add(new int[]{6, 32});
+            add(new int[]{20, 27});
+            add(new int[]{19,11});
+
+
 
     }};
+    public static final int FULL = 11;
 
     public static final String WATER_WASTE = "WATER";
     public static final String FOOD_WASTE = "FOOD";

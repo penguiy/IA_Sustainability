@@ -13,6 +13,9 @@ import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.TempSprite;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 //Contain all the sprites and tell them to move
@@ -74,52 +77,69 @@ public class SpriteManager{
                 //if selfResolve fail
                 System.out.println(flag);
                 if (flag <= 100 - selfResolve) {
-                    //Make bubble appear
-                    int location = random.nextInt(3);
                     //Change screen display later
                     ArrayList<int[]> taken = new ArrayList<>();
                     ArrayList<int[]> notTaken = new ArrayList<>();
                     int[] yx;
+                    int ground = 0;
+                    int street = 0;
                     for(Flag flagg : flagList) {
                         taken.add(flagg.getPosition());
+                        if(flagg.getScreen().equals(ScreenDisplay.GROUND)){
+                            ground++;
+                        }else if(flagg.getScreen().equals(ScreenDisplay.STREET)){
+                            street++;
+                        }
                     }
-                    switch (Con.LOCATION[1]/*Con.LOCATION[location]*/){
-                        case STREET:
-                            for(Flag flagg : flagList) {
-                                taken.add(flagg.getPosition());
-                            }
-                            for (int[] pos : Con.STREET_POSITIONS) {
-                                if(!taken.contains(pos)){
-                                    notTaken.add(pos);
+                    ArrayList<ScreenDisplay> places = Con.LOCATION;
+                    if(ground == Con.FULL){
+                        places.remove(ScreenDisplay.GROUND);
+                    }
+                    if(street == Con.FULL){
+                        places.remove(ScreenDisplay.STREET);
+                    }
+                    //Make bubble appear
+                    if(!places.isEmpty()) {
+                        int location = random.nextInt(places.size());
+
+                        switch (places.get(location)) {
+                            case STREET:
+                                for (Flag flagg : flagList) {
+                                    taken.add(flagg.getPosition());
                                 }
-                            }
-                            if(notTaken.isEmpty()){
-                                break;
-                            }
-                            else{
-                                yx = notTaken.get(random.nextInt(notTaken.size()));
-                                flagList.add(new Flag(game.getStreetView().getWorld(), yx, game, Con.TRIGGERS[index],
-                                        ScreenDisplay.STREET));
-                            }
-                            break;
-                        case GROUND:
-                            for(Flag flagg : flagList) {
-                                taken.add(flagg.getPosition());
-                            }
-                            for (int[] pos : Con.GROUND_FLOOR_POSITIONS) {
-                                if(!taken.contains(pos)){
-                                    notTaken.add(pos);
+                                for (int[] pos : Con.STREET_POSITIONS) {
+                                    if (!taken.contains(pos)) {
+                                        notTaken.add(pos);
+                                    }
                                 }
-                            }
-                            if(notTaken.isEmpty()){
+                                if (notTaken.isEmpty()) {
+                                    break;
+                                } else {
+                                    yx = notTaken.get(random.nextInt(notTaken.size()));
+                                    flagList.add(new Flag(game.getStreetView().getWorld(), yx, game, Con.TRIGGERS[index],
+                                            ScreenDisplay.STREET));
+                                }
                                 break;
-                            }
-                            else{
-                                yx = notTaken.get(random.nextInt(notTaken.size()));
-                                flagList.add(new Flag(game.getGroundFloor().getWorld(), yx, game, Con.TRIGGERS[index],
-                                        ScreenDisplay.GROUND));
-                            }
-                            break;
+                            case GROUND:
+                                for (Flag flagg : flagList) {
+                                    taken.add(flagg.getPosition());
+                                }
+                                for (int[] pos : Con.GROUND_FLOOR_POSITIONS) {
+                                    if (!taken.contains(pos)) {
+                                        notTaken.add(pos);
+                                    }
+                                }
+                                if (notTaken.isEmpty()) {
+                                    break;
+                                } else {
+                                    yx = notTaken.get(random.nextInt(notTaken.size()));
+                                    flagList.add(new Flag(game.getGroundFloor().getWorld(), yx, game, Con.TRIGGERS[index],
+                                            ScreenDisplay.GROUND));
+                                }
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     System.out.println("Self Resolve Fail");
                 } else {

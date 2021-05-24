@@ -146,15 +146,15 @@ public class GroundFloor implements Screen {
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             clickFixture();
         }
-        if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))) {
-            System.out.println("space pressed");
-            if(hud.isDayEnd()){
-                this.hud.setDayEnd(false);
-            }
-            else {
-                this.hud.setDayEnd(true);
-            }
-        }
+//        if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))) {
+//            System.out.println("space pressed");
+//            if(hud.isDayEnd()){
+//                this.hud.setDayEnd(false);
+//            }
+//            else {
+//                this.hud.setDayEnd(true);
+//            }
+//        }
     }
     public void clickFixture(){
         BodyDef bodyDef = new BodyDef();
