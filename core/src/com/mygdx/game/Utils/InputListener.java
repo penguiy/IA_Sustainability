@@ -2,7 +2,6 @@ package com.mygdx.game.Utils;
 
 import com.badlogic.gdx.Input.*;
 import com.badlogic.gdx.InputProcessor;
-import com.mygdx.game.GameState;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Screens.Fade;
