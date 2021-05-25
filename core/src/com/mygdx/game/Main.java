@@ -3,29 +3,16 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Screens.Fade;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.Tile;
-import com.mygdx.game.Sprites.Flag;
-import com.mygdx.game.Sprites.TempSprite;
+import com.mygdx.game.Screens.TitleScreen;
 import com.mygdx.game.Utils.InputListener;
 import com.mygdx.game.Utils.SpriteManager;
 
@@ -39,18 +26,19 @@ public class Main extends Game {
 	private ScreenDisplay displaying;
 	private ScreenDisplay prevDisplayed;
 
-	private GameState gameState;
 
 	private SpriteManager spriteManager;
 
 	public InputListener getInputListener() {
 		return inputListener;
 	}
-
 	private InputListener inputListener;
+	private InputMultiplexer inputMultiplexer;
+
 	//Screens
 	private GroundFloor groundFloor;
 	private StreetView streetView;
+	private TitleScreen titleScreen;
 
 	public void setPlayer(Player player) {
 		this.player = player;
@@ -59,23 +47,43 @@ public class Main extends Game {
 	private Player player;
 	private Tile[][] layout;
 
+	private Shop shop;
+
+	public boolean inTransition() {
+		return transition;
+	}
+
+	public void setTransition(boolean transition) {
+		this.transition = transition;
+	}
+
+	private boolean transition;
+
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		player = new Player();
 		hud = new Hud(this);
 
 		spriteManager = new SpriteManager(this, hud);
 		inputListener = new InputListener(this);
 		groundFloor = new GroundFloor(this);
 		streetView = new StreetView(this);
+		titleScreen = new TitleScreen(this);
+		shop = new Shop();
 
 		displaying = ScreenDisplay.STREET;
 		prevDisplayed = ScreenDisplay.STREET;;
 		currScreen = new Fade(this);
-		player = new Player();
+		//currScreen = titleScreen;
 		setScreen(currScreen);
 		render();
+		inputMultiplexer = new InputMultiplexer();
+		Gdx.input.setInputProcessor(inputMultiplexer);
+
+		Gdx.input.setInputProcessor(inputListener);
+		inputMultiplexer.addProcessor(shop.getStage());
 	}
 
 	@Override
@@ -83,17 +91,12 @@ public class Main extends Game {
 		super.render();
 		spriteManager.flagRaise();
 		if (displaying != prevDisplayed) {
-			currScreen.dispose();
-			currScreen = new Fade(this);
-			setScreen(currScreen);
-			switch (displaying) {
-				case STREET:
-					prevDisplayed = ScreenDisplay.STREET;
-					break;
-				case GROUND:
-					prevDisplayed = ScreenDisplay.GROUND;
-					break;
+			if (!(prevDisplayed.equals(ScreenDisplay.PAUSE) || displaying.equals(ScreenDisplay.PAUSE))){
+				currScreen.dispose();
+				currScreen = new Fade(this);
 			}
+			setScreen(currScreen);
+			prevDisplayed = displaying;
 		}
 	}
 	/**

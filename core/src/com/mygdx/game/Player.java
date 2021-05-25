@@ -9,22 +9,23 @@ public class Player {
 
 
 
-    private int  dayNum = 0;
+    private int  dayNum;
     private HashMap<String, Integer> odds;
     private HashMap<String, Integer> multiplier;
     private ArrayList<String> purchases;
 
-    public Player(int points, HashMap<String, Integer> odds, HashMap<String, Integer> multiplier) {
+    public Player(int points, HashMap<String, Integer> odds, HashMap<String, Integer> multiplier, int dayNum) {
         this.points = points;
         this.odds = odds;
         this.multiplier = multiplier;
-        this.dayNum = 1;
+        this.dayNum = dayNum;
     }
 
     public Player() {
         this.points = 0;
         this.odds = Con.BASE_ODDS;
         this.multiplier = Con.BASE_MULTI;
+        this.dayNum = 1;
     }
 
     public int getPoints() {

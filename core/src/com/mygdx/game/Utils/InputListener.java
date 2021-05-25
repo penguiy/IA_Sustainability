@@ -1,15 +1,19 @@
 package com.mygdx.game.Utils;
 
-import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.*;
 import com.badlogic.gdx.InputProcessor;
+import com.mygdx.game.GameState;
 import com.mygdx.game.Main;
+import com.mygdx.game.ScreenDisplay;
+import com.mygdx.game.Screens.Fade;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.TitleScreen;
 
 public class InputListener implements InputProcessor {
 
-    Main game;
+    private Main game;
+    private ScreenDisplay prePause;
 
     public InputListener(Main game){
         this.game = game;
@@ -17,6 +21,18 @@ public class InputListener implements InputProcessor {
 
     @Override
     public boolean keyDown(int i) {
+        if(i == Keys.M && !(game.getScreen() instanceof Fade)){
+            if(game.getDisplaying()!=ScreenDisplay.DAYEND) {
+                if (!game.getDisplaying().equals(ScreenDisplay.PAUSE)){
+                    System.out.println(game.getDisplaying());
+                    prePause = game.getDisplaying();
+                    game.changeScreen(ScreenDisplay.PAUSE);
+                } else{
+                    game.changeScreen(prePause);
+                }
+                //Set displaying to pause, draw menu in screen class
+            }
+        }
         return false;
     }
 
@@ -32,7 +48,7 @@ public class InputListener implements InputProcessor {
 
     @Override
     public boolean touchDown(int x, int y, int point, int button){
-        if (button == Buttons.LEFT) {
+        if (button == Buttons.LEFT && !game.getDisplaying().equals(ScreenDisplay.PAUSE)) {
             if(game.getScreen() instanceof StreetView){
                 ((StreetView) game.getScreen()).clickFixture(x,y);
             }else if(game.getScreen() instanceof GroundFloor){
@@ -40,7 +56,6 @@ public class InputListener implements InputProcessor {
             }else if(game.getScreen() instanceof TitleScreen){
                 ((TitleScreen) game.getScreen()).clickFixture(x,y);
             }
-            return true;
         }
         return false;
     }

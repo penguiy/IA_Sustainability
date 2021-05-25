@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -40,6 +41,7 @@ public class TitleScreen implements Screen {
     private Vector3 touchPos;
     private Body clickBody;
 
+
     public TitleScreen(Main game) {
         this.myGame = game;
         this.world = new World(new Vector2(0, 0), true);
@@ -56,8 +58,8 @@ public class TitleScreen implements Screen {
 
         touchPos = new Vector3();
 
-        Gdx.input.setInputProcessor(game.getInputListener());
     }
+    //Not sure if i need
     public void clickFixture(int x, int y){
         BodyDef bodyDef = new BodyDef();
         touchPos = new Vector3(x, y, 0);
@@ -80,7 +82,6 @@ public class TitleScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
     }
 
     @Override

@@ -1,5 +1,5 @@
 package com.mygdx.game;
 
 public enum GameState {
-    PLAY,PAUSE;
+    PLAY,PAUSE,TITLE;
 }

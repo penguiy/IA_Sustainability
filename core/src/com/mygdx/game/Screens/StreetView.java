@@ -95,6 +95,8 @@ public class StreetView implements Screen {
                 world.destroyBody(flag.getBody());
             }
         }
+        car.dropOff(dt);
+        car2.dropOff(dt);
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
             if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
                 myGame.getSpriteManager().getFlagList().remove(i);
@@ -114,9 +116,9 @@ public class StreetView implements Screen {
 
     @Override
     public void render(float delta) {
-        update(delta);
-        car.dropOff(delta);
-        car2.dropOff(delta);
+        if(!(myGame.getDisplaying().equals(ScreenDisplay.PAUSE)||myGame.getDisplaying().equals(ScreenDisplay.DAYEND))) {
+            update(delta);
+        }
         //clear screen
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
