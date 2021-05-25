@@ -117,7 +117,7 @@ public class GroundFloor implements Screen {
     @Override
     public void render(float delta) {
         update(delta);
-        handleInput();
+        //handleInput();
         streetNavi.update(delta);
         Gdx.gl.glClearColor(0, 1, 1 ,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -142,23 +142,10 @@ public class GroundFloor implements Screen {
 
         box2DDebugRenderer.render(world,camera.combined);
     }
-    public void handleInput(){
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            clickFixture();
-        }
-//        if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))) {
-//            System.out.println("space pressed");
-//            if(hud.isDayEnd()){
-//                this.hud.setDayEnd(false);
-//            }
-//            else {
-//                this.hud.setDayEnd(true);
-//            }
-//        }
-    }
-    public void clickFixture(){
+
+    public void clickFixture(int x, int y){
         BodyDef bodyDef = new BodyDef();
-        touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        touchPos = new Vector3(x, y, 0);
         viewport.unproject(touchPos);
         bodyDef.position.set(touchPos.x,touchPos.y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;

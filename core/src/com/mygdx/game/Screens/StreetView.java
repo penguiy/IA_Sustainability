@@ -71,22 +71,27 @@ public class StreetView implements Screen {
         //Temps
         car = new Car(world, 115,0-(36+18), myGame);
         car2 = new Car(world, 115,0-(150+18), myGame);
+        Gdx.input.setInputProcessor(game.getInputListener());
     }
 
     private void update(float dt) {
         world.step(1/60f, 6, 2);
+        //If a clickFixture exists, destroy the body
         if(clickBody != null) {
             world.destroyBody(clickBody);
             clickBody = null;
         }
+        //Update positions of all the sprites
         for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.update(dt);
         }
+        //Update positions of all the flags
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
             if(flag.isBodyDefined()) {
                 flag.update();
             }
             if(flag.isClicked()){
+                //If the flag is clicked destroy that flag
                 world.destroyBody(flag.getBody());
             }
         }
@@ -110,7 +115,6 @@ public class StreetView implements Screen {
     @Override
     public void render(float delta) {
         update(delta);
-        handleInput();
         car.dropOff(delta);
         car2.dropOff(delta);
         //clear screen
@@ -118,37 +122,36 @@ public class StreetView implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-
+        //Open Batch
         myGame.getBatch().begin();
+        //Draw Cars
         car.draw(myGame.getBatch());
         car2.draw(myGame.getBatch());
+        //Draw every Person that is in StreetView
         for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.draw(myGame.getBatch());
         }
+        //Draw every Flag in StreetView
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
             if(!flag.isClicked() && flag.getScreen() == ScreenDisplay.STREET) {
                 flag.draw(myGame.getBatch());
             }
         }
+        //Draw the Navi
         schoolNavi.draw(myGame.getBatch());
+        //End batch
         myGame.getBatch().end();
         hud.getStage().draw();
         myGame.getBatch().setProjectionMatrix(camera.combined); //updates our batch with our Camera's view and projection matrices.
         box2DDebugRenderer.render(world,camera.combined);
     }
 
-    public void handleInput(){
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            clickFixture();
-        }
-    }
-
     /**
      * Creates a temporary fixture at mouse click position
      */
-    public void clickFixture(){
+    public void clickFixture(int x, int y){
         BodyDef bodyDef = new BodyDef();
-        touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        touchPos = new Vector3(x, y, 0);
         viewport.unproject(touchPos);
         System.out.println("("+touchPos.x+","+touchPos.y+")");
         bodyDef.position.set(touchPos.x,touchPos.y);

@@ -1,11 +1,18 @@
 package com.mygdx.game.Utils;
 
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputProcessor;
+import com.mygdx.game.Main;
+import com.mygdx.game.Screens.GroundFloor;
+import com.mygdx.game.Screens.StreetView;
+import com.mygdx.game.Screens.TitleScreen;
 
 public class InputListener implements InputProcessor {
 
-    public InputListener(){
+    Main game;
 
+    public InputListener(Main game){
+        this.game = game;
     }
 
     @Override
@@ -24,7 +31,17 @@ public class InputListener implements InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
+    public boolean touchDown(int x, int y, int point, int button){
+        if (button == Buttons.LEFT) {
+            if(game.getScreen() instanceof StreetView){
+                ((StreetView) game.getScreen()).clickFixture(x,y);
+            }else if(game.getScreen() instanceof GroundFloor){
+                ((GroundFloor) game.getScreen()).clickFixture(x,y);
+            }else if(game.getScreen() instanceof TitleScreen){
+                ((TitleScreen) game.getScreen()).clickFixture(x,y);
+            }
+            return true;
+        }
         return false;
     }
 

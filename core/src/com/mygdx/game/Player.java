@@ -6,6 +6,10 @@ import java.util.HashMap;
 
 public class Player {
     private int points;
+
+
+
+    private int  dayNum = 0;
     private HashMap<String, Integer> odds;
     private HashMap<String, Integer> multiplier;
     private ArrayList<String> purchases;
@@ -14,6 +18,7 @@ public class Player {
         this.points = points;
         this.odds = odds;
         this.multiplier = multiplier;
+        this.dayNum = 1;
     }
 
     public Player() {
@@ -65,5 +70,13 @@ public class Player {
      */
     public void setMultiplier(String section, int newMulti) {
         this.odds.put(section,newMulti);
+    }
+
+    public int getDayNum() {
+        return dayNum;
+    }
+
+    public void nextDay() {
+        this.dayNum = dayNum++;
     }
 }

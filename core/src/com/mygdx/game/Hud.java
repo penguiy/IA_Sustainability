@@ -30,7 +30,6 @@ public class Hud extends Actor {
     private Label time;
     private Label money;
 
-    private int dayNum;
     private String bank;
     private String hourString;
     private String minuteString;
@@ -53,7 +52,6 @@ public class Hud extends Actor {
         table.setFillParent(true);
         table.debug();
 
-        dayNum = 1;
         hourString = "07";
         minuteString = "55";
         hours = 7;
@@ -61,7 +59,7 @@ public class Hud extends Actor {
         totalDeltaTime = 0;
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
-        day = new Label("Day " + dayNum, labelStyle);
+        day = new Label("Day " + game.getPlayer().getDayNum(), labelStyle);
         time = new Label(hourString + ":" + minuteString, labelStyle);
         money = new Label(bank, labelStyle);
 
@@ -91,17 +89,18 @@ public class Hud extends Actor {
     }
     public void update(float dt){
         //Day end? -> Day count +1, else stay same
+        //Make so time doesn't count when in menu
         if(!dayEnd) {
             totalDeltaTime += dt;
             if (hours >= Con.FINAL_HOUR && minutes >= Con.FINAL_MIN) {
                 //Day end menu
-                dayNum++;
+                game.getPlayer().nextDay();
                 hours = 7;
                 minutes = 55;
                 System.out.println("next day");
                 dayEnd = true;
                 //Use gamestate to pause
-                day.setText("Day " + dayNum);
+                day.setText("Day " + game.getPlayer().getDayNum());
                 totalDeltaTime = 0;
             }
             else if (totalDeltaTime >= 0.4){//Con.STANDARD_TIME) {
@@ -132,9 +131,6 @@ public class Hud extends Actor {
         return stage;
     }
 
-    public int getDayNum() {
-        return dayNum;
-    }
     public int getHours() {
         return hours;
     }

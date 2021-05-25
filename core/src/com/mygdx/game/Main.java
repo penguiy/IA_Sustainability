@@ -26,6 +26,7 @@ import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.Tile;
 import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.TempSprite;
+import com.mygdx.game.Utils.InputListener;
 import com.mygdx.game.Utils.SpriteManager;
 
 public class Main extends Game {
@@ -42,9 +43,18 @@ public class Main extends Game {
 
 	private SpriteManager spriteManager;
 
+	public InputListener getInputListener() {
+		return inputListener;
+	}
+
+	private InputListener inputListener;
 	//Screens
 	private GroundFloor groundFloor;
 	private StreetView streetView;
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
 	private Player player;
 	private Tile[][] layout;
@@ -56,6 +66,7 @@ public class Main extends Game {
 		hud = new Hud(this);
 
 		spriteManager = new SpriteManager(this, hud);
+		inputListener = new InputListener(this);
 		groundFloor = new GroundFloor(this);
 		streetView = new StreetView(this);
 
