@@ -50,9 +50,6 @@ public class SpriteManager{
         return flagList;
     }
 
-    public void setFlagList(ArrayList<Flag> flagList) {
-        this.flagList = flagList;
-    }
 
     public void setWorld(World world) {
         this.world = world;
@@ -101,7 +98,6 @@ public class SpriteManager{
                     //Make bubble appear
                     if(!places.isEmpty()) {
                         int location = random.nextInt(places.size());
-
                         switch (places.get(location)) {
                             case STREET:
                                 for (Flag flagg : flagList) {
@@ -155,6 +151,8 @@ public class SpriteManager{
         }
     }
     public void wipe(){
-        //Clear all fixtures and bodies on screen
+        for(Flag flag : flagList){
+            flag.setClicked(true);
+        }
     }
 }

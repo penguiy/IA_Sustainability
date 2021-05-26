@@ -92,13 +92,15 @@ public class StreetView implements Screen {
             }
             if(flag.isClicked()){
                 //If the flag is clicked destroy that flag
-                world.destroyBody(flag.getBody());
+                if(flag.getScreen().equals(ScreenDisplay.STREET)) {
+                    world.destroyBody(flag.getBody());
+                }
             }
         }
         car.dropOff(dt);
         car2.dropOff(dt);
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
-            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
+            if(myGame.getSpriteManager().getFlagList().get(i).isClicked() && myGame.getSpriteManager().getFlagList().get(i).getScreen() == ScreenDisplay.STREET){
                 myGame.getSpriteManager().getFlagList().remove(i);
                 i--;
             }

@@ -120,8 +120,10 @@ public class Main extends Game {
 		cont.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				//Problem where all on clicked are being deleted and the bodies on the ground screen arent destroyed yet
 				spriteManager.wipe();
 				displaying = ScreenDisplay.STREET;
+				System.out.println(spriteManager.getFlagList());
 				return false;
 			}
 		});
@@ -145,7 +147,6 @@ public class Main extends Game {
 		} else if(displaying.equals(ScreenDisplay.DAYEND)){
 			dayEnd.draw();
 		}
-		spriteManager.flagRaise();
 		if (displaying != prevDisplayed) {
 			if (!(prevDisplayed.equals(ScreenDisplay.PAUSE) || displaying.equals(ScreenDisplay.PAUSE))){
 				currScreen.dispose();
@@ -154,6 +155,7 @@ public class Main extends Game {
 			setScreen(currScreen);
 			prevDisplayed = displaying;
 		}
+		spriteManager.flagRaise();
 	}
 	/**
 	 * Creates a 2D array of Cells from the TiledMap and stores it in layout

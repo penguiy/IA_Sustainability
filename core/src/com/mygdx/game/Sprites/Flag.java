@@ -129,6 +129,12 @@ public class Flag extends Sprite {
         game.getPlayer().addPoints(Con.BASE_POINTS.get(type) * game.getPlayer().getMulti().get(type));
     }
 
+    public boolean equals(Flag flag){
+        if(this.body == flag.getBody()){
+            return true;
+        }
+        return false;
+    }
 
 
 }

@@ -95,11 +95,13 @@ public class GroundFloor implements Screen {
                 flag.update();
             }
             if(flag.isClicked()){
-                world.destroyBody(flag.getBody());
+                if(flag.getScreen().equals(ScreenDisplay.GROUND)) {
+                    world.destroyBody(flag.getBody());
+                }
             }
         }
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
-            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
+            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()&& myGame.getSpriteManager().getFlagList().get(i).getScreen() == ScreenDisplay.GROUND){
                 myGame.getSpriteManager().getFlagList().remove(i);
                 i--;
             }
