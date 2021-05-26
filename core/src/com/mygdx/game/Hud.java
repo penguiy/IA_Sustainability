@@ -30,7 +30,6 @@ public class Hud extends Actor {
     private Label time;
     private Label money;
 
-    private String bank;
     private String hourString;
     private String minuteString;
     private int hours;
@@ -61,7 +60,7 @@ public class Hud extends Actor {
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
         day = new Label("Day " + game.getPlayer().getDayNum(), labelStyle);
         time = new Label(hourString + ":" + minuteString, labelStyle);
-        money = new Label(bank, labelStyle);
+        money = new Label("", labelStyle);
 
 
         dayIcon = new Image(new Texture(Con.DAY_ICON));

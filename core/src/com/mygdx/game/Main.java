@@ -47,6 +47,10 @@ public class Main extends Game {
 	private Player player;
 	private Tile[][] layout;
 
+	public Shop getShop() {
+		return shop;
+	}
+
 	private Shop shop;
 
 	public boolean inTransition() {
@@ -71,7 +75,7 @@ public class Main extends Game {
 		groundFloor = new GroundFloor(this);
 		streetView = new StreetView(this);
 		titleScreen = new TitleScreen(this);
-		shop = new Shop();
+		shop = new Shop(this);
 
 		displaying = ScreenDisplay.STREET;
 		prevDisplayed = ScreenDisplay.STREET;;
@@ -80,15 +84,19 @@ public class Main extends Game {
 		setScreen(currScreen);
 		render();
 		inputMultiplexer = new InputMultiplexer();
+
+		inputMultiplexer.addProcessor(inputListener);
+		inputMultiplexer.addProcessor(shop.getStage());
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
-		Gdx.input.setInputProcessor(inputListener);
-		inputMultiplexer.addProcessor(shop.getStage());
 	}
 
 	@Override
 	public void render(){
 		super.render();
+		if(displaying.equals(ScreenDisplay.PAUSE)){
+			shop.getStage().draw();
+		}
 		spriteManager.flagRaise();
 		if (displaying != prevDisplayed) {
 			if (!(prevDisplayed.equals(ScreenDisplay.PAUSE) || displaying.equals(ScreenDisplay.PAUSE))){

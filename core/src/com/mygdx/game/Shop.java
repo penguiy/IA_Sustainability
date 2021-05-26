@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -31,7 +33,7 @@ public class Shop implements Screen {
     private Table classes;
     private Table infrastructure;
 
-    public Shop(){
+    public Shop(final Main game){
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, new OrthographicCamera());
         mainStage = new Stage(viewport);
 
@@ -42,6 +44,7 @@ public class Shop implements Screen {
         first = new Table();
         classes = new Table();
         infrastructure = new Table();
+
         first.setFillParent(true);
         classes.setFillParent(true);
         infrastructure.setFillParent(true);
@@ -61,6 +64,7 @@ public class Shop implements Screen {
         shop.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Infra");
                 mainStage = stageInfra;
                 return false;
             }
@@ -69,15 +73,27 @@ public class Shop implements Screen {
         event.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Class");
                 mainStage = stageClass;
                 return false;
             }
         });
-
-        first.add(shop,event);
-        mainStage.addActor(first);
+        first.add(shop).expandX();
+        first.add(event).expandX();
+        first.debug();
+        stageFirst.addActor(first);
+        mainStage = stageFirst;
+        classes.add(new Label("Class",new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+        classes.debug();
+        stageClass.addActor(classes);
+        infrastructure.add(new Label("Infrastructure",new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
+        infrastructure.debug();
+        stageInfra.addActor(infrastructure);
     }
 
+    public void reset(){
+        this.mainStage = stageFirst;
+    }
     @Override
     public void show() {
 

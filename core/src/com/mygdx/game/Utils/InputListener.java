@@ -20,16 +20,16 @@ public class InputListener implements InputProcessor {
 
     @Override
     public boolean keyDown(int i) {
+        //Set displaying to pause, draw menu in screen class
         if(i == Keys.M && !(game.getScreen() instanceof Fade)){
             if(game.getDisplaying()!=ScreenDisplay.DAYEND) {
                 if (!game.getDisplaying().equals(ScreenDisplay.PAUSE)){
-                    System.out.println(game.getDisplaying());
                     prePause = game.getDisplaying();
                     game.changeScreen(ScreenDisplay.PAUSE);
                 } else{
+                    game.getShop().reset();
                     game.changeScreen(prePause);
                 }
-                //Set displaying to pause, draw menu in screen class
             }
         }
         return false;
