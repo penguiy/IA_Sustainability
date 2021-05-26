@@ -5,9 +5,19 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Screens.Fade;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
@@ -21,11 +31,8 @@ public class Main extends Game {
 	private Screen currScreen;
 	private Hud hud;
 
-	private boolean dayEnd;
-
 	private ScreenDisplay displaying;
 	private ScreenDisplay prevDisplayed;
-
 
 	private SpriteManager spriteManager;
 
@@ -39,6 +46,9 @@ public class Main extends Game {
 	private GroundFloor groundFloor;
 	private StreetView streetView;
 	private TitleScreen titleScreen;
+
+	private Stage dayEnd;
+	private Table table;
 
 	public void setPlayer(Player player) {
 		this.player = player;
@@ -85,8 +95,44 @@ public class Main extends Game {
 		render();
 		inputMultiplexer = new InputMultiplexer();
 
+		Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
+		bgPixmap.setColor(0,0,0,0.8f);
+		bgPixmap.fill();
+		TextureRegionDrawable bg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+
+		dayEnd = new Stage();
+		table = new Table();
+		table.setFillParent(true);
+		table.setBackground(bg);
+		TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+		style.font = new BitmapFont();
+
+		TextButton save = new TextButton("SAVE", style);
+		TextButton cont = new TextButton("CONTINUE", style);
+
+		save.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				System.out.println("save");
+				return false;
+			}
+		});
+		cont.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				spriteManager.wipe();
+				displaying = ScreenDisplay.STREET;
+				return false;
+			}
+		});
+		table.add(cont).expandX().padBottom(10);
+		table.row();
+		table.add(save).expandX();
+		dayEnd.addActor(table);
+
 		inputMultiplexer.addProcessor(inputListener);
 		inputMultiplexer.addProcessor(shop.getStage());
+		inputMultiplexer.addProcessor(dayEnd);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 	}
@@ -96,6 +142,8 @@ public class Main extends Game {
 		super.render();
 		if(displaying.equals(ScreenDisplay.PAUSE)){
 			shop.getStage().draw();
+		} else if(displaying.equals(ScreenDisplay.DAYEND)){
+			dayEnd.draw();
 		}
 		spriteManager.flagRaise();
 		if (displaying != prevDisplayed) {
@@ -145,14 +193,6 @@ public class Main extends Game {
 
 	public Hud getHud() {
 		return hud;
-	}
-
-	public boolean isDayEnd() {
-		return dayEnd;
-	}
-
-	public void setDayEnd(boolean dayEnd) {
-		this.dayEnd = dayEnd;
 	}
 
 	public ScreenDisplay getDisplaying() {

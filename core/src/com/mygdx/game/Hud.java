@@ -89,20 +89,19 @@ public class Hud extends Actor {
     public void update(float dt){
         //Day end? -> Day count +1, else stay same
         //Make so time doesn't count when in menu
-        if(!dayEnd) {
+        if(!game.getDisplaying().equals(ScreenDisplay.DAYEND)) {
             totalDeltaTime += dt;
             if (hours >= Con.FINAL_HOUR && minutes >= Con.FINAL_MIN) {
                 //Day end menu
-                game.getPlayer().nextDay();
                 hours = 7;
                 minutes = 55;
-                System.out.println("next day");
-                dayEnd = true;
-                //Use gamestate to pause
-                day.setText("Day " + game.getPlayer().getDayNum());
+                game.changeScreen(ScreenDisplay.DAYEND);
+                game.getPlayer().nextDay();
                 totalDeltaTime = 0;
+                day.setText("Day " + game.getPlayer().getDayNum());
+
             }
-            else if (totalDeltaTime >= 0.4){//Con.STANDARD_TIME) {
+            else if (totalDeltaTime >= 0.01){//Con.STANDARD_TIME) {
                 minutes++;
                 if (minutes > 59) {
                     hours++;

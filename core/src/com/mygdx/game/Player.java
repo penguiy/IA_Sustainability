@@ -78,6 +78,6 @@ public class Player {
     }
 
     public void nextDay() {
-        this.dayNum = dayNum++;
+        this.dayNum = dayNum+1;
     }
 }

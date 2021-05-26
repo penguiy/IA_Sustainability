@@ -50,7 +50,7 @@ public class Shop implements Screen {
         infrastructure.setFillParent(true);
 
         Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
-        bgPixmap.setColor(0,0,0,0.7f);
+        bgPixmap.setColor(0,0,0,0.8f);
         bgPixmap.fill();
         TextureRegionDrawable bg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
 

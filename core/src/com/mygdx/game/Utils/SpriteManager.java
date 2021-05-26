@@ -154,4 +154,7 @@ public class SpriteManager{
             interval = false;
         }
     }
+    public void wipe(){
+        //Clear all fixtures and bodies on screen
+    }
 }
