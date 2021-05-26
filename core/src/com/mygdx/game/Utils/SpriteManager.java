@@ -23,6 +23,12 @@ public class SpriteManager{
 
 
     private ArrayList<TempSprite> peopleList;
+    private ArrayList<int[]> taken;
+    private ArrayList<int[]> notTaken;
+    public void setFlagList(ArrayList<Flag> flagList) {
+        this.flagList = flagList;
+    }
+
     private ArrayList<Flag> flagList;
 
 
@@ -72,11 +78,10 @@ public class SpriteManager{
                 //Choose event, get odds
                 int flag = random.nextInt(100);
                 //if selfResolve fail
-                System.out.println(flag);
                 if (flag <= 100 - selfResolve) {
                     //Change screen display later
-                    ArrayList<int[]> taken = new ArrayList<>();
-                    ArrayList<int[]> notTaken = new ArrayList<>();
+                    taken = new ArrayList<>();
+                    notTaken = new ArrayList<>();
                     int[] yx;
                     int ground = 0;
                     int street = 0;
@@ -88,7 +93,12 @@ public class SpriteManager{
                             street++;
                         }
                     }
-                    ArrayList<ScreenDisplay> places = Con.LOCATION;
+                    System.out.println("ground: "+ ground+"\nstreet: "+street);
+                    ArrayList<ScreenDisplay> places = new ArrayList<ScreenDisplay>(){{
+                        add(ScreenDisplay.GROUND);
+                        add(ScreenDisplay.STREET);
+                    }};
+                    System.out.println(places);
                     if(ground == Con.FULL){
                         places.remove(ScreenDisplay.GROUND);
                     }
@@ -96,6 +106,7 @@ public class SpriteManager{
                         places.remove(ScreenDisplay.STREET);
                     }
                     //Make bubble appear
+                    System.out.println(places);
                     if(!places.isEmpty()) {
                         int location = random.nextInt(places.size());
                         switch (places.get(location)) {
@@ -136,8 +147,8 @@ public class SpriteManager{
                             default:
                                 break;
                         }
+                        System.out.println("Self Resolve Fail");
                     }
-                    System.out.println("Self Resolve Fail");
                 } else {
                     //add points
                     game.getPlayer().addPoints(Con.BASE_POINTS.get(Con.TRIGGERS[index]) * game.getPlayer().getMulti().get(Con.TRIGGERS[index]));

@@ -90,17 +90,15 @@ public class GroundFloor implements Screen {
         for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.update(dt);
         }
-        for (Flag flag: myGame.getSpriteManager().getFlagList()) {
-            if(flag.isBodyDefined()) {
-                flag.update();
+        for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
+            if(myGame.getSpriteManager().getFlagList().get(i).isBodyDefined()) {
+                myGame.getSpriteManager().getFlagList().get(i).update();
             }
-            if(flag.isClicked()){
-                if(flag.getScreen().equals(ScreenDisplay.GROUND)) {
-                    world.destroyBody(flag.getBody());
+            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
+                if(myGame.getSpriteManager().getFlagList().get(i).getScreen().equals(ScreenDisplay.GROUND)) {
+                    world.destroyBody(myGame.getSpriteManager().getFlagList().get(i).getBody());
                 }
             }
-        }
-        for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
             if(myGame.getSpriteManager().getFlagList().get(i).isClicked()&& myGame.getSpriteManager().getFlagList().get(i).getScreen() == ScreenDisplay.GROUND){
                 myGame.getSpriteManager().getFlagList().remove(i);
                 i--;
@@ -118,8 +116,9 @@ public class GroundFloor implements Screen {
 
     @Override
     public void render(float delta) {
-        update(delta);
-        //handleInput();
+        if(!(myGame.getDisplaying().equals(ScreenDisplay.PAUSE)||myGame.getDisplaying().equals(ScreenDisplay.DAYEND))) {
+            update(delta);
+        }
         streetNavi.update(delta);
         Gdx.gl.glClearColor(0, 1, 1 ,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -85,21 +85,19 @@ public class StreetView implements Screen {
         for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.update(dt);
         }
-        //Update positions of all the flags
-        for (Flag flag: myGame.getSpriteManager().getFlagList()) {
-            if(flag.isBodyDefined()) {
-                flag.update();
-            }
-            if(flag.isClicked()){
-                //If the flag is clicked destroy that flag
-                if(flag.getScreen().equals(ScreenDisplay.STREET)) {
-                    world.destroyBody(flag.getBody());
-                }
-            }
-        }
         car.dropOff(dt);
         car2.dropOff(dt);
+        //Update positions of all the flags
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
+            if(myGame.getSpriteManager().getFlagList().get(i).isBodyDefined()) {
+                myGame.getSpriteManager().getFlagList().get(i).update();
+            }
+            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
+                //If the flag is clicked destroy that flag
+                if(myGame.getSpriteManager().getFlagList().get(i).getScreen().equals(ScreenDisplay.STREET)) {
+                    world.destroyBody(myGame.getSpriteManager().getFlagList().get(i).getBody());
+                }
+            }
             if(myGame.getSpriteManager().getFlagList().get(i).isClicked() && myGame.getSpriteManager().getFlagList().get(i).getScreen() == ScreenDisplay.STREET){
                 myGame.getSpriteManager().getFlagList().remove(i);
                 i--;
@@ -131,6 +129,7 @@ public class StreetView implements Screen {
         //Draw Cars
         car.draw(myGame.getBatch());
         car2.draw(myGame.getBatch());
+
         //Draw every Person that is in StreetView
         for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.draw(myGame.getBatch());

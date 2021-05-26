@@ -23,8 +23,11 @@ import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.Tile;
 import com.mygdx.game.Screens.TitleScreen;
+import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Utils.InputListener;
 import com.mygdx.game.Utils.SpriteManager;
+
+import java.util.ArrayList;
 
 public class Main extends Game {
 	private SpriteBatch batch;
@@ -120,10 +123,21 @@ public class Main extends Game {
 		cont.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				//Problem where all on clicked are being deleted and the bodies on the ground screen arent destroyed yet
 				spriteManager.wipe();
+				for (Flag flag: spriteManager.getFlagList()) {
+					if(flag.isBodyDefined()) {
+						flag.update();
+					}
+					if(flag.isClicked()){
+						if(flag.getScreen().equals(ScreenDisplay.GROUND)) {
+							groundFloor.getWorld().destroyBody(flag.getBody());
+						}else if(flag.getScreen().equals(ScreenDisplay.STREET)){
+							streetView.getWorld().destroyBody(flag.getBody());
+						}
+					}
+				}
+				spriteManager.setFlagList(new ArrayList<Flag>());
 				displaying = ScreenDisplay.STREET;
-				System.out.println(spriteManager.getFlagList());
 				return false;
 			}
 		});

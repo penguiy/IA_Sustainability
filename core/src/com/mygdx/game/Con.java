@@ -15,8 +15,8 @@ public class Con {
     public static final int NAVI_WIDTH = 25;
     public static final int NAVI_HEIGHT = 25;
     public static final int STREET_NAVI_Y = 168;
-    public static final int FINAL_HOUR = 15;
-    public static final int FINAL_MIN = 59;
+    public static final int FINAL_HOUR = 16;
+    public static final int FINAL_MIN = 0;
     public static final double STANDARD_TIME = 1.6;
 
 
