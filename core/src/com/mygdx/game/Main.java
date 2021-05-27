@@ -147,7 +147,8 @@ public class Main extends Game {
 		dayEnd.addActor(table);
 
 		inputMultiplexer.addProcessor(inputListener);
-		inputMultiplexer.addProcessor(shop.getStage());
+		inputMultiplexer.addProcessor(shop.getStageFirst());
+		inputMultiplexer.addProcessor(shop.getStageClass());
 		inputMultiplexer.addProcessor(dayEnd);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
@@ -157,6 +158,7 @@ public class Main extends Game {
 	public void render(){
 		super.render();
 		if(displaying.equals(ScreenDisplay.PAUSE)){
+			shop.getStage().act();
 			shop.getStage().draw();
 		} else if(displaying.equals(ScreenDisplay.DAYEND)){
 			dayEnd.draw();

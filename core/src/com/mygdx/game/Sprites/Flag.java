@@ -126,14 +126,7 @@ public class Flag extends Sprite {
      * Add points to the Player object based on the multiplier
      */
     public void addPoints(){
-        game.getPlayer().addPoints(Con.BASE_POINTS.get(type) * game.getPlayer().getMulti().get(type));
-    }
-
-    public boolean equals(Flag flag){
-        if(this.body == flag.getBody()){
-            return true;
-        }
-        return false;
+        game.getPlayer().addPoints((int)(Con.BASE_POINTS.get(type) * game.getPlayer().getMulti().get(type)));
     }
 
 

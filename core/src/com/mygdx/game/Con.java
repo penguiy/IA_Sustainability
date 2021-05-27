@@ -59,19 +59,19 @@ public class Con {
         put("AC", 0);
         put("TRASH", 0);
     }};
-    public static final HashMap<String,Integer> BASE_MULTI = new HashMap<String,Integer>(){{
-        put("WATER", 1);
-        put("FOOD", 1);
-        put("LIGHT", 1);
-        put("AC", 1);
-        put("TRASH", 1);
+    public static final HashMap<String, Double> BASE_MULTI = new HashMap<String,Double>(){{
+        put("WATER", 1.0);
+        put("FOOD", 1.0);
+        put("LIGHT", 1.0);
+        put("AC", 1.0);
+        put("TRASH", 1.0);
     }};
     public static final HashMap<String,Integer> BASE_POINTS = new HashMap<String,Integer>(){{
-        put("WATER", 1);
-        put("FOOD", 1);
-        put("LIGHT", 1);
-        put("AC", 1);
-        put("TRASH", 1);
+        put("WATER", 10);
+        put("FOOD", 10);
+        put("LIGHT", 10);
+        put("AC", 10);
+        put("TRASH", 10);
     }};
 
     //GROUND FLOOR FLAG POSITIONS
@@ -104,9 +104,6 @@ public class Con {
             add(new int[]{6, 32});
             add(new int[]{20, 27});
             add(new int[]{19,11});
-
-
-
     }};
     public static final int FULL = 11;
 
@@ -115,5 +112,8 @@ public class Con {
     public static final String LIGHT_WASTE = "LIGHT";
     public static final String AC_WASTE = "AC";
     public static final String TRASH_WASTE = "TRASH";
+    public static final double MULTI_GROWTH = 0.2;
+    public static final int CLASS_PRICE = 200;
+    public static final int INFRA_PRICE = 300;
 
 }

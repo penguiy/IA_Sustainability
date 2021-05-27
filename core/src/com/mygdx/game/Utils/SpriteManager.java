@@ -70,7 +70,6 @@ public class SpriteManager{
         if(!interval) {
             if (game.getHud().getMinutes() % 10 == 0) {
                 //make sure this only runs once
-                System.out.println("Flag HAPPENED");
                 //Choose area
                 Random random = new Random();
                 int index = random.nextInt(5);
@@ -148,10 +147,11 @@ public class SpriteManager{
                                 break;
                         }
                         System.out.println("Self Resolve Fail");
+                        System.out.println("Flag HAPPENED : " + flagList.get(flagList.size()-1).getType());
                     }
                 } else {
                     //add points
-                    game.getPlayer().addPoints(Con.BASE_POINTS.get(Con.TRIGGERS[index]) * game.getPlayer().getMulti().get(Con.TRIGGERS[index]));
+                    game.getPlayer().addPoints((int)(Con.BASE_POINTS.get(Con.TRIGGERS[index]) * game.getPlayer().getMulti().get(Con.TRIGGERS[index])));
                     System.out.println("Self Resolve Success");
                 }
                 interval = true;
@@ -161,6 +161,10 @@ public class SpriteManager{
             interval = false;
         }
     }
+
+    /**
+     * set boolean "clicked" of all flags in flagList to true
+     */
     public void wipe(){
         for(Flag flag : flagList){
             flag.setClicked(true);
