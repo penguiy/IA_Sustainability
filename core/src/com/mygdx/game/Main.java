@@ -88,7 +88,11 @@ public class Main extends Game {
 
 		batch = new SpriteBatch();
 		if(pref.getBoolean(Con.FILE_EXISTS)){
-			//load player
+			//TODO MAKE A LOAD PLAYER FUCTION
+			//TODO MAKE A DELETE SAVE FUNCTION
+			pref.clear();
+			pref.flush();
+			System.out.println("LOAD PLAYER SAVE");
 		}
 		else{
 			player = new Player();
@@ -129,6 +133,7 @@ public class Main extends Game {
 		save.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				pref.putBoolean(Con.FILE_EXISTS, true);
 				pref.putInteger(Con.DAY_NUM, player.getDayNum());
 				pref.putInteger(Con.POINTS, player.getPoints());
 				pref.putString(Con.ODDS, H2S(player.getOdds()));
