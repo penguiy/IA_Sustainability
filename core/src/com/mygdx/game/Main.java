@@ -29,6 +29,8 @@ import com.mygdx.game.Utils.InputListener;
 import com.mygdx.game.Utils.SpriteManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class Main extends Game {
 	private SpriteBatch batch;
@@ -127,8 +129,16 @@ public class Main extends Game {
 		save.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				System.out.println("save");
-				//pref.putInteger(Con.DAY_NUM,player.getDayNum());
+				pref.putInteger(Con.DAY_NUM, player.getDayNum());
+				pref.putInteger(Con.POINTS, player.getPoints());
+				pref.putString(Con.ODDS, H2S(player.getOdds()));
+				pref.putString(Con.MULTI, H2S(player.getMulti()));
+				pref.putString(Con.CLASS_COUNT, H2S(player.getClassCount()));
+				pref.putString(Con.INFRA_COUNT, H2S(player.getInfraCount()));
+				pref.putString(Con.INFRA_PURCHASE, player.getInfraPurchase().toString().substring(1,
+						player.getInfraPurchase().toString().length()-1));
+				pref.flush();
+				System.out.println("DONE");
 				return false;
 			}
 		});
@@ -136,6 +146,7 @@ public class Main extends Game {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				spriteManager.wipe();
+				shop.toggleShop(true);
 				for (Flag flag: spriteManager.getFlagList()) {
 					if(flag.isBodyDefined()) {
 						flag.update();
@@ -177,6 +188,7 @@ public class Main extends Game {
 			shop.getStage().draw();
 
 		} else if(displaying.equals(ScreenDisplay.DAYEND)){
+			shop.toggleShop(false);
 			dayEnd.draw();
 		}
 		if (displaying != prevDisplayed) {
@@ -265,4 +277,30 @@ public class Main extends Game {
 		return layout;
 	}
 
+	public HashMap<String, Double> reconHashDouble(String str){
+		HashMap<String,Double> TBR = new HashMap<String,Double>();
+		String[] list = str.split(", ");
+		for(String string : list){
+			String[] keyVal = string.split("=");
+			TBR.put(keyVal[0], Double.parseDouble(keyVal[1]));
+		}
+		return TBR;
+	}
+	public HashMap<String, Integer> reconHashInt(String str){
+		HashMap<String,Integer> TBR = new HashMap<String,Integer>();
+		String[] list = str.split(", ");
+		for(String string : list){
+			String[] keyVal = string.split("=");
+			TBR.put(keyVal[0], Integer.parseInt(keyVal[1]));
+		}
+		return TBR;
+	}
+	public ArrayList<String> reconArrayList(String str){
+		String[] list = str.split(", ");
+		ArrayList<String> TBR = new ArrayList<String>(Arrays.asList(list));
+		return TBR;
+	}
+	public String H2S(HashMap hm){
+		return hm.toString().substring(1,hm.toString().length()-1);
+	}
 }

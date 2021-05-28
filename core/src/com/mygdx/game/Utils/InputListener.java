@@ -31,7 +31,6 @@ public class InputListener implements InputProcessor {
                         actor.setTouchable(Touchable.enabled);
                     }
                     game.changeScreen(ScreenDisplay.PAUSE);
-
                 } else{
                     game.getShop().reset();
                     game.changeScreen(prePause);

@@ -121,5 +121,11 @@ public class Con {
     public static final String SAVE_FILE = "PLAYER-SAVE";
     public static final String FILE_EXISTS = "FILE_EXISTS";
     public static final String DAY_NUM = "DAY_NUM";
+    public static final String POINTS = "POINTS";
+    public static final String INFRA_COUNT = "INFRA_COUNT";
+    public static final String CLASS_COUNT = "CLASS_COUNT";
+    public static final String INFRA_PURCHASE = "INFRA_PURCHASE";
+    public static final String MULTI = "MULTI";
+    public static final String ODDS = "ODDS";
 
 }

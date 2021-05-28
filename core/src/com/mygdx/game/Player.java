@@ -17,8 +17,8 @@ import java.util.HashMap;
 public class Player {
     private int balance;
     private int  dayNum;
-    private HashMap<String, Integer> odds;
     private HashMap<String, Double> multiplier;
+    private HashMap<String, Integer> odds;
     private HashMap<String, Integer> classCount;
     private HashMap<String, Integer> infraCount;
     private ArrayList<String> infraPurchase;
@@ -34,8 +34,8 @@ public class Player {
         this.classCount = classCount;
         this.infraCount = infraCount;
         this.infraPurchase = infraPurchase;
-        this.infraPrice = infraPrice;
-        this.classPrice = classPrice;
+        this.infraPrice = Con.INFRA_PRICE;
+        this.classPrice = Con.CLASS_PRICE;
     }
 
     public Player() {

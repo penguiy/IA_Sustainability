@@ -413,4 +413,23 @@ public class Shop implements Screen {
         infraTable.add(infraScroll).colspan(2).fill();
         infraTable.setTouchable(Touchable.enabled);
     }
+    public void toggleShop(boolean on){
+        Touchable touchable;
+        if(on){
+            touchable = Touchable.enabled;
+        } else{
+            touchable = Touchable.disabled;
+        }
+
+        for (Actor actor: stageFirst.getActors()) {
+            actor.setTouchable(touchable);
+
+        }
+        for (Actor actor : stageInfra.getActors()) {
+            actor.setTouchable(touchable);
+        }
+        for (Actor actor : stageClass.getActors()) {
+            actor.setTouchable(touchable);
+        }
+    }
 }
