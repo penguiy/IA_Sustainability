@@ -155,5 +155,4 @@ public class Player {
         return (int)(Math.pow(2, classCount.get(field)) * classPrice);
     }
 
-    //TODO If odds at 100 disable touchable
 }

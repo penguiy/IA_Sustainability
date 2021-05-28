@@ -2,6 +2,8 @@ package com.mygdx.game.Utils;
 
 import com.badlogic.gdx.Input.*;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Screens.Fade;
@@ -25,7 +27,11 @@ public class InputListener implements InputProcessor {
             if(game.getDisplaying()!=ScreenDisplay.DAYEND) {
                 if (!game.getDisplaying().equals(ScreenDisplay.PAUSE)){
                     prePause = game.getDisplaying();
+                    for(Actor actor : game.getShop().getStageClass().getActors()){
+                        actor.setTouchable(Touchable.enabled);
+                    }
                     game.changeScreen(ScreenDisplay.PAUSE);
+
                 } else{
                     game.getShop().reset();
                     game.changeScreen(prePause);

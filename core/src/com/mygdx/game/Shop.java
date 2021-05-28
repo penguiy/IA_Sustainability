@@ -118,6 +118,9 @@ public class Shop implements Screen {
                 //Clause to not overlap the input processors
                 if(mainStage.equals(stageFirst)) {
                     //Change mainStage to infrastructure tab
+                    for(Actor actor : stageClass.getActors()){
+                        actor.setTouchable(Touchable.disabled);
+                    }
                     mainStage = stageInfra;
                 }
                 return false;
@@ -283,14 +286,12 @@ public class Shop implements Screen {
             Label label = new Label(Integer.toString(game.getPlayer().getClassPrice(str)),labelStyle);
             classDetails.setSize(200, 20);
             classDetails.setTransform(false);
-           // button.setTouchable(Touchable.enabled);
+            button.setTouchable(Touchable.enabled);
             button.addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                 //   if(mainStage.equals(stageClass)) {
                         classClick(str);
                         labelUpdateClass();
-                   // }
                     return false;
                 }
             });
@@ -358,10 +359,8 @@ public class Shop implements Screen {
             button.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                  //  if (mainStage.equals(stageInfra)) {
                         infraClick(str);
                         labelUpdateInfra();
-                    //}
                     return false;
                 }
             });
@@ -400,6 +399,9 @@ public class Shop implements Screen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //If on not on first stage, change to first stage
                 if(mainStage.equals(stageInfra)) {
+                    for(Actor actor : stageClass.getActors()){
+                        actor.setTouchable(Touchable.enabled);
+                    }
                     mainStage = stageFirst;
                 }
                 return false;

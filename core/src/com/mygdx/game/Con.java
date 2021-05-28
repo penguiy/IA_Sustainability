@@ -116,4 +116,10 @@ public class Con {
     public static final int CLASS_PRICE = 50;
     public static final int INFRA_PRICE = 150;
 
+
+    //Saving Constants
+    public static final String SAVE_FILE = "PLAYER-SAVE";
+    public static final String FILE_EXISTS = "FILE_EXISTS";
+    public static final String DAY_NUM = "DAY_NUM";
+
 }

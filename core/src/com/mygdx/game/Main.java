@@ -4,6 +4,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -76,11 +77,20 @@ public class Main extends Game {
 
 	private boolean transition;
 
+	private Preferences pref;
+
 
 	@Override
 	public void create () {
+		pref = Gdx.app.getPreferences(Con.SAVE_FILE);
+
 		batch = new SpriteBatch();
-		player = new Player();
+		if(pref.getBoolean(Con.FILE_EXISTS)){
+			//load player
+		}
+		else{
+			player = new Player();
+		}
 		hud = new Hud(this);
 
 		spriteManager = new SpriteManager(this, hud);
@@ -110,6 +120,7 @@ public class Main extends Game {
 		TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
 		style.font = new BitmapFont();
 
+
 		TextButton save = new TextButton("SAVE", style);
 		TextButton cont = new TextButton("CONTINUE", style);
 
@@ -117,6 +128,7 @@ public class Main extends Game {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				System.out.println("save");
+				//pref.putInteger(Con.DAY_NUM,player.getDayNum());
 				return false;
 			}
 		});
@@ -252,4 +264,5 @@ public class Main extends Game {
 	public Tile[][] getLayout() {
 		return layout;
 	}
+
 }
