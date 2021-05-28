@@ -160,6 +160,7 @@ public class Main extends Game {
 		if(displaying.equals(ScreenDisplay.PAUSE)){
 			shop.getStage().act();
 			shop.getStage().draw();
+
 		} else if(displaying.equals(ScreenDisplay.DAYEND)){
 			dayEnd.draw();
 		}

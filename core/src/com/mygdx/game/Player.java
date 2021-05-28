@@ -32,8 +32,20 @@ public class Player {
         this.balance = 0;
         this.odds = Con.BASE_ODDS;
         this.multiplier = Con.BASE_MULTI;
-        this.classCount = new HashMap<String, Integer>();
-        this.infraCount = new HashMap<String, Integer>();
+        this.classCount = new HashMap<String, Integer>(){{
+            put("WATER", 1);
+            put("FOOD", 1);
+            put("LIGHT", 1);
+            put("AC", 1);
+            put("TRASH", 1);
+        }};
+        this.infraCount = new HashMap<String, Integer>(){{
+            put("WATER", 1);
+            put("FOOD", 1);
+            put("LIGHT", 1);
+            put("AC", 1);
+            put("TRASH", 1);
+        }};
         this.infraPurchase = new ArrayList<String>();
         this.infraPrice = Con.INFRA_PRICE;
         this.classPrice = Con.CLASS_PRICE;
@@ -120,10 +132,7 @@ public class Player {
      * @return price of Multiplier after factoring in purchase count.
      */
     public int getInfraPrice(String field) {
-        if(infraCount.containsKey(field)){
-            return infraCount.get(field) * infraPrice;
-        }
-        return infraPrice;
+        return infraCount.get(field) * infraPrice;
     }
 
     /**
@@ -133,10 +142,7 @@ public class Player {
      * @return price of Multiplier after factoring in purchase count.
      */
     public int getClassPrice(String field) {
-        if(classCount.containsKey(field)){
-            return classCount.get(field) * classPrice;
-        }
-        return classPrice;
+        return classCount.get(field) * classPrice;
     }
 
 }

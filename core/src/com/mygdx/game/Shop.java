@@ -51,6 +51,15 @@ public class Shop implements Screen {
     private Stage stageClass;
     private Stage stageInfra;
 
+    private TextButton exit;
+
+    public boolean isClassTab(){
+        return mainStage.equals(stageClass);
+    }
+    public boolean isInfraTab(){
+        return mainStage.equals(stageInfra);
+    }
+
     private Table first;
     private Table classesTable;
     private Table classScrollContainter;
@@ -89,7 +98,7 @@ public class Shop implements Screen {
         style.font = new BitmapFont();
 
         //Create an exit button
-        TextButton exit = new TextButton("Back", style);
+        exit = new TextButton("Back", style);
         exit.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -148,47 +157,8 @@ public class Shop implements Screen {
         //Initialise scrolling table
         classScrollContainter = new Table();
         //For every type of flag create a button and add to scrolling table
-        for(final String str : Con.TRIGGERS){
-            Group classDetails = new Group();//TODO use this to also add in the price of the upgrade to the ScrollPane
-            final TextButton button = new TextButton(str, style);
-            button.setTouchable(Touchable.enabled);
-            button.addListener(new InputListener(){
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    if(mainStage.equals(stageClass)) {
-                        classClick(str);
-                    }
-                    return false;
-                }
-            });
-            classScrollContainter.add(button).size(200, 20).pad(10);
-        }
-        classScrollContainter.row();
-        //Add a scroll bar so people don't accidentally purchase things
-        classScrollContainter.add(new Label("CLICK AND DRAG HERE TO SCROLL", new Label.LabelStyle(new BitmapFont(),
-                Color.WHITE))).colspan(5).expandX();
-        classScrollContainter.debug(); //Temp
 
-        //Formatting stuff
-        classScrollContainter.pack();
-        classScrollContainter.setTransform(false);
-        classScrollContainter.setOrigin(classScrollContainter.getWidth() / 2,
-                classScrollContainter.getHeight() / 2);
-
-        //Add the scrollTable to the ScrollPane
-        ScrollPane.ScrollPaneStyle scrollStyle = new ScrollPane.ScrollPaneStyle();
-        classScroll = new ScrollPane(classScrollContainter, scrollStyle);
-        classScroll.layout();
-
-        //Set to only horizontal scrolling
-        classScroll.setScrollingDisabled(false,true);
-
-        //Add Header to big table
-        classesTable.add(new Label("CLASSES", new Label.LabelStyle(new BitmapFont(), Color.WHITE))).expandX();
-        classesTable.add(exit).pad(4);
-        classesTable.row();
-        //Add ScrollPanel to big table
-        classesTable.add(classScroll).colspan(2).fill();
+        labelUpdateClass();
 
         //TODO DUPLICATE ABOVE FOR INFRASTRUCTURE TAB
 
@@ -215,7 +185,7 @@ public class Shop implements Screen {
             //Add 0.2 to the current multiplier
             game.getPlayer().setMultiplier(str, Con.MULTI_GROWTH);
             //Count how many times it's been updgraded
-            increaseCount(game.getPlayer().getClassCount(), str);
+            increaseCount(game.getPlayer().getClassCount(), str); //TODO not working
             //Subtract payment
             game.getPlayer().subPoints(0/*game.getPlayer().getClassPrice()*/);
             //Temp print statement
@@ -290,11 +260,62 @@ public class Shop implements Screen {
 
     }
     public void increaseCount(HashMap<String, Integer> counter, String section){
-        if(!counter.containsKey(section)){
-            counter.put(section,1);
+        counter.put(section,counter.get(section+1));
+    }
+
+    public void labelUpdateClass(){
+        classScrollContainter.clear();
+        classesTable.clear();
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = new BitmapFont();
+        for(final String str : Con.TRIGGERS){
+            Group classDetails = new Group(); //TODO use this to also add in the price of the upgrade to the ScrollPane
+            final TextButton button = new TextButton(str, style);
+            classDetails.setSize(200, 20);
+            classDetails.setTransform(false);
+            button.setTouchable(Touchable.enabled);
+            button.addListener(new InputListener(){
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    if(mainStage.equals(stageClass)) {
+                        classClick(str);
+                        labelUpdateClass();
+                    }
+                    return false;
+                }
+            });
+            button.setFillParent(true);
+            classDetails.addActor(button);
+            classDetails.addActor(new Label(Integer.toString(game.getPlayer().getClassPrice(str)),
+                    new Label.LabelStyle(new BitmapFont(),
+                            Color.WHITE)));
+            classScrollContainter.add(classDetails).size(200, 20).pad(10);
         }
-        else{
-            counter.put(section,counter.get(section+1));
-        }
+        classScrollContainter.row();
+        //Add a scroll bar so people don't accidentally purchase things
+        classScrollContainter.add(new Label("CLICK AND DRAG HERE TO SCROLL", new Label.LabelStyle(new BitmapFont(),
+                Color.WHITE))).colspan(5).expandX();
+        classScrollContainter.debug(); //Temp
+
+        //Formatting stuff
+        classScrollContainter.pack();
+        classScrollContainter.setTransform(false);
+        classScrollContainter.setOrigin(classScrollContainter.getWidth() / 2,
+                classScrollContainter.getHeight() / 2);
+
+        //Add the scrollTable to the ScrollPane
+        ScrollPane.ScrollPaneStyle scrollStyle = new ScrollPane.ScrollPaneStyle();
+        classScroll = new ScrollPane(classScrollContainter, scrollStyle);
+        classScroll.layout();
+
+        //Set to only horizontal scrolling
+        classScroll.setScrollingDisabled(false,true);
+
+        //Add Header to big table
+        classesTable.add(new Label("CLASSES", new Label.LabelStyle(new BitmapFont(), Color.WHITE))).expandX();
+        classesTable.add(exit).pad(4);
+        classesTable.row();
+        //Add ScrollPanel to big table
+        classesTable.add(classScroll).colspan(2).fill();
     }
 }
