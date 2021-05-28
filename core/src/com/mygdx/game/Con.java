@@ -113,7 +113,7 @@ public class Con {
     public static final String AC_WASTE = "AC";
     public static final String TRASH_WASTE = "TRASH";
     public static final double MULTI_GROWTH = 0.2;
-    public static final int CLASS_PRICE = 200;
-    public static final int INFRA_PRICE = 300;
+    public static final int CLASS_PRICE = 50;
+    public static final int INFRA_PRICE = 150;
 
 }

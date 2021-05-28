@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -51,8 +53,6 @@ public class Shop implements Screen {
     private Stage stageClass;
     private Stage stageInfra;
 
-    private TextButton exit;
-
     public boolean isClassTab(){
         return mainStage.equals(stageClass);
     }
@@ -63,7 +63,7 @@ public class Shop implements Screen {
     private Table first;
     private Table classesTable;
     private Table classScrollContainter;
-    private Table infrastructure;
+    private Table infraTable;
     private Table infraScrollContainter;
 
 
@@ -98,15 +98,16 @@ public class Shop implements Screen {
         style.font = new BitmapFont();
 
         //Create an exit button
-        exit = new TextButton("Back", style);
+        TextButton exit = new TextButton("EXIT", style);
         exit.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //If on not on first stage, change to first stage
-                    if(!mainStage.equals(stageFirst)) {
-                        mainStage = stageFirst;
+                    if(mainStage.equals(stageFirst)) {
+                        game.getInputListener().keyDown(Input.Keys.M);
                     }
                 return false;
+
         }
         });
         //Create Shop button
@@ -137,6 +138,8 @@ public class Shop implements Screen {
         //Add both to table
         first.add(shop).expandX();
         first.add(event).expandX();
+        first.row();
+        first.add(exit).colspan(2).expandX().pad(8);
         first.debug();//Temp
         //Add table to stage
         stageFirst.addActor(first);
@@ -156,19 +159,19 @@ public class Shop implements Screen {
 
         //Initialise scrolling table
         classScrollContainter = new Table();
+        infraScrollContainter = new Table();
         //For every type of flag create a button and add to scrolling table
 
         labelUpdateClass();
 
-        //TODO DUPLICATE ABOVE FOR INFRASTRUCTURE TAB
+        infraTable = new Table();
+        infraTable.setFillParent(true);
+        infraTable.debug();
+        infraTable.setBackground(bg);
 
-        infrastructure = new Table();
-        infrastructure.setFillParent(true);
-        infrastructure.setBackground(bg);
+        labelUpdateInfra();
 
-        infrastructure.add(new Label("Infrastructure",new Label.LabelStyle(new BitmapFont(), Color.WHITE)));
-        infrastructure.debug();
-        stageInfra.addActor(infrastructure);
+        stageInfra.addActor(infraTable);
     }
 
     /**
@@ -193,6 +196,7 @@ public class Shop implements Screen {
 
         }else{
             //Invalid Funds : deny payment
+            System.out.println("Something went wrong");
             //TODO put up notif
         }
     }
@@ -206,7 +210,7 @@ public class Shop implements Screen {
      */
     public void infraClick(String str){
         //If player has enough funds
-        if(game.getPlayer().getPoints() >= game.getPlayer().getInfraPrice(str)){
+        if(game.getPlayer().getPoints()>= 0/*game.getPlayer().getInfraPrice(str)*/) {
             game.getPlayer().setOdds(str,10);
             //Use this to trigger Screen classes to render infrastructure Layers
             if(!game.getPlayer().getInfraPurchase().contains(str)){
@@ -214,8 +218,9 @@ public class Shop implements Screen {
             }
             increaseCount(game.getPlayer().getInfraCount(), str);
             game.getPlayer().subPoints(0/*game.getPlayer().getInfraPrice()*/);
+            System.out.println(game.getPlayer().getOdds());
         }else{
-            //Invalid Funds
+            System.out.println("Something went wrong");
         }
     }
 
@@ -259,43 +264,48 @@ public class Shop implements Screen {
     public void dispose() {
 
     }
+
     public void increaseCount(HashMap<String, Integer> counter, String section){
-        counter.put(section,counter.get(section+1));
+        counter.put(section,counter.get(section)+1);
     }
 
+    //TODO Test a method similar to this where I only change the ArrayList of Buttons rather than reAdding the
+    // entire scrollPane
     public void labelUpdateClass(){
         classScrollContainter.clear();
         classesTable.clear();
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
         style.font = new BitmapFont();
         for(final String str : Con.TRIGGERS){
-            Group classDetails = new Group(); //TODO use this to also add in the price of the upgrade to the ScrollPane
+            Group classDetails = new Group();
             final TextButton button = new TextButton(str, style);
+            Label label = new Label(Integer.toString(game.getPlayer().getClassPrice(str)),labelStyle);
             classDetails.setSize(200, 20);
             classDetails.setTransform(false);
-            button.setTouchable(Touchable.enabled);
+           // button.setTouchable(Touchable.enabled);
             button.addListener(new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    if(mainStage.equals(stageClass)) {
+                 //   if(mainStage.equals(stageClass)) {
                         classClick(str);
                         labelUpdateClass();
-                    }
+                   // }
                     return false;
                 }
             });
             button.setFillParent(true);
+            label.setFillParent(true);
+            button.setPosition(10,-2);
+            label.setPosition(10,11.5f);
+            classDetails.addActor(label);
             classDetails.addActor(button);
-            classDetails.addActor(new Label(Integer.toString(game.getPlayer().getClassPrice(str)),
-                    new Label.LabelStyle(new BitmapFont(),
-                            Color.WHITE)));
+            classDetails.debugAll();
             classScrollContainter.add(classDetails).size(200, 20).pad(10);
         }
         classScrollContainter.row();
         //Add a scroll bar so people don't accidentally purchase things
-        classScrollContainter.add(new Label("CLICK AND DRAG HERE TO SCROLL", new Label.LabelStyle(new BitmapFont(),
-                Color.WHITE))).colspan(5).expandX();
-        classScrollContainter.debug(); //Temp
+        classScrollContainter.add(new Label("CLICK AND DRAG HERE TO SCROLL", labelStyle)).colspan(5).expandX();
 
         //Formatting stuff
         classScrollContainter.pack();
@@ -313,9 +323,92 @@ public class Shop implements Screen {
 
         //Add Header to big table
         classesTable.add(new Label("CLASSES", new Label.LabelStyle(new BitmapFont(), Color.WHITE))).expandX();
+        TextButton exit = new TextButton("Back", style);
+        exit.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                //If on not on first stage, change to first stage
+                if(mainStage.equals(stageClass)) {
+                    mainStage = stageFirst;
+                }
+                return false;
+            }
+        });
         classesTable.add(exit).pad(4);
         classesTable.row();
         //Add ScrollPanel to big table
         classesTable.add(classScroll).colspan(2).fill();
+        classesTable.setTouchable(Touchable.enabled);
+    }
+
+    //TODO If odds at 100 disable touchable
+    public void labelUpdateInfra() {
+        infraScrollContainter.clear();
+        infraTable.clear();
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
+        style.font = new BitmapFont();
+        for (final String str : Con.TRIGGERS) {
+            Group infraDetails = new Group();
+            final TextButton button = new TextButton(str, style);
+            Label label = new Label(Integer.toString(game.getPlayer().getInfraPrice(str)), labelStyle);
+            infraDetails.setSize(200, 20);
+            infraDetails.setTransform(false);
+            button.setTouchable(Touchable.enabled);
+            button.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                  //  if (mainStage.equals(stageInfra)) {
+                        infraClick(str);
+                        labelUpdateInfra();
+                    //}
+                    return false;
+                }
+            });
+            button.setFillParent(true);
+            label.setFillParent(true);
+            button.setPosition(10, -2);
+            label.setPosition(10, 11);
+            infraDetails.addActor(label);
+            infraDetails.addActor(button);
+            infraDetails.debugAll();
+            infraScrollContainter.add(infraDetails).size(200, 20).pad(10);
+        }
+        infraScrollContainter.row();
+        //Add a scroll bar so people don't accidentally purchase things
+        infraScrollContainter.add(new Label("CLICK AND DRAG HERE TO SCROLL", labelStyle)).colspan(5).expandX();
+
+        //Formatting stuff
+        infraScrollContainter.pack();
+        infraScrollContainter.setTransform(false);
+        infraScrollContainter.setOrigin(infraScrollContainter.getWidth() / 2,
+                infraScrollContainter.getHeight() / 2);
+
+        //Add the scrollTable to the ScrollPane
+        ScrollPane.ScrollPaneStyle scrollStyle = new ScrollPane.ScrollPaneStyle();
+        infraScroll = new ScrollPane(infraScrollContainter, scrollStyle);
+        infraScroll.layout();
+
+        //Set to only horizontal scrolling
+        infraScroll.setScrollingDisabled(false, true);
+
+        //Add Header to big table
+        infraTable.add(new Label("INFRASTRUCTURE", new Label.LabelStyle(new BitmapFont(), Color.WHITE))).expandX();
+        TextButton exit = new TextButton("Back", style);
+        exit.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                //If on not on first stage, change to first stage
+                if(mainStage.equals(stageInfra)) {
+                    mainStage = stageFirst;
+                }
+                return false;
+            }
+        });
+        infraTable.add(exit).pad(4);
+        infraTable.row();
+        //Add ScrollPanel to big table
+        infraTable.add(infraScroll).colspan(2).fill();
+        infraTable.setTouchable(Touchable.enabled);
     }
 }
