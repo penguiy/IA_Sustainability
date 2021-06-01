@@ -23,6 +23,7 @@ public class Con {
     //File Paths/Strings
     public static final String GROUND_FLOOR_MAP = "iteration 1 - Ground floor.tmx";
     public static final String STREET_VIEW_MAP = "iteration 1 - Street view.tmx";
+    public static final String SECOND_FLOOR_MAP = "iteration 1 - Second floor.tmx";
     public static final String DAY_ICON = "icons8-calendar-30.png";
     public static final String SETTINGS_ICON = "icons8-settings-48.png";
     public static final String TIME_ICON = "icons8-clock-24.png";
@@ -32,10 +33,6 @@ public class Con {
     public static final String CAR_TEXTURE = "Car base-4.png.png";
 
     //Screen Data
-    public static final HashMap<ScreenDisplay,String> STRING_TO_MAP_DICT = new HashMap<ScreenDisplay,String>(){{
-        put(ScreenDisplay.GROUND, GROUND_FLOOR_MAP);
-        put(ScreenDisplay.STREET, STREET_VIEW_MAP);
-    }};
     public static final ArrayList<ScreenDisplay> ALL_SCREENS = new ArrayList<ScreenDisplay>(){{
         add(ScreenDisplay.GROUND);
         add(ScreenDisplay.STREET);

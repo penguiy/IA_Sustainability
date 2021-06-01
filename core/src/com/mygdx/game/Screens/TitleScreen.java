@@ -3,6 +3,7 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -15,6 +16,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Con;
@@ -38,6 +41,9 @@ public class TitleScreen implements Screen {
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
 
+    private Stage selectMenu;
+    private Table bigTable;
+
     private Vector3 touchPos;
     private Body clickBody;
 
@@ -46,35 +52,31 @@ public class TitleScreen implements Screen {
         this.myGame = game;
         this.world = new World(new Vector2(0, 0), true);
         world.setContactListener(new WorldContactListener(game));
-        box2DDebugRenderer = new Box2DDebugRenderer();
-
         mapLoader = new TmxMapLoader(); //create an instance of built-in map loader object
         map = mapLoader.load(Con.STREET_VIEW_MAP); //using map loader object, load the tiled map that you made
         renderer = new OrthogonalTiledMapRenderer(map); //render the map.
         camera = new OrthographicCamera();
-        viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera);
+        viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera); //camera variable from before
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
-
 
         touchPos = new Vector3();
 
-    }
-    //Not sure if i need
-    public void clickFixture(int x, int y){
-        BodyDef bodyDef = new BodyDef();
-        touchPos = new Vector3(x, y, 0);
-        viewport.unproject(touchPos);
-        bodyDef.position.set(touchPos.x,touchPos.y);
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        clickBody = world.createBody(bodyDef);
+        selectMenu = new Stage();
+        bigTable = new Table();
+        //TODO use similar method as shop to make the level select
 
-        FixtureDef fixtureDef = new FixtureDef();
-        CircleShape click = new CircleShape();
-        click.setRadius(4);
-        fixtureDef.shape = click;
-        clickBody.createFixture(fixtureDef).setUserData(this);
+        Gdx.input.setInputProcessor(game.getInputListener());
     }
 
+    private void update(float dt)
+    {
+        camera.update();
+        renderer.setView(camera); //sets the view from our camera so it would render only what our camera can see.
+        if(clickBody != null) {
+            world.destroyBody(clickBody);
+            clickBody = null;
+        }
+    }
     @Override
     public void show() {
 
@@ -82,11 +84,22 @@ public class TitleScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        update(delta);
+        //clear screen
+        Gdx.gl.glClearColor(0, 1 , 1 ,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        renderer.render();
+
+        myGame.getBatch().begin(); //open batch
+
+
+        myGame.getBatch().end(); //close the batch
+        myGame.getBatch().setProjectionMatrix(camera.combined); //updates our batch with our Camera's view and projection matrices.
     }
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height); //viewport gets adjusted accordingly
     }
 
     @Override
@@ -106,6 +119,7 @@ public class TitleScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        map.dispose();
+        renderer.dispose();
     }
 }

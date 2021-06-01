@@ -57,8 +57,6 @@ public class InputListener implements InputProcessor {
                 ((StreetView) game.getScreen()).clickFixture(x,y);
             }else if(game.getScreen() instanceof GroundFloor){
                 ((GroundFloor) game.getScreen()).clickFixture(x,y);
-            }else if(game.getScreen() instanceof TitleScreen){
-                ((TitleScreen) game.getScreen()).clickFixture(x,y);
             }
         }
         return false;

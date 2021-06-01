@@ -108,8 +108,8 @@ public class Main extends Game {
 
 		displaying = ScreenDisplay.STREET;
 		prevDisplayed = ScreenDisplay.STREET;;
-		currScreen = new Fade(this);
-		//currScreen = titleScreen;
+		//currScreen = new Fade(this);
+		currScreen = titleScreen;
 		setScreen(currScreen);
 		render();
 		inputMultiplexer = new InputMultiplexer();

@@ -53,13 +53,6 @@ public class Shop implements Screen {
     private Stage stageClass;
     private Stage stageInfra;
 
-    public boolean isClassTab(){
-        return mainStage.equals(stageClass);
-    }
-    public boolean isInfraTab(){
-        return mainStage.equals(stageInfra);
-    }
-
     private Table first;
     private Table classesTable;
     private Table classScrollContainter;
@@ -191,7 +184,7 @@ public class Shop implements Screen {
             //Add 0.2 to the current multiplier
             game.getPlayer().setMultiplier(str, Con.MULTI_GROWTH);
             //Count how many times it's been updgraded
-            increaseCount(game.getPlayer().getClassCount(), str); //TODO not working
+            increaseCount(game.getPlayer().getClassCount(), str);
             //Subtract payment
             game.getPlayer().subPoints(0/*game.getPlayer().getClassPrice()*/);
             //Temp print statement
@@ -214,7 +207,7 @@ public class Shop implements Screen {
     public void infraClick(String str){
         //If player has enough funds
         if(game.getPlayer().getPoints()>= 0/*game.getPlayer().getInfraPrice(str)*/) {
-            game.getPlayer().setOdds(str,10);
+            game.getPlayer().setOdds(str,10);//TODO if odds = to 100 lock this purchase
             //Use this to trigger Screen classes to render infrastructure Layers
             if(!game.getPlayer().getInfraPurchase().contains(str)){
                 game.getPlayer().getInfraPurchase().add(str);
