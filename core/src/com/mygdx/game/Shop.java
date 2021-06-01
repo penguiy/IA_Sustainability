@@ -63,7 +63,7 @@ public class Shop implements Screen {
     private ScrollPane classScroll;
     private ScrollPane infraScroll;
 
-    public Shop(final Main game){
+    public Shop(final Main game){ //TODO add a rectangle shape to all the text button groups
         this.game = game;
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, new OrthographicCamera());
         //main stage which is the one the game class draws
