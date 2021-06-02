@@ -136,7 +136,7 @@ public class Shop implements Screen {
         first.add(event).expandX();
         first.row();
         first.add(exit).colspan(2).expandX().pad(8);
-        first.debug();//Temp
+        //first.debug();//Temp
         //Add table to stage
         stageFirst.addActor(first);
         //Set stageFirst as the mainStage onCreate
@@ -146,7 +146,7 @@ public class Shop implements Screen {
         classesTable = new Table();
         classesTable.setFillParent(true);
 
-        classesTable.debug();//Temp
+        //classesTable.debug();//Temp
 
         //Set Background
         classesTable.setBackground(bg);
@@ -162,7 +162,7 @@ public class Shop implements Screen {
 
         infraTable = new Table();
         infraTable.setFillParent(true);
-        infraTable.debug();
+        //infraTable.debug();
         infraTable.setBackground(bg);
 
         labelUpdateInfra();
@@ -273,6 +273,8 @@ public class Shop implements Screen {
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
         style.font = new BitmapFont();
+        style.up = new TextureRegionDrawable(new TextureRegion(new Texture(Con.BUTTONG_BG)));
+
         for(final String str : Con.TRIGGERS){
             Group classDetails = new Group();
             final TextButton button = new TextButton(str, style);
@@ -294,7 +296,7 @@ public class Shop implements Screen {
             label.setPosition(10,11.5f);
             classDetails.addActor(label);
             classDetails.addActor(button);
-            classDetails.debugAll();
+            //classDetails.debugAll();
             classScrollContainter.add(classDetails).size(200, 20).pad(10);
         }
         classScrollContainter.row();
@@ -328,7 +330,7 @@ public class Shop implements Screen {
                 return false;
             }
         });
-        classesTable.add(exit).pad(4);
+        classesTable.add(exit).pad(4).size(50,20);
         classesTable.row();
         //Add ScrollPanel to big table
         classesTable.add(classScroll).colspan(2).fill();
@@ -341,7 +343,11 @@ public class Shop implements Screen {
         infraTable.clear();
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
+        style.up = new TextureRegionDrawable(new TextureRegion(new Texture(Con.BUTTONG_BG)));
         style.font = new BitmapFont();
+
+
+
         for (final String str : Con.TRIGGERS) {
             Group infraDetails = new Group();
             final TextButton button = new TextButton(str, style);
@@ -363,7 +369,7 @@ public class Shop implements Screen {
             label.setPosition(10, 11);
             infraDetails.addActor(label);
             infraDetails.addActor(button);
-            infraDetails.debugAll();
+            //infraDetails.debugAll();
             infraScrollContainter.add(infraDetails).size(200, 20).pad(10);
         }
         infraScrollContainter.row();
@@ -400,7 +406,7 @@ public class Shop implements Screen {
                 return false;
             }
         });
-        infraTable.add(exit).pad(4);
+        infraTable.add(exit).pad(4).size(50,20);
         infraTable.row();
         //Add ScrollPanel to big table
         infraTable.add(infraScroll).colspan(2).fill();

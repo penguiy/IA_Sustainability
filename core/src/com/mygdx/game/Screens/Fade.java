@@ -48,6 +48,7 @@ public class Fade implements Screen {
                 case STREET:
                     game.getStreetView().render(delta);
                     break;
+
             }
             if(totalDeltaTime <= 0) {
                 switch (to) {
@@ -62,7 +63,6 @@ public class Fade implements Screen {
                         game.mapOut(game.getStreetView().getMap());
                         game.getSpriteManager().setWorld(game.getStreetView().getWorld());
                         game.setScreen(game.getStreetView());
-
                         break;
                 }
             }

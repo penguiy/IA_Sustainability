@@ -51,6 +51,11 @@ public class Main extends Game {
 	//Screens
 	private GroundFloor groundFloor;
 	private StreetView streetView;
+
+	public TitleScreen getTitleScreen() {
+		return titleScreen;
+	}
+
 	private TitleScreen titleScreen;
 
 	private Stage dayEnd;
@@ -92,12 +97,7 @@ public class Main extends Game {
 
 		batch = new SpriteBatch();
 		if(pref.getBoolean(Con.FILE_EXISTS)){
-			//TODO MAKE A LOAD PLAYER FUCTION
-			//TODO MAKE A DELETE SAVE FUNCTION
-			//pref.clear();
 			setPlayer(this.loadSave());
-			pref.flush();
-			System.out.println("LOAD PLAYER SAVE");
 		}
 		else{
 			player = new Player();
@@ -111,10 +111,10 @@ public class Main extends Game {
 		titleScreen = new TitleScreen(this);
 		shop = new Shop(this);
 
-		displaying = ScreenDisplay.STREET;
-		prevDisplayed = ScreenDisplay.STREET;;
-		currScreen = new Fade(this);
-		//currScreen = titleScreen;
+		displaying = ScreenDisplay.TITLE;
+		prevDisplayed = ScreenDisplay.TITLE;;
+		//currScreen = new Fade(this);
+		currScreen = titleScreen;
 		setScreen(currScreen);
 		render();
 		inputMultiplexer = new InputMultiplexer();
@@ -130,9 +130,10 @@ public class Main extends Game {
 		table.setBackground(bg);
 		TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
 		style.font = new BitmapFont();
+		style.up = new TextureRegionDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Con.BUTTONG_BG))));
 
 
-		TextButton save = new TextButton("SAVE", style);
+		TextButton save = new TextButton("SAVE & EXIT", style);
 		TextButton cont = new TextButton("CONTINUE", style);
 
 		save.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
@@ -148,6 +149,7 @@ public class Main extends Game {
 				pref.putString(Con.INFRA_PURCHASE, player.getInfraPurchase().toString().substring(1,
 						player.getInfraPurchase().toString().length()-1));
 				pref.flush();
+				Gdx.app.exit();
 				return false;
 			}
 		});
@@ -184,6 +186,7 @@ public class Main extends Game {
 		inputMultiplexer.addProcessor(shop.getStageFirst());
 		inputMultiplexer.addProcessor(shop.getStageClass());
 		inputMultiplexer.addProcessor(shop.getStageInfra());
+		inputMultiplexer.addProcessor(titleScreen.getStage());
 		inputMultiplexer.addProcessor(dayEnd);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
@@ -192,13 +195,13 @@ public class Main extends Game {
 	@Override
 	public void render(){
 		super.render();
-		if(displaying.equals(ScreenDisplay.PAUSE)){
+		if(displaying.equals(ScreenDisplay.PAUSE) && !displaying.equals(ScreenDisplay.TITLE)){
 			shop.getStageFirst().act();
 			shop.getStageClass().act();
 			shop.getStageInfra().act();
 			shop.getStage().draw();
 
-		} else if(displaying.equals(ScreenDisplay.DAYEND)){
+		} else if(displaying.equals(ScreenDisplay.DAYEND) && !displaying.equals(ScreenDisplay.TITLE)){
 			shop.toggleShop(false);
 			dayEnd.draw();
 		}
@@ -325,5 +328,10 @@ public class Main extends Game {
 	}
 	public String H2S(HashMap hm){
 		return hm.toString().substring(1,hm.toString().length()-1);
+	}
+
+	public void deleteSave(){
+		pref.clear();
+		pref.flush();
 	}
 }
