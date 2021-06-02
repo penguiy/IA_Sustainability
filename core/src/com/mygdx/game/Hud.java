@@ -101,7 +101,7 @@ public class Hud extends Actor {
                 day.setText("Day " + game.getPlayer().getDayNum());
 
             }
-            else if (totalDeltaTime >= Con.STANDARD_TIME/4) {
+            else if (totalDeltaTime >= Con.STANDARD_TIME/100) {
                 minutes++;
                 if (minutes > 59) {
                     hours++;

@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -16,8 +17,10 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Con;
@@ -42,11 +45,18 @@ public class TitleScreen implements Screen {
     private Box2DDebugRenderer box2DDebugRenderer;
 
     private Stage selectMenu;
-    private Table bigTable;
+    private Table menuTable;
 
     private Vector3 touchPos;
     private Body clickBody;
 
+    private Group startGame;
+    private Group deleteSave;
+    private Group exitGame;
+
+    private TextButton start;
+    private TextButton delete;
+    private TextButton exit;
 
     public TitleScreen(Main game) {
         this.myGame = game;
@@ -62,8 +72,28 @@ public class TitleScreen implements Screen {
         touchPos = new Vector3();
 
         selectMenu = new Stage();
-        bigTable = new Table();
-        //TODO use similar method as shop to make the level select
+        menuTable = new Table();
+
+        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = new BitmapFont();
+
+        //MAKE A BUTTON THAT GOES FROM NEW TO CONTINUE DEPENDING IF THERES A SAVE
+        startGame = new Group();
+        if(myGame.getPref().getBoolean(Con.FILE_EXISTS)){
+            start = new TextButton("CONTINUE", style);
+
+        } else {
+            start = new TextButton("START", style);
+        }
+
+
+        //DELETE SAVE BUTTON
+        deleteSave = new Group();
+        delete = new TextButton("DELETE SAVE", style);
+
+        //EXIT GAME
+        exitGame = new Group();
+        exit = new TextButton("EXIT", style);
 
         Gdx.input.setInputProcessor(game.getInputListener());
     }

@@ -26,7 +26,7 @@ public class Player {
     private int infraPrice;
     private int classPrice;
 
-    public Player(int points, int dayNum, HashMap<String, Integer> odds, HashMap<String, Double> multiplier, HashMap<String, Integer> classCount, HashMap<String, Integer> infraCount, ArrayList<String> infraPurchase, int infraPrice, int classPrice) {
+    public Player(int points, int dayNum, HashMap<String, Integer> odds, HashMap<String, Double> multiplier, HashMap<String, Integer> classCount, HashMap<String, Integer> infraCount, ArrayList<String> infraPurchase) {
         this.balance = points;
         this.dayNum = dayNum;
         this.odds = odds;

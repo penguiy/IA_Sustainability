@@ -79,6 +79,10 @@ public class Main extends Game {
 
 	private boolean transition;
 
+	public Preferences getPref() {
+		return pref;
+	}
+
 	private Preferences pref;
 
 
@@ -90,7 +94,8 @@ public class Main extends Game {
 		if(pref.getBoolean(Con.FILE_EXISTS)){
 			//TODO MAKE A LOAD PLAYER FUCTION
 			//TODO MAKE A DELETE SAVE FUNCTION
-			pref.clear();
+			//pref.clear();
+			setPlayer(this.loadSave());
 			pref.flush();
 			System.out.println("LOAD PLAYER SAVE");
 		}
@@ -108,8 +113,8 @@ public class Main extends Game {
 
 		displaying = ScreenDisplay.STREET;
 		prevDisplayed = ScreenDisplay.STREET;;
-		//currScreen = new Fade(this);
-		currScreen = titleScreen;
+		currScreen = new Fade(this);
+		//currScreen = titleScreen;
 		setScreen(currScreen);
 		render();
 		inputMultiplexer = new InputMultiplexer();
@@ -143,10 +148,11 @@ public class Main extends Game {
 				pref.putString(Con.INFRA_PURCHASE, player.getInfraPurchase().toString().substring(1,
 						player.getInfraPurchase().toString().length()-1));
 				pref.flush();
-				System.out.println("DONE");
 				return false;
 			}
 		});
+
+
 		cont.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -280,6 +286,18 @@ public class Main extends Game {
 
 	public Tile[][] getLayout() {
 		return layout;
+	}
+
+	public Player loadSave(){
+		int day = pref.getInteger(Con.DAY_NUM);
+		int point = pref.getInteger(Con.POINTS);
+		HashMap<String, Integer> odds = reconHashInt(pref.getString(Con.ODDS));
+		HashMap<String, Double> multi = reconHashDouble(pref.getString(Con.MULTI));
+		HashMap<String, Integer> classCount = reconHashInt(pref.getString(Con.CLASS_COUNT));
+		HashMap<String, Integer> infraCount = reconHashInt(pref.getString(Con.INFRA_COUNT));
+		ArrayList<String> purchases = reconArrayList(pref.getString(Con.INFRA_PURCHASE));
+		Player save = new Player(point,day,odds,multi,classCount,infraCount,purchases);
+		return save;
 	}
 
 	public HashMap<String, Double> reconHashDouble(String str){
