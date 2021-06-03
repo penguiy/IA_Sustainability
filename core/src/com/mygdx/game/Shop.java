@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -27,6 +28,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 public class Shop implements Screen {
     private Viewport viewport;
@@ -59,11 +61,12 @@ public class Shop implements Screen {
     private Table infraTable;
     private Table infraScrollContainter;
 
+    private Label label;
 
     private ScrollPane classScroll;
     private ScrollPane infraScroll;
 
-    public Shop(final Main game){ //TODO add a rectangle shape to all the text button groups
+    public Shop(final Main game){
         this.game = game;
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, new OrthographicCamera());
         //main stage which is the one the game class draws
@@ -180,20 +183,20 @@ public class Shop implements Screen {
      */
     public void classClick(String str) {
         //If odds are maxed, deny transfer
-        if (game.getPlayer().getPoints() >= 0/*game.getPlayer().getClassPrice(str)*/) {
+        if (/*game.getPlayer().getPoints() >= 0*/game.getPlayer().getPoints() >= game.getPlayer().getClassPrice(str)) {
             //Add 0.2 to the current multiplier
             game.getPlayer().setMultiplier(str, Con.MULTI_GROWTH);
+            //Subtract payment
+            game.getPlayer().subPoints(game.getPlayer().getClassPrice(str));
             //Count how many times it's been updgraded
             increaseCount(game.getPlayer().getClassCount(), str);
-            //Subtract payment
-            game.getPlayer().subPoints(0/*game.getPlayer().getClassPrice()*/);
-            //Temp print statement
-            System.out.println(game.getPlayer().getMulti());
+            System.out.println(game.getPlayer().getMulti());//Temp print statement
+            game.getHud().update(0);
 
         }else{
             //Invalid Funds : deny payment
+            game.showError();
             System.out.println("Something went wrong");
-            //TODO put up notif
         }
     }
     /**
@@ -205,17 +208,21 @@ public class Shop implements Screen {
      * @param str Constant parameter to determine the key (Con.LIGHT_WASTE, FOOD_WASTE, AC_WASTE...)
      */
     public void infraClick(String str){
-        //If player has enough funds
-        if(game.getPlayer().getPoints()>= 0/*game.getPlayer().getInfraPrice(str)*/) {
-            game.getPlayer().setOdds(str,10);//TODO if odds = to 100 lock this purchase
+        //If player has enough funds or if odds are already maxed
+        if(game.getPlayer().getPoints() >= game.getPlayer().getInfraPrice(str) && game.getPlayer().getOdds().get(str) != 100) {
+            game.getPlayer().setOdds(str,10);
             //Use this to trigger Screen classes to render infrastructure Layers
             if(!game.getPlayer().getInfraPurchase().contains(str)){
                 game.getPlayer().getInfraPurchase().add(str);
             }
+            game.getPlayer().subPoints(game.getPlayer().getInfraPrice(str));
             increaseCount(game.getPlayer().getInfraCount(), str);
-            game.getPlayer().subPoints(0/*game.getPlayer().getInfraPrice()*/);
-            System.out.println(game.getPlayer().getOdds());
+
+            System.out.println(game.getPlayer().getOdds()); //Temp Print
+            game.getHud().update(0);
+
         }else{
+            game.showError();
             System.out.println("Something went wrong");
         }
     }
@@ -233,6 +240,9 @@ public class Shop implements Screen {
 
     @Override
     public void render(float delta) {
+        if(game.getErrorLabel().getColor().a >0) {
+            game.fadeError(delta);
+        }
 
     }
 
@@ -412,6 +422,7 @@ public class Shop implements Screen {
         infraTable.add(infraScroll).colspan(2).fill();
         infraTable.setTouchable(Touchable.enabled);
     }
+
     public void toggleShop(boolean on){
         Touchable touchable;
         if(on){

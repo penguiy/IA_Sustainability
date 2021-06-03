@@ -40,7 +40,6 @@ public class Hud extends Actor {
 
     private Image dayIcon;
     private Image timeIcon;
-    private ImageButton settings;
 
     public Hud(Main myGame) {
         game = myGame;
@@ -67,14 +66,13 @@ public class Hud extends Actor {
         timeIcon = new Image(new TextureRegionDrawable(new Texture(Con.TIME_ICON)));
 
         Drawable settingsDrawable = new TextureRegionDrawable(new Texture(Con.SETTINGS_ICON));
-        settings = new ImageButton(settingsDrawable);
 
         table.add(dayIcon);
         table.add(day).padLeft(8).padRight(18);
         table.add(timeIcon).center().padRight(8);
         table.add(time);
         table.add(new Label("    ", labelStyle)).expandX();
-        table.add(settings).right();
+        table.add(new Label("    ", labelStyle)).size(100,2).right();
         table.row();
         table.add();
         table.add();
@@ -101,7 +99,7 @@ public class Hud extends Actor {
                 day.setText("Day " + game.getPlayer().getDayNum());
 
             }
-            else if (totalDeltaTime >= Con.STANDARD_TIME/100) {
+            else if (totalDeltaTime >= Con.STANDARD_TIME/4) {
                 minutes++;
                 if (minutes > 59) {
                     hours++;

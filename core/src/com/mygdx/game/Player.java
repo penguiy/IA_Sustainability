@@ -142,7 +142,10 @@ public class Player {
      * @return price of Multiplier after factoring in purchase count.
      */
     public int getInfraPrice(String field) {
-        return (int)(Math.pow(2, infraCount.get(field)) * infraPrice);
+        if(infraCount.get(field) == 0){
+            return infraPrice;
+        }
+        return (infraCount.get(field)* infraCount.get(field) * infraPrice);
     }
 
     /**
@@ -152,7 +155,10 @@ public class Player {
      * @return price of Multiplier after factoring in purchase count.
      */
     public int getClassPrice(String field) {
-        return (int)(Math.pow(2, classCount.get(field)) * classPrice);
+        if(classCount.get(field) == 0){
+            return classPrice;
+        }
+        return (classCount.get(field) * classPrice);
     }
 
 }

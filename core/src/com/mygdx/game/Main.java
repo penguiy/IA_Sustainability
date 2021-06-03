@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -59,6 +61,13 @@ public class Main extends Game {
 	private TitleScreen titleScreen;
 
 	private Stage dayEnd;
+	private Stage errorNotif;
+
+	public Label getErrorLabel() {
+		return errorLabel;
+	}
+
+	private Label errorLabel;
 	private Table table;
 
 	public void setPlayer(Player player) {
@@ -94,8 +103,13 @@ public class Main extends Game {
 	@Override
 	public void create () {
 		pref = Gdx.app.getPreferences(Con.SAVE_FILE);
-
 		batch = new SpriteBatch();
+
+		errorNotif = new Stage();
+		errorLabel = new Label("INVALID INPUT", new Label.LabelStyle(new BitmapFont(), Color.RED));
+		errorLabel.setColor(1,0,0,0);
+		errorNotif.addActor(errorLabel);
+
 		if(pref.getBoolean(Con.FILE_EXISTS)){
 			setPlayer(this.loadSave());
 		}
@@ -188,6 +202,7 @@ public class Main extends Game {
 		inputMultiplexer.addProcessor(shop.getStageInfra());
 		inputMultiplexer.addProcessor(titleScreen.getStage());
 		inputMultiplexer.addProcessor(dayEnd);
+
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 	}
@@ -195,13 +210,14 @@ public class Main extends Game {
 	@Override
 	public void render(){
 		super.render();
+		errorNotif.draw();
 		if(displaying.equals(ScreenDisplay.PAUSE) && !displaying.equals(ScreenDisplay.TITLE)){
 			shop.getStageFirst().act();
 			shop.getStageClass().act();
 			shop.getStageInfra().act();
 			shop.getStage().draw();
 
-		} else if(displaying.equals(ScreenDisplay.DAYEND) && !displaying.equals(ScreenDisplay.TITLE)){
+		} else if(displaying.equals(ScreenDisplay.DAYEND)){
 			shop.toggleShop(false);
 			dayEnd.draw();
 		}
@@ -331,7 +347,22 @@ public class Main extends Game {
 	}
 
 	public void deleteSave(){
-		pref.clear();
-		pref.flush();
+		if(pref.getBoolean(Con.FILE_EXISTS)) {
+			pref.clear();
+			pref.flush();
+		}
+		else{
+			System.out.println("No existing save");
+			showError();
+		}
+	}
+	public void showError(){
+		if(errorLabel.getColor().a == 0) {
+			errorLabel.setColor(1, 0, 0, 1);
+		}
+	}
+	//TODO NOT FADING WHEN SHOP IS ACTIVE
+	public void fadeError(float delta){
+		errorLabel.setColor(1,0,0,errorLabel.getColor().a - delta);
 	}
 }

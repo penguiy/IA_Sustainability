@@ -61,7 +61,7 @@ public class TitleScreen implements Screen {
     private TextButton start;
     private TextButton delete;
 
-    public TitleScreen(Main game) {
+    public TitleScreen(final Main game) {
         this.myGame = game;
         this.world = new World(new Vector2(0, 0), true);
         world.setContactListener(new WorldContactListener(game));
@@ -97,7 +97,11 @@ public class TitleScreen implements Screen {
         delete.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                myGame.deleteSave();
+                if(game.getPref().getBoolean(Con.FILE_EXISTS)){
+                    myGame.deleteSave();
+                }
+                else
+                    myGame.showError();
                 return false;
             }
         });
@@ -131,6 +135,9 @@ public class TitleScreen implements Screen {
     @Override
     public void render(float delta) {
         update(delta);
+        if(myGame.getErrorLabel().getColor().a >0) {
+            myGame.fadeError(delta);
+        }
         //clear screen
         Gdx.gl.glClearColor(0, 1 , 1 ,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
