@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -196,7 +197,6 @@ public class Shop implements Screen {
         }else{
             //Invalid Funds : deny payment
             game.showError();
-            System.out.println("Something went wrong");
         }
     }
     /**
@@ -223,7 +223,6 @@ public class Shop implements Screen {
 
         }else{
             game.showError();
-            System.out.println("Something went wrong");
         }
     }
 
@@ -233,6 +232,7 @@ public class Shop implements Screen {
     public void reset(){
         this.mainStage = stageFirst;
     }
+
     @Override
     public void show() {
 
@@ -240,10 +240,6 @@ public class Shop implements Screen {
 
     @Override
     public void render(float delta) {
-        if(game.getErrorLabel().getColor().a >0) {
-            game.fadeError(delta);
-        }
-
     }
 
     @Override
@@ -268,7 +264,7 @@ public class Shop implements Screen {
 
     @Override
     public void dispose() {
-
+        mainStage.dispose();
     }
 
     public void increaseCount(HashMap<String, Integer> counter, String section){

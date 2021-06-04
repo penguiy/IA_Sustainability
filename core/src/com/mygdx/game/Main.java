@@ -98,16 +98,20 @@ public class Main extends Game {
 	}
 
 	private Preferences pref;
-
+	private float fadeDelta;
 
 	@Override
 	public void create () {
 		pref = Gdx.app.getPreferences(Con.SAVE_FILE);
 		batch = new SpriteBatch();
-
+		fadeDelta = 0;
 		errorNotif = new Stage();
 		errorLabel = new Label("INVALID INPUT", new Label.LabelStyle(new BitmapFont(), Color.RED));
 		errorLabel.setColor(1,0,0,0);
+		errorLabel.layout();
+		errorLabel.setPosition(Con.WIDTH/2-8,Con.HEIGHT/5);
+		errorLabel.setSize(200,100);
+		errorLabel.setFillParent(true);
 		errorNotif.addActor(errorLabel);
 
 		if(pref.getBoolean(Con.FILE_EXISTS)){
@@ -210,13 +214,11 @@ public class Main extends Game {
 	@Override
 	public void render(){
 		super.render();
-		errorNotif.draw();
 		if(displaying.equals(ScreenDisplay.PAUSE) && !displaying.equals(ScreenDisplay.TITLE)){
 			shop.getStageFirst().act();
 			shop.getStageClass().act();
 			shop.getStageInfra().act();
 			shop.getStage().draw();
-
 		} else if(displaying.equals(ScreenDisplay.DAYEND)){
 			shop.toggleShop(false);
 			dayEnd.draw();
@@ -229,6 +231,7 @@ public class Main extends Game {
 			setScreen(currScreen);
 			prevDisplayed = displaying;
 		}
+		errorNotif.draw();
 		spriteManager.flagRaise();
 	}
 	/**
@@ -357,12 +360,17 @@ public class Main extends Game {
 		}
 	}
 	public void showError(){
-		if(errorLabel.getColor().a == 0) {
-			errorLabel.setColor(1, 0, 0, 1);
-		}
+		errorLabel.setColor(1, 0, 0, 1);
 	}
 	//TODO NOT FADING WHEN SHOP IS ACTIVE
 	public void fadeError(float delta){
-		errorLabel.setColor(1,0,0,errorLabel.getColor().a - delta);
+		if(errorLabel.getColor().a == 0){
+			fadeDelta = 0;
+		}
+		else{
+			fadeDelta -= delta;
+			errorLabel.setColor(1,0,0,errorLabel.getColor().a - delta);
+		}
+
 	}
 }

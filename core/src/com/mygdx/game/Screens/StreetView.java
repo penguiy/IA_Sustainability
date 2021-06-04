@@ -119,6 +119,9 @@ public class StreetView implements Screen {
         if(!(myGame.getDisplaying().equals(ScreenDisplay.PAUSE)||myGame.getDisplaying().equals(ScreenDisplay.DAYEND))) {
             update(delta);
         }
+        if(myGame.getErrorLabel().getColor().a >0) {
+            myGame.fadeError(delta);
+        }
         //clear screen
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

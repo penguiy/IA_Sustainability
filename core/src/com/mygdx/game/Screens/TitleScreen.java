@@ -100,8 +100,9 @@ public class TitleScreen implements Screen {
                 if(game.getPref().getBoolean(Con.FILE_EXISTS)){
                     myGame.deleteSave();
                 }
-                else
+                else{
                     myGame.showError();
+                }
                 return false;
             }
         });
