@@ -26,12 +26,14 @@ public class InputListener implements InputProcessor {
         if(i == Keys.M && !(game.getScreen() instanceof Fade)){
             if(game.getDisplaying()!=ScreenDisplay.DAYEND) {
                 if (!game.getDisplaying().equals(ScreenDisplay.PAUSE)){
+                    game.getShop().toggleShop(true);
                     prePause = game.getDisplaying();
                     for(Actor actor : game.getShop().getStageClass().getActors()){
                         actor.setTouchable(Touchable.enabled);
                     }
                     game.changeScreen(ScreenDisplay.PAUSE);
                 } else{
+                    game.getShop().toggleShop(false);
                     game.getShop().reset();
                     game.changeScreen(prePause);
                 }

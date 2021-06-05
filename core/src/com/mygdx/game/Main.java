@@ -177,7 +177,6 @@ public class Main extends Game {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				spriteManager.wipe();
-				shop.toggleShop(true);
 				for (Flag flag: spriteManager.getFlagList()) {
 					if(flag.isBodyDefined()) {
 						flag.update();
@@ -223,6 +222,7 @@ public class Main extends Game {
 			shop.toggleShop(false);
 			dayEnd.draw();
 		}
+
 		if (displaying != prevDisplayed) {
 			if (!(prevDisplayed.equals(ScreenDisplay.PAUSE) || displaying.equals(ScreenDisplay.PAUSE))){
 				currScreen.dispose();
@@ -355,14 +355,12 @@ public class Main extends Game {
 			pref.flush();
 		}
 		else{
-			System.out.println("No existing save");
 			showError();
 		}
 	}
 	public void showError(){
 		errorLabel.setColor(1, 0, 0, 1);
 	}
-	//TODO NOT FADING WHEN SHOP IS ACTIVE
 	public void fadeError(float delta){
 		if(errorLabel.getColor().a == 0){
 			fadeDelta = 0;
