@@ -30,7 +30,6 @@ public class Con {
     public static final String BUTTONG_BG = "Button.png";
 
     //Temporary Data
-    public static final String NAVI_SIDE_TEXTURE = "Navi Side-1.png.png";
     public static final String CAR_TEXTURE = "Car base-4.png.png";
 
     //Screen Data
@@ -43,13 +42,13 @@ public class Con {
     public static final String PASSABLE_STRING = "Passable";
 
 
-    //Flag Things
+//Flag Things
+    //Different Flag types
     public static final String[] TRIGGERS = new String[]{"WATER","FOOD","LIGHT","AC","TRASH"};
-    public static final ArrayList<ScreenDisplay> LOCATION = new ArrayList<ScreenDisplay>(){{
-            add(ScreenDisplay.STREET);
-            add(ScreenDisplay.GROUND);
-    }};
 
+
+
+    //Base odds for each type of flag
     public static final HashMap<String,Integer> BASE_ODDS = new HashMap<String,Integer>(){{
         put("WATER", 0);
         put("FOOD", 0);
@@ -57,6 +56,7 @@ public class Con {
         put("AC", 0);
         put("TRASH", 0);
     }};
+    //Base multiplier for each type of flag
     public static final HashMap<String, Double> BASE_MULTI = new HashMap<String,Double>(){{
         put("WATER", 1.0);
         put("FOOD", 1.0);
@@ -64,6 +64,7 @@ public class Con {
         put("AC", 1.0);
         put("TRASH", 1.0);
     }};
+    //Base points for each type of flag
     public static final HashMap<String,Integer> BASE_POINTS = new HashMap<String,Integer>(){{
         put("WATER", 10);
         put("FOOD", 10);
@@ -71,8 +72,7 @@ public class Con {
         put("AC", 10);
         put("TRASH", 10);
     }};
-
-    //GROUND FLOOR FLAG POSITIONS
+    //Ground floor positions
     public static final ArrayList<int[]> GROUND_FLOOR_POSITIONS = new ArrayList<int[]>(){{
             add(new int[]{4, 9});//Class
             add(new int[]{4, 13});//Class
@@ -88,6 +88,7 @@ public class Con {
             add(new int[]{11, 27});//Hallway 2
             add(new int[]{9, 20});//Hallway 3
     }};
+    //Street flag positions
     public static final ArrayList<int[]> STREET_POSITIONS = new ArrayList<int[]>(){{
             add(new int[]{3, 15});
             add(new int[]{20, 15});
@@ -103,15 +104,13 @@ public class Con {
             add(new int[]{20, 27});
             add(new int[]{19,11});
     }};
+    //Maximum amount of flags on a screen
     public static final int FULL = 11;
-
-    public static final String WATER_WASTE = "WATER";
-    public static final String FOOD_WASTE = "FOOD";
-    public static final String LIGHT_WASTE = "LIGHT";
-    public static final String AC_WASTE = "AC";
-    public static final String TRASH_WASTE = "TRASH";
+    //Amount multiplier grows by with each purchase
     public static final double MULTI_GROWTH = 0.2;
+    //Base class price
     public static final int CLASS_PRICE = 50;
+    //Base infrastructure price
     public static final int INFRA_PRICE = 150;
 
 
@@ -125,5 +124,21 @@ public class Con {
     public static final String INFRA_PURCHASE = "INFRA_PURCHASE";
     public static final String MULTI = "MULTI";
     public static final String ODDS = "ODDS";
+
+//Sprite Constants
+    //Atlas
+    public static final String ATLAS_FILENAME = "sprite.atlas";
+    //Flags
+    public static final String WATER_STRING = "Water";
+    public static final String FOOD_STRING = "Food";
+    public static final String LIGHT_STRING = "Light";
+    public static final String AC_STRING = "AC";
+    public static final String TRASH_WASTE = "Trash";
+    //Navi
+    public static final String NAVI_SIDE_TEXTURE = "Navi Side-1.png.png";
+    public static final String NAVI_VERT_TEXTURE = "";
+    //Background
+    public static final String PERSON_STRING = "Person";
+    public static final String CAR_STRING = "Car";
 
 }

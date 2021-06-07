@@ -1,0 +1,62 @@
+
+sprite.png
+size: 1024,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+AC
+  rotate: false
+  xy: 154, 2
+  size: 125, 25
+  orig: 125, 25
+  offset: 0, 0
+  index: -1
+Alert
+  rotate: false
+  xy: 478, 29
+  size: 100, 25
+  orig: 100, 25
+  offset: 0, 0
+  index: -1
+Car
+  rotate: false
+  xy: 356, 18
+  size: 120, 36
+  orig: 120, 36
+  offset: 0, 0
+  index: -1
+Food
+  rotate: false
+  xy: 2, 29
+  size: 225, 25
+  orig: 225, 25
+  offset: 0, 0
+  index: -1
+Light
+  rotate: false
+  xy: 2, 2
+  size: 150, 25
+  orig: 150, 25
+  offset: 0, 0
+  index: -1
+Person
+  rotate: false
+  xy: 657, 6
+  size: 32, 48
+  orig: 32, 48
+  offset: 0, 0
+  index: -1
+Trash
+  rotate: false
+  xy: 229, 29
+  size: 125, 25
+  orig: 125, 25
+  offset: 0, 0
+  index: -1
+Water
+  rotate: false
+  xy: 580, 29
+  size: 75, 25
+  orig: 75, 25
+  offset: 0, 0
+  index: -1

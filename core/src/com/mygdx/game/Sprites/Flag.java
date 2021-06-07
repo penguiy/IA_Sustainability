@@ -4,6 +4,7 @@ package com.mygdx.game.Sprites;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -73,29 +74,24 @@ public class Flag extends Sprite {
         this.world = world;
         this.game = game;
         this.type = type;
-        onScreen = screen;
+        this.onScreen = screen;
         this.position = yx;
+
         setPosition(yx[1]*16,yx[0]*16);
         setBounds(getX(),getY(), Con.NAVI_WIDTH,Con.NAVI_HEIGHT);
-        /*switch (type){
-            case Con.AC_WASTE:
-                region =
-                break;
-            case Con.FOOD_WASTE:
-                region =
-                break;
-            case Con.LIGHT_WASTE:
-                region =
-                break;
-            case Con.TRASH_WASTE:
-                region =
-                break;
-            case Con.WATER_WASTE:
-                region =
-                break;
-        }*/
+        if (Con.TRIGGERS[0].equals(type)) {
+            region = new TextureRegion(this.game.getAtlas().findRegion(Con.WATER_STRING), 0, 0, 25, 25);
+        } else if (Con.TRIGGERS[1].equals(type)) {
+            region = new TextureRegion(this.game.getAtlas().findRegion(Con.FOOD_STRING), 0, 0, 25, 25);
+        } else if (Con.TRIGGERS[2].equals(type)) {
+            region = new TextureRegion(this.game.getAtlas().findRegion(Con.LIGHT_STRING), 0, 0, 25, 25);
+        } else if (Con.TRIGGERS[3].equals(type)) {
+            region = new TextureRegion(this.game.getAtlas().findRegion(Con.AC_STRING), 0, 0, 25, 25);
+        } else if (Con.TRIGGERS[4].equals(type)) {
+            region = new TextureRegion(this.game.getAtlas().findRegion(Con.TRASH_WASTE), 0, 0, 25, 25);
+        }
         //temp
-        region = new TextureRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
+        //region = new TextureRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
         setRegion(region);
         defineBody();
         //Find a way to wait until on correct screen to define body

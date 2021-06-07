@@ -140,7 +140,6 @@ public class Shop implements Screen {
         first.add(event).expandX();
         first.row();
         first.add(exit).colspan(2).expandX().pad(8);
-        //first.debug();//Temp
         //Add table to stage
         stageFirst.addActor(first);
         //Set stageFirst as the mainStage onCreate
@@ -149,8 +148,6 @@ public class Shop implements Screen {
     //Setup Class Tab
         classesTable = new Table();
         classesTable.setFillParent(true);
-
-        //classesTable.debug();//Temp
 
         //Set Background
         classesTable.setBackground(bg);
@@ -172,6 +169,7 @@ public class Shop implements Screen {
         labelUpdateInfra();
 
         stageInfra.addActor(infraTable);
+
     }
 
     /**

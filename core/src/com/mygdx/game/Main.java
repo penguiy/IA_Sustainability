@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -37,6 +38,12 @@ import java.util.HashMap;
 public class Main extends Game {
 	private SpriteBatch batch;
 	private Screen currScreen;
+
+	public TextureAtlas getAtlas() {
+		return atlas;
+	}
+
+	private TextureAtlas atlas;
 	private Hud hud;
 
 	private ScreenDisplay displaying;
@@ -105,6 +112,7 @@ public class Main extends Game {
 		pref = Gdx.app.getPreferences(Con.SAVE_FILE);
 		batch = new SpriteBatch();
 		fadeDelta = 0;
+		atlas = new TextureAtlas(Con.ATLAS_FILENAME);
 		errorNotif = new Stage();
 		errorLabel = new Label("INVALID INPUT", new Label.LabelStyle(new BitmapFont(), Color.RED));
 		errorLabel.setColor(1,0,0,0);
@@ -353,9 +361,6 @@ public class Main extends Game {
 		if(pref.getBoolean(Con.FILE_EXISTS)) {
 			pref.clear();
 			pref.flush();
-		}
-		else{
-			showError();
 		}
 	}
 	public void showError(){
