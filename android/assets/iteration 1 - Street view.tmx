@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="Tile map.tsx"/>
  <layer id="3" name="Passable" width="35" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlk1uwjAQhWcDWIItBKlsS5HaPZHCgvYkPUqPwlE7Vj3S63TGcexUYoGlJzuxY3/xG/8QPdK9pxXRLWrg8oWl81jXpTaSx+8C0WetPJYAHFFPrENikfd7bhP+stwu8F2pciwD/R73lfWm5kczfRBdhWUw2uY0xoKerFkbp3/8P4t1bhbLIxzfiqv/YkGPNI/ES/jR7LGb8whZXnh8iRevr9Y05hGyyLxw7H7V6p1VyqI9En+QJQqfz86zfr+CPaGExVpHMT8lj55ZW9YC8qmq8Qjfyz8eWTvWMnF5Es4laCqLtddplhIJr5R3wNPqUc99iE9BlXUdxosVM60eYX8E89RlYrd3eGo88tb0VBY9bzUetbJ0jSzeeVTKYnHVsnjryGJBSb0Vx3N4lGPp0xi9MRauL6u+xiO9746tg9ak7yi5OwPc66rPxtyZ+Q3O7hBy
+   eJztlkFuwyAQRWdTx1K6rV2p3aatlOyD5CzanqRHyVFy1AwSI/1OZjCGWOqiSF9gwPDMHwxE/+mvpw3RJWri8oml89g2pj6Sx/d6op9aeSw9cES9sF4Ti9Q/c5/+luVygvdKlWOZ6Pe8e9ZBrY9m+ib6FJbJ6JvTHAt6smU9OuPj91ms92axPML5rbhaiwU90jxrx27OI2R5ZwaJF2+s1jTnEbLIunDsnmv1xSpl0R6JP8gShc9H51nXb8DjEhZrH8X8I3m0Yz2xHiBfqhqPsF6+8Y01sLrE5Uk4O9BSFutfp1lKJLxSHoCn1aPAY4hPvSrrNowXK2ZaPcLxCNZpzMRucHhqPPL29FIWvW41HrWyjI0s3nlUymJx1bJ4+8hiQUm7Fcf38CjHEtIcwZgL95fVXuOR/u/O7YPWpO8ouTsD3Ouqz8bcmXkFNKMPyg==
   </data>
  </layer>
  <layer id="4" name="Cosmetic" width="35" height="24" visible="0">

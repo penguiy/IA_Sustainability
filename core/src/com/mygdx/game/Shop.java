@@ -62,8 +62,6 @@ public class Shop implements Screen {
     private Table infraTable;
     private Table infraScrollContainter;
 
-    private Label label;
-
     private ScrollPane classScroll;
     private ScrollPane infraScroll;
 

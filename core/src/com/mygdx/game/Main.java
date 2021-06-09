@@ -16,8 +16,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -222,15 +224,16 @@ public class Main extends Game {
 	public void render(){
 		super.render();
 		if(displaying.equals(ScreenDisplay.PAUSE) && !displaying.equals(ScreenDisplay.TITLE)){
+			this.toggleDayEnd(false);
 			shop.getStageFirst().act();
 			shop.getStageClass().act();
 			shop.getStageInfra().act();
 			shop.getStage().draw();
-		} else if(displaying.equals(ScreenDisplay.DAYEND)){
+		} else if(displaying.equals(ScreenDisplay.DAYEND)) {
 			shop.toggleShop(false);
+			this.toggleDayEnd(true);
 			dayEnd.draw();
 		}
-
 		if (displaying != prevDisplayed) {
 			if (!(prevDisplayed.equals(ScreenDisplay.PAUSE) || displaying.equals(ScreenDisplay.PAUSE))){
 				currScreen.dispose();
@@ -374,6 +377,17 @@ public class Main extends Game {
 			fadeDelta -= delta;
 			errorLabel.setColor(1,0,0,errorLabel.getColor().a - delta);
 		}
+	}
+	public void toggleDayEnd(boolean on){
+		Touchable touchable;
+		if(on){
+			touchable = Touchable.enabled;
+		} else{
+			touchable = Touchable.disabled;
+		}
 
+		for (Actor actor: dayEnd.getActors()) {
+			actor.setTouchable(touchable);
+		}
 	}
 }

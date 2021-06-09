@@ -15,6 +15,7 @@ import com.mygdx.game.Screens.Tile;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 //Temp class to test out how I'll build sprites
 public class TempSprite extends Sprite {
@@ -68,14 +69,21 @@ public class TempSprite extends Sprite {
     public void update(float delta) {
             move(delta);
             this.setPosition(body.getPosition().x - getWidth() / 2f,body.getPosition().y - getHeight() / 2f);
+            if(currPathing.isEmpty()){
+                moveAround();
+            }
     }
 
     /**
-     * Chooses a location on the map to move to
-     * @param bounds : Location coord
+     * Chooses a location on the map to move to if reached target destination
      */
-    public void moveAround(float[] bounds) {
-        //Run calcsteps to a randomly generated square within a certain bound(constant for different room)
+    public void moveAround() {
+            Random random = new Random();
+            int x = random.nextInt(35);
+            int y = random.nextInt(24);
+            if (!game.getLayout()[y][x].isObstacle()) {
+                calcSteps(x,y);
+            }
     }
 
     /**
@@ -104,19 +112,7 @@ public class TempSprite extends Sprite {
         else{
             body.setLinearVelocity(0,0);
         }
-//        if(this.getSchedule().keySet().contains(time) || pathing){
-//            int[] endPos = getSchedule().get(time);
-//            calcSteps(endPos[0], endPos[1]);
-//            pathing = true;
-//        }
-//        else{
-//            //moveAround();
-//        }
-
     }
-
-    //Run calcSteps at Key times in the schedule for each sprite
-
     /**
      * Algorithm to calculate the optimal path from current location to endX,endY using A* algorithm
      *
@@ -151,7 +147,7 @@ public class TempSprite extends Sprite {
                 Tile trace = best;
                 while(trace!= pos) {
                     //bug fix, change the path tile colours
-                    trace.getTile().setTextureRegion(new TextureRegion(new Texture("Stairs.png")));
+                    //trace.getTile().setTextureRegion(new TextureRegion(new Texture("Stairs.png")));
                     pathing.add(trace);
                     trace = trace.getParent();
                 }
