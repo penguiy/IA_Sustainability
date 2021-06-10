@@ -31,7 +31,6 @@ public class WorldContactListener implements ContactListener {
         Fixture objectA = contact.getFixtureA();
         Fixture objectB = contact.getFixtureB();
 
-//Generalise this into 1 method using inputproccessor
         if(objectA.getUserData() instanceof Navi){
             Navi navi = (Navi) objectA.getUserData();
             navi.changeScreen();

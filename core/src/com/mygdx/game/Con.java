@@ -141,4 +141,5 @@ public class Con {
     public static final String PERSON_STRING = "Person";
     public static final String CAR_STRING = "Car";
 
+    public static final int[][] FFLOOR_POSITIONS = new int[4][4];
 }

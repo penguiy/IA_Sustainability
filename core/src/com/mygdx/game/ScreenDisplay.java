@@ -1,5 +1,5 @@
 package com.mygdx.game;
 
 public enum ScreenDisplay {
-    STREET,GROUND,PAUSE,DAYEND,TITLE;
+    STREET,GROUND,FFLOOR,PAUSE,DAYEND,TITLE;
 }

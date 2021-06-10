@@ -101,11 +101,6 @@ public class TempSprite extends Sprite {
             if(totalDeltaTime >= 0.8f){
                 locate(body.getPosition().x, body.getPosition().y);
                 totalDeltaTime = 0;
-//                System.out.println("Pixel: "+getX()+","+(Con.HEIGHT-getY()));
-//                System.out.println("Current: "+toString());
-//                System.out.println("Next: "+nextStep);
-//                System.out.println("Remaining: "+currPathing);
-//                System.out.println("Velocity: "+fv+"\n");
                 currPathing.remove(0);
             }
         }

@@ -74,7 +74,7 @@ public class Fade implements Screen {
         //Change the opacity of the block based on render
         shapeRenderer.setColor(0, 0, 0, totalDeltaTime);
 
-        shapeRenderer.rect(0, 0, Con.WIDTH * 10, Con.HEIGHT * 10); // Need to change number to account for viewport
+        shapeRenderer.rect(0, 0, Con.WIDTH * 10, Con.HEIGHT * 10);
         // size
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);

@@ -67,9 +67,9 @@ public class SpriteManager{
      * Raises a flag, checks the odds of a self-resolution and adds points if needed every 10 in-game minutes
      */
     public void flagRaise(){
+        //make sure this only runs once
         if(!interval) {
             if (game.getHud().getMinutes() % 10 == 0) {
-                //make sure this only runs once
                 //Choose area
                 Random random = new Random();
                 int index = random.nextInt(5);
@@ -92,67 +92,51 @@ public class SpriteManager{
                             street++;
                         }
                     }
-                    System.out.println("ground: "+ ground+"\nstreet: "+street);
                     ArrayList<ScreenDisplay> places = new ArrayList<ScreenDisplay>(){{
                         add(ScreenDisplay.GROUND);
                         add(ScreenDisplay.STREET);
                     }};
-                    System.out.println(places);
                     if(ground == Con.FULL){
                         places.remove(ScreenDisplay.GROUND);
                     }
                     if(street == Con.FULL){
                         places.remove(ScreenDisplay.STREET);
                     }
-                    //Make bubble appear
-                    System.out.println(places);
-                    if(!places.isEmpty()) {
+                    if(!places.isEmpty()) {//Make bubble appear
                         int location = random.nextInt(places.size());
+                        for (Flag flagg : flagList) {
+                            taken.add(flagg.getPosition());
+                        }
                         switch (places.get(location)) {
                             case STREET:
-                                for (Flag flagg : flagList) {
-                                    taken.add(flagg.getPosition());
-                                }
                                 for (int[] pos : Con.STREET_POSITIONS) {
                                     if (!taken.contains(pos)) {
                                         notTaken.add(pos);
                                     }
                                 }
-                                if (notTaken.isEmpty()) {
-                                    break;
-                                } else {
+                                if (!notTaken.isEmpty()){
                                     yx = notTaken.get(random.nextInt(notTaken.size()));
                                     flagList.add(new Flag(game.getStreetView().getWorld(), yx, game, Con.TRIGGERS[index],
                                             ScreenDisplay.STREET));
                                 }
                                 break;
                             case GROUND:
-                                for (Flag flagg : flagList) {
-                                    taken.add(flagg.getPosition());
-                                }
                                 for (int[] pos : Con.GROUND_FLOOR_POSITIONS) {
                                     if (!taken.contains(pos)) {
                                         notTaken.add(pos);
                                     }
                                 }
-                                if (notTaken.isEmpty()) {
-                                    break;
-                                } else {
+                                if (!notTaken.isEmpty()){
                                     yx = notTaken.get(random.nextInt(notTaken.size()));
                                     flagList.add(new Flag(game.getGroundFloor().getWorld(), yx, game, Con.TRIGGERS[index],
                                             ScreenDisplay.GROUND));
                                 }
                                 break;
-                            default:
-                                break;
                         }
-                        System.out.println("Self Resolve Fail");
-                        System.out.println("Flag HAPPENED : " + flagList.get(flagList.size()-1).getType());
                     }
                 } else {
                     //add points
                     game.getPlayer().addPoints((int)(Con.BASE_POINTS.get(Con.TRIGGERS[index]) * game.getPlayer().getMulti().get(Con.TRIGGERS[index])));
-                    System.out.println("Self Resolve Success");
                 }
                 interval = true;
             }

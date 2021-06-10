@@ -159,7 +159,6 @@ public class StreetView implements Screen {
         BodyDef bodyDef = new BodyDef();
         touchPos = new Vector3(x, y, 0);
         viewport.unproject(touchPos);
-        System.out.println("("+touchPos.x+","+touchPos.y+")");
         bodyDef.position.set(touchPos.x,touchPos.y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         clickBody = world.createBody(bodyDef);

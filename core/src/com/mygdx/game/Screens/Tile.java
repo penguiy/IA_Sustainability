@@ -4,9 +4,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 
 //Tiles in the map for when mapping it out to path
 public class Tile {
-    private float g;
-    private float h;
-    private float f;
+    private float gCost;
+    private float heuristic;
+    private float function;
 
 
     private boolean obstacle;
@@ -24,8 +24,8 @@ public class Tile {
         this.parent = null;
         this.x = x;
         this.y = y;
-        this.g = 0;
-        this.h = 0;
+        this.gCost = 0;
+        this.heuristic = 0;
     }
     public Tile(boolean obstacle, TiledMapTile tile, int x, int y){
         this.obstacle = obstacle;
@@ -36,15 +36,15 @@ public class Tile {
     }
 
     public float getG() {
-        return g;
+        return gCost;
     }
 
     public float getH() {
-        return h;
+        return heuristic;
     }
 
     public float getF() {
-        return f;
+        return function;
     }
 
     public boolean equals(Tile tile){
@@ -63,15 +63,15 @@ public class Tile {
     }
 
     public void setG(float g) {
-        this.g = g;
+        this.gCost = g;
     }
 
     public void setH(float h) {
-        this.h = h;
+        this.heuristic = h;
     }
 
     public void setF(float f) {
-        this.f = f;
+        this.function = f;
     }
 
     public Tile getParent() {
