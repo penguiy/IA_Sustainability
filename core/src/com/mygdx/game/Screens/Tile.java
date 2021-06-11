@@ -8,15 +8,12 @@ public class Tile {
     private float heuristic;
     private float function;
 
-
     private boolean obstacle;
     private int x;
     private int y;
 
     private TiledMapTile tile;
     private Tile parent;
-
-
 
     public Tile(boolean obstacle, int x, int y){
         this.obstacle = obstacle;

@@ -187,7 +187,6 @@ public class Shop implements Screen {
             game.getPlayer().subPoints(game.getPlayer().getClassPrice(str));
             //Count how many times it's been updgraded
             increaseCount(game.getPlayer().getClassCount(), str);
-            System.out.println(game.getPlayer().getMulti());//Temp print statement
             game.getHud().update(0);
 
         }else{
@@ -214,7 +213,6 @@ public class Shop implements Screen {
             game.getPlayer().subPoints(game.getPlayer().getInfraPrice(str));
             increaseCount(game.getPlayer().getInfraCount(), str);
 
-            System.out.println(game.getPlayer().getOdds()); //Temp Print
             game.getHud().update(0);
 
         }else{

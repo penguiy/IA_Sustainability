@@ -21,7 +21,6 @@ import java.util.Random;
 //Contain all the sprites and tell them to move
 public class SpriteManager{
 
-
     private ArrayList<TempSprite> peopleList;
     private ArrayList<int[]> taken;
     private ArrayList<int[]> notTaken;
@@ -39,15 +38,29 @@ public class SpriteManager{
 
     private boolean interval = false;
 
-
-    public SpriteManager(Main game, Hud hud){
+    public SpriteManager(final Main game, Hud hud){
         this.game = game;
-        peopleList = new ArrayList<>();
+        peopleList = new ArrayList<TempSprite>();
         flagList = new ArrayList<>();
     }
 
+    public void loadPeople(){
+    {
+        //TODO make sure layout is correct on loading when rendering the sprites
 
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
 
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+    }
+}
     public ArrayList<TempSprite> getSpriteList() {
         return peopleList;
     }
@@ -59,8 +72,6 @@ public class SpriteManager{
 
     public void setWorld(World world) {
         this.world = world;
-        //FIGURE OUT WHAT THE HELL THE POS[] DOES
-        peopleList.add(new TempSprite(world, game, new float[]{294,168}));
     }
 
     /**

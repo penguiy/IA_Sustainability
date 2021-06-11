@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Con;
 import com.mygdx.game.Main;
+import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Screens.Tile;
 
 import java.util.ArrayList;
@@ -21,20 +22,27 @@ import java.util.Random;
 public class TempSprite extends Sprite {
     private World world;
     private Main game;
+
     private Body body;
 
     private TextureRegion region;
     private int coordX, coordY;
     private float totalDeltaTime;
 
+    public ScreenDisplay getScreen() {
+        return screen;
+    }
+
+    private ScreenDisplay screen;
     private ArrayList<Tile> currPathing;
 
 
 
-    public TempSprite(World world, Main game, float[] pos){
+    public TempSprite(World world, Main game, float[] pos, ScreenDisplay screenDisplay){
         super();
         this.world = world;
         this.game = game;
+        this.screen = screenDisplay;
         totalDeltaTime = 0;
         coordX = 0;
         coordY = 0;
@@ -45,8 +53,6 @@ public class TempSprite extends Sprite {
         setRegion(region);
         defineBody();
         locate(body.getPosition().x,body.getPosition().y);
-        //Temporary
-        calcSteps(28,8);
     }
 
     /**
@@ -81,8 +87,10 @@ public class TempSprite extends Sprite {
             Random random = new Random();
             int x = random.nextInt(35);
             int y = random.nextInt(24);
-            if (!game.getLayout()[y][x].isObstacle()) {
-                calcSteps(x,y);
+            if(game.getLayout() != null) {
+                if (!game.getLayout()[y][x].isObstacle()) {
+                    calcSteps(x, y);
+                }
             }
     }
 

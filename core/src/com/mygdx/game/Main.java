@@ -137,7 +137,9 @@ public class Main extends Game {
 		inputListener = new InputListener(this);
 		groundFloor = new GroundFloor(this);
 		streetView = new StreetView(this);
+
 		titleScreen = new TitleScreen(this);
+		spriteManager.loadPeople();
 		shop = new Shop(this);
 
 		displaying = ScreenDisplay.TITLE;

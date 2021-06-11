@@ -135,6 +135,7 @@ public class Player {
     public ArrayList<String> getInfraPurchase() {
         return infraPurchase;
     }
+
     /**
      * calculates and return the final price of the odds increase for infrastructure
      *
@@ -145,7 +146,7 @@ public class Player {
         if(infraCount.get(field) == 0){
             return infraPrice;
         }
-        return (infraCount.get(field)* infraCount.get(field) * infraPrice);
+        return (infraCount.get(field)* (infraCount.get(field)+1) * infraPrice);
     }
 
     /**
@@ -158,7 +159,7 @@ public class Player {
         if(classCount.get(field) == 0){
             return classPrice;
         }
-        return (classCount.get(field) * classPrice);
+        return ((classCount.get(field)+1) * classPrice);
     }
 
 }

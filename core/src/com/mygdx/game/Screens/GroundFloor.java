@@ -130,7 +130,9 @@ public class GroundFloor implements Screen {
 
         myGame.getBatch().begin();
         for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
-            sprite.draw(myGame.getBatch());
+            if(sprite.getScreen() == ScreenDisplay.GROUND) {
+                sprite.draw(myGame.getBatch());
+            }
         }
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
             if(!flag.isClicked() && flag.getScreen() == ScreenDisplay.GROUND) {

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Main;
+import com.mygdx.game.Player;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Sprites.Flag;
@@ -34,9 +35,6 @@ public class WorldContactListener implements ContactListener {
         if(objectA.getUserData() instanceof Navi){
             Navi navi = (Navi) objectA.getUserData();
             navi.changeScreen();
-        }
-        else if(objectB.getUserData() instanceof StreetView && objectA.getUserData() instanceof TempSprite){
-            System.out.println("detected");
         }
         else if(objectA.getUserData() instanceof Flag){
             Flag flag = (Flag) objectA.getUserData();

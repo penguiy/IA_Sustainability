@@ -90,11 +90,8 @@ public class Flag extends Sprite {
         } else if (Con.TRIGGERS[4].equals(type)) {
             region = new TextureRegion(this.game.getAtlas().findRegion(Con.TRASH_WASTE), 0, 0, 25, 25);
         }
-        //temp
-        //region = new TextureRegion(new Texture(Con.NAVI_SIDE_TEXTURE));
         setRegion(region);
         defineBody();
-        //Find a way to wait until on correct screen to define body
     }
 
     /**
@@ -103,7 +100,7 @@ public class Flag extends Sprite {
     public void defineBody(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(getX(), getY());
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.type = BodyDef.BodyType.KinematicBody;
         body = world.createBody(bodyDef);
 
         FixtureDef fixtureDef = new FixtureDef();

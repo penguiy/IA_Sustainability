@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="Tile map.tsx"/>
  <layer id="3" name="Passable" width="35" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlkFuwyAQRWdTx1K6rV2p3aatlOyD5CzanqRHyVFy1AwSI/1OZjCGWOqiSF9gwPDMHwxE/+mvpw3RJWri8oml89g2pj6Sx/d6op9aeSw9cES9sF4Ti9Q/c5/+luVygvdKlWOZ6Pe8e9ZBrY9m+ib6FJbJ6JvTHAt6smU9OuPj91ms92axPML5rbhaiwU90jxrx27OI2R5ZwaJF2+s1jTnEbLIunDsnmv1xSpl0R6JP8gShc9H51nXb8DjEhZrH8X8I3m0Yz2xHiBfqhqPsF6+8Y01sLrE5Uk4O9BSFutfp1lKJLxSHoCn1aPAY4hPvSrrNowXK2ZaPcLxCNZpzMRucHhqPPL29FIWvW41HrWyjI0s3nlUymJx1bJ4+8hiQUm7Fcf38CjHEtIcwZgL95fVXuOR/u/O7YPWpO8ouTsD3Ouqz8bcmXkFNKMPyg==
+   eJztllEOwiAMQPvjxgXcvIC6G0iiH+pJPIpH2VEtCU2aWhZH2TDGJi/ASOgbdGEA//iVaAHGHgltGDuARy5WF/fuMl6wnUsJl7DODvMHhzvAlVzOEd6fooQL5SNk/jVdtLw1Xb6ldo/oQPViXauEC+0L1u4zlxtS0iXAx6fEWD5v2RlbYohntEe2yIa1c7G60DsekA5polcK8mwYS7h8AvlSv2M+VhePa9A5OdGXc7xetJqxuvD1wpjnSNWuT/jUdJH7VsOlr+yiea3hwqF5rY6XdvExh1dy8e9Lm7e6DAW/A2uI/7rsu3HqznwBXZvhLQ==
   </data>
  </layer>
  <layer id="4" name="Cosmetic" width="35" height="24" visible="0">
@@ -13,7 +13,7 @@
  </layer>
  <layer id="1" name="Unpassable" width="35" height="24">
   <data encoding="base64" compression="zlib">
-   eJwzZmBgMB7FgxqTA5zJ1AcDTgwMDViwwgC55QAQO6DhBxQaS4lbYHgBKEwG2C0PoG4YaLcoILnlASVuoUJ6oapbKMHUdAulYNQto24ZdcvgK19G3TLqFjq65QGWtpQCuW6hBaY3cMKDAQ1WeOs=
+   eJztlsEKwjAMhnNT0LuCHnrX247bQfTFfJQ9io/SRzGFBWJJR1hqo7DAx8Z26Ef/pFsHAN3KT7MBGBM93g9Ifk3vDgiweoCt7gBPgbBlHokTcp5c6PmxvssLuWVEWpPWvSBX+Nyf3rh2wYUY056QC89kh+zbuMTJoegiZTTUdwnMJZZceEbch1eFflG58IzmXCxoXfKMJBdrLc3Is1+kOfJy4Rl5u0hn3ZqRLqNW58s/nnUtXDTfI4+MvPtFM0cVXKLwLxWWztE34D2hnSPjnhR5A+RPp3k=
   </data>
  </layer>
 </map>

@@ -82,8 +82,10 @@ public class StreetView implements Screen {
             clickBody = null;
         }
         //Update positions of all the sprites
-        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
-            sprite.update(dt);
+        if(!myGame.getSpriteManager().getSpriteList().isEmpty()) {
+            for (TempSprite sprite : myGame.getSpriteManager().getSpriteList()) {
+                sprite.update(dt);
+            }
         }
         car.dropOff(dt);
         car2.dropOff(dt);
@@ -135,7 +137,9 @@ public class StreetView implements Screen {
 
         //Draw every Person that is in StreetView
         for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
-            sprite.draw(myGame.getBatch());
+            if(sprite.getScreen() == ScreenDisplay.STREET) {
+                sprite.draw(myGame.getBatch());
+            }
         }
         //Draw every Flag in StreetView
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
