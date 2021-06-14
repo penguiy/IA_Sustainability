@@ -2,7 +2,6 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,7 +25,7 @@ import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Sprites.Car;
 import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.Navi;
-import com.mygdx.game.Sprites.TempSprite;
+import com.mygdx.game.Sprites.People;
 import com.mygdx.game.Utils.WorldContactListener;
 
 public class StreetView implements Screen {
@@ -75,6 +74,10 @@ public class StreetView implements Screen {
         Gdx.input.setInputProcessor(game.getInputListener());
     }
 
+    /**
+     * Positions Updates that occur in renders
+     * @param dt delta time
+     */
     private void update(float dt) {
         world.step(1/60f, 6, 2);
         //If a clickFixture exists, destroy the body
@@ -84,7 +87,7 @@ public class StreetView implements Screen {
         }
         //Update positions of all the sprites
         if(!myGame.getSpriteManager().getSpriteList().isEmpty()) {
-            for (TempSprite sprite : myGame.getSpriteManager().getSpriteList()) {
+            for (People sprite : myGame.getSpriteManager().getSpriteList()) {
                 sprite.update(dt);
             }
         }
@@ -137,7 +140,7 @@ public class StreetView implements Screen {
         car2.draw(myGame.getBatch());
 
         //Draw every Person that is in StreetView
-        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
+        for (People sprite: myGame.getSpriteManager().getSpriteList()) {
             if(sprite.getScreen() == ScreenDisplay.STREET) {
                 sprite.draw(myGame.getBatch());
             }
@@ -159,6 +162,8 @@ public class StreetView implements Screen {
 
     /**
      * Creates a temporary fixture at mouse click position
+     * @param x x coordinate
+     * @param y y coordinate
      */
     public void clickFixture(int x, int y){
         BodyDef bodyDef = new BodyDef();
@@ -173,6 +178,7 @@ public class StreetView implements Screen {
         click.setRadius(4);
         fixtureDef.shape = click;
         clickBody.createFixture(fixtureDef).setUserData(this);
+        box2DDebugRenderer.render(world,camera.combined);
     }
 
     @Override

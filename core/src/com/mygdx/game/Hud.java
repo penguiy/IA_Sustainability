@@ -84,6 +84,11 @@ public class Hud extends Actor {
 
         stage.addActor(table);
     }
+
+    /**
+     * Update labels depending on time
+     * @param dt delta time
+     */
     public void update(float dt){
         //Day end? -> Day count +1, else stay same
         //Make so time doesn't count when in menu

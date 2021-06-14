@@ -13,7 +13,6 @@ import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.TitleScreen;
 
 public class InputListener implements InputProcessor {
-
     private Main game;
     private ScreenDisplay prePause;
 
@@ -42,17 +41,6 @@ public class InputListener implements InputProcessor {
         }
         return false;
     }
-
-    @Override
-    public boolean keyUp(int i) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char c) {
-        return false;
-    }
-
     @Override
     public boolean touchDown(int x, int y, int point, int button){
         if (button == Buttons.LEFT && !game.getDisplaying().equals(ScreenDisplay.PAUSE)) {
@@ -64,6 +52,16 @@ public class InputListener implements InputProcessor {
                 ((FirstFloor) game.getScreen()).clickFixture(x,y);
             }
         }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int i) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char c) {
         return false;
     }
 

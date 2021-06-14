@@ -34,38 +34,18 @@ import java.util.HashMap;
 public class Shop implements Screen {
     private Viewport viewport;
     private Main game;
-    public Stage getStage() {
-        return mainStage;
-    }
-
     private Stage mainStage;
-
-    public Stage getStageFirst() {
-        return stageFirst;
-    }
-
-    public Stage getStageClass() {
-        return stageClass;
-    }
-
-    public Stage getStageInfra() {
-        return stageInfra;
-    }
-
     private Stage stageFirst;
     private Stage stageClass;
     private Stage stageInfra;
-
     private Table first;
     private Table classesTable;
     private Table classScrollContainter;
     private Table infraTable;
     private Table infraScrollContainter;
-
     private ScrollPane classScroll;
     private ScrollPane infraScroll;
-
-    public Shop(final Main game){
+    public Shop(final Main game) {
         this.game = game;
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, new OrthographicCamera());
         //main stage which is the one the game class draws
@@ -75,13 +55,13 @@ public class Shop implements Screen {
         stageInfra = new Stage(viewport);
         stageClass = new Stage(viewport);
 
-    //Setup Landing Page for Shop
+        //Setup Landing Page for Shop
         first = new Table();
         first.setFillParent(true);
 
         //Create black background
-        Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
-        bgPixmap.setColor(0,0,0,0.8f);
+        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        bgPixmap.setColor(0, 0, 0, 0.8f);
         bgPixmap.fill();
         TextureRegionDrawable bg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
 
@@ -94,26 +74,26 @@ public class Shop implements Screen {
 
         //Create an exit button
         TextButton exit = new TextButton("EXIT", style);
-        exit.addListener(new InputListener(){
+        exit.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //If on not on first stage, change to first stage
-                    if(mainStage.equals(stageFirst)) {
-                        game.getInputListener().keyDown(Input.Keys.M);
-                    }
+                if (mainStage.equals(stageFirst)) {
+                    game.getInputListener().keyDown(Input.Keys.M);
+                }
                 return false;
 
-        }
+            }
         });
         //Create Shop button
         TextButton shop = new TextButton("SHOP", style);
-        shop.addListener(new InputListener(){
+        shop.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //Clause to not overlap the input processors
-                if(mainStage.equals(stageFirst)) {
+                if (mainStage.equals(stageFirst)) {
                     //Change mainStage to infrastructure tab
-                    for(Actor actor : stageClass.getActors()){
+                    for (Actor actor : stageClass.getActors()) {
                         actor.setTouchable(Touchable.disabled);
                     }
                     mainStage = stageInfra;
@@ -123,10 +103,10 @@ public class Shop implements Screen {
         });
         //Create Class button
         TextButton event = new TextButton("CLASS", style);
-        event.addListener(new InputListener(){
+        event.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(mainStage.equals(stageFirst)) {
+                if (mainStage.equals(stageFirst)) {
                     //Change mainStage to infrastructure tab
                     mainStage = stageClass;
                 }
@@ -143,7 +123,7 @@ public class Shop implements Screen {
         //Set stageFirst as the mainStage onCreate
         mainStage = stageFirst;
 
-    //Setup Class Tab
+        //Setup Class Tab
         classesTable = new Table();
         classesTable.setFillParent(true);
 
@@ -173,14 +153,14 @@ public class Shop implements Screen {
     /**
      * If the player has enough points to unlock the chosen upgrade, increase the point multiplier they purchased,
      * increase the purchase count of that multiplier and subtract the necessary payment.
-     *
+     * <p>
      * Else deny the payment and notify player of insufficient funds
      *
      * @param str Constant parameter to determine the key (Con.LIGHT_WASTE, FOOD_WASTE, AC_WASTE...)
      */
     public void classClick(String str) {
         //If odds are maxed, deny transfer
-        if (/*game.getPlayer().getPoints() >= 0*/game.getPlayer().getPoints() >= game.getPlayer().getClassPrice(str)) {
+        if (game.getPlayer().getPoints() >= game.getPlayer().getClassPrice(str)) {
             //Add 0.2 to the current multiplier
             game.getPlayer().setMultiplier(str, Con.MULTI_GROWTH);
             //Subtract payment
@@ -189,36 +169,36 @@ public class Shop implements Screen {
             increaseCount(game.getPlayer().getClassCount(), str);
             game.getHud().update(0);
 
-        }else{
+        } else {
             //Invalid Funds : deny payment
             game.showError();
         }
     }
+
     /**
-     * If the player has enough points to unlock the chosen upgrade, increase the odds of a self-resolve they
-     * for the section purchased, increase the purchase count of that multiplier and subtract the necessary payment.
-     *
+     * If the player has enough points to unlock the chosen upgrade, increase the odds of a self-resolve for the
+     * section purchased, increase the purchase count of that multiplier and subtract the necessary payment.
+     * <p>
      * Else deny the payment and notify player of insufficient funds.
      *
      * @param str Constant parameter to determine the key (Con.LIGHT_WASTE, FOOD_WASTE, AC_WASTE...)
      */
-    public void infraClick(String str){
+    public void infraClick(String str) {
         //If player has enough funds or if odds are already maxed
-        if(game.getPlayer().getPoints() >= game.getPlayer().getInfraPrice(str) && game.getPlayer().getOdds().get(str) != 100) {
-            game.getPlayer().setOdds(str,10);
+        if (game.getPlayer().getPoints() >= game.getPlayer().getInfraPrice(str) && game.getPlayer().getOdds().get(str) < 100) {
+            game.getPlayer().setOdds(str, 10);
             //Use this to trigger Screen classes to render infrastructure Layers
-            if(!game.getPlayer().getInfraPurchase().contains(str)){
+            if (!game.getPlayer().getInfraPurchase().contains(str)) {
                 game.getPlayer().getInfraPurchase().add(str);
             }
             game.getPlayer().subPoints(game.getPlayer().getInfraPrice(str));
             increaseCount(game.getPlayer().getInfraCount(), str);
 
             game.getHud().update(0);
-
-        }else{
+        }else {
             game.showError();
-        }
     }
+}
 
     /**
      * Set the mainStage to stageFirst
@@ -226,7 +206,6 @@ public class Shop implements Screen {
     public void reset(){
         this.mainStage = stageFirst;
     }
-
     @Override
     public void show() {
 
@@ -261,12 +240,19 @@ public class Shop implements Screen {
         mainStage.dispose();
     }
 
+    /**
+     * Increase the count of a counting Hashmap
+     *
+     * @param counter Counting Hashmap
+     * @param section Section to be increased
+     */
     public void increaseCount(HashMap<String, Integer> counter, String section){
         counter.put(section,counter.get(section)+1);
     }
 
-    //TODO Test a method similar to this where I only change the ArrayList of Buttons rather than reAdding the
-    // entire scrollPane
+    /**
+     * Update the Class store labels
+     */
     public void labelUpdateClass(){
         classScrollContainter.clear();
         classesTable.clear();
@@ -296,7 +282,6 @@ public class Shop implements Screen {
             label.setPosition(10,11.5f);
             classDetails.addActor(label);
             classDetails.addActor(button);
-            //classDetails.debugAll();
             classScrollContainter.add(classDetails).size(200, 20).pad(10);
         }
         classScrollContainter.row();
@@ -337,7 +322,9 @@ public class Shop implements Screen {
         classesTable.setTouchable(Touchable.enabled);
     }
 
-    //TODO If odds at 100 disable touchable
+    /**
+     * Update the Infrastructure store labels
+     */
     public void labelUpdateInfra() {
         infraScrollContainter.clear();
         infraTable.clear();
@@ -413,6 +400,10 @@ public class Shop implements Screen {
         infraTable.setTouchable(Touchable.enabled);
     }
 
+    /**
+     * Toggle shop button touchables
+     * @param on
+     */
     public void toggleShop(boolean on){
         Touchable touchable;
         if(on){
@@ -431,5 +422,21 @@ public class Shop implements Screen {
         for (Actor actor : stageClass.getActors()) {
             actor.setTouchable(touchable);
         }
+    }
+
+    public Stage getStage() {
+        return mainStage;
+    }
+
+    public Stage getStageFirst() {
+        return stageFirst;
+    }
+
+    public Stage getStageClass() {
+        return stageClass;
+    }
+
+    public Stage getStageInfra() {
+        return stageInfra;
     }
 }

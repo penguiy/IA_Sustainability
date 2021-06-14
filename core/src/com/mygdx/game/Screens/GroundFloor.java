@@ -2,11 +2,9 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -16,12 +14,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Con;
@@ -30,16 +24,12 @@ import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.Navi;
-import com.mygdx.game.Sprites.TempSprite;
+import com.mygdx.game.Sprites.People;
 import com.mygdx.game.Utils.WorldContactListener;
-
-import java.util.Iterator;
 
 public class GroundFloor implements Screen {
 
     private Main myGame;
-    private Texture stairs = new Texture("Stairs.png");
-
 
     private TmxMapLoader mapLoader; //helps load the map
     private TiledMap map; //the loaded map object
@@ -52,7 +42,6 @@ public class GroundFloor implements Screen {
     private Box2DDebugRenderer box2DDebugRenderer;
 
     private Body clickBody;
-    //Navi sprites to move around
     private Vector3 touchPos;
 
     private Navi streetNavi;
@@ -78,6 +67,10 @@ public class GroundFloor implements Screen {
         firstFloorNavi = new Navi(world, 528, Con.STREET_NAVI_Y-24, myGame, ScreenDisplay.FFLOOR);
 
     }
+    /**
+     * Positions Updates that occur in renders
+     * @param dt delta time
+     */
     private void update(float dt)
     {
         world.step(1/60f, 6,2);
@@ -85,7 +78,7 @@ public class GroundFloor implements Screen {
             world.destroyBody(clickBody);
             clickBody = null;
         }
-        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
+        for (People sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.update(dt);
         }
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
@@ -128,7 +121,7 @@ public class GroundFloor implements Screen {
         renderer.render();
 
         myGame.getBatch().begin();
-        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
+        for (People sprite: myGame.getSpriteManager().getSpriteList()) {
             if(sprite.getScreen() == ScreenDisplay.GROUND) {
                 sprite.draw(myGame.getBatch());
             }
@@ -149,6 +142,11 @@ public class GroundFloor implements Screen {
         box2DDebugRenderer.render(world,camera.combined);
     }
 
+    /**
+     * Creates a temporary fixture at mouse click position
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     public void clickFixture(int x, int y){
         BodyDef bodyDef = new BodyDef();
         touchPos = new Vector3(x, y, 0);

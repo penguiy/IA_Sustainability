@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.Random;
 
 //Temp class to test out how I'll build sprites
-public class TempSprite extends Sprite {
+public class People extends Sprite {
     private World world;
     private Main game;
 
@@ -29,11 +29,13 @@ public class TempSprite extends Sprite {
     private int coordX, coordY;
     private float totalDeltaTime;
 
+    private ScreenDisplay screen;
+    private ArrayList<Tile> currPathing;
+
+
     public ScreenDisplay getScreen() {
         return screen;
     }
-
-    private ScreenDisplay screen;
 
     public ArrayList<Tile> getCurrPathing() {
         return currPathing;
@@ -43,11 +45,9 @@ public class TempSprite extends Sprite {
         this.currPathing = currPathing;
     }
 
-    private ArrayList<Tile> currPathing;
 
 
-
-    public TempSprite(World world, Main game, float[] pos, ScreenDisplay screenDisplay){
+    public People(World world, Main game, float[] pos, ScreenDisplay screenDisplay){
         super();
         this.world = world;
         this.game = game;
@@ -58,7 +58,7 @@ public class TempSprite extends Sprite {
         setPosition(pos[0], pos[1]);
         setBounds(getX(), getY(),16,16);
         currPathing = new ArrayList<>();
-        region = new TextureRegion(new Texture("Stairs.png"));
+        region = new TextureRegion(this.game.getAtlas().findRegion(Con.PERSON_STRING), 0, 0, 16, 16);
         setRegion(region);
         defineBody();
         locate(body.getPosition().x,body.getPosition().y);
@@ -81,6 +81,10 @@ public class TempSprite extends Sprite {
 
     }
 
+    /**
+     * Positions updates that occur in renders
+     * @param delta delta time
+     */
     public void update(float delta) {
             move(delta);
             this.setPosition(body.getPosition().x - getWidth() / 2f,body.getPosition().y - getHeight() / 2f);
@@ -202,7 +206,6 @@ public class TempSprite extends Sprite {
         //If everything is searched but no way to get to destination then there's an error
         return null;
     }
-    //Create an ArrayList of Tiles that are adjacent to origin
 
     /**
      * Create an arrayList of neighboring tiles if there is
@@ -231,7 +234,7 @@ public class TempSprite extends Sprite {
     }
 
     /**
-     * Manhattan distance between two points in the array
+     * Taxi Cab distance between two points in the array
      * @param point1 : Starting point
      * @param point2 : Ending point
      * @return Lowest amount of steps to reach point 2 from point 1

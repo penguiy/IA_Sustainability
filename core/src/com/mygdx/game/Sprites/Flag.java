@@ -19,7 +19,6 @@ import com.mygdx.game.ScreenDisplay;
 
 public class Flag extends Sprite {
 
-
     private final World world;
     private final Main game;
     private Body body;
@@ -28,8 +27,13 @@ public class Flag extends Sprite {
     private boolean definedBody = false;
     private Animation<TextureRegion> anim;
     private float animTimer;
+    private int[] position;
+    private ScreenDisplay onScreen;//USE THIS TO DETERMINE WHICH BODIES TO RENDER on which screen
+    private boolean clicked;
 
-
+    public boolean isClicked() {
+        return clicked;
+    }
 
     public boolean isBodyDefined() {
         return definedBody;
@@ -43,24 +47,13 @@ public class Flag extends Sprite {
         return position;
     }
 
-    private int[] position;
-
     public ScreenDisplay getScreen() {
         return onScreen;
-    }
-
-    //USE THIS TO DETERMINE WHICH BODIES TO RENDER on which screen
-    private ScreenDisplay onScreen;
-
-    public boolean isClicked() {
-        return clicked;
     }
 
     public void setClicked(boolean clicked) {
         this.clicked = clicked;
     }
-
-    private boolean clicked;
 
     public Body getBody() {
         return body;
@@ -117,6 +110,11 @@ public class Flag extends Sprite {
         setRegion(region);
         defineBody();
     }
+
+    /**
+     * Change the frame of the flag animation if timer has been reached
+     * @param dt delta time
+     */
     public void changeFrame(float dt){
         region = anim.getKeyFrame(animTimer,true);
         animTimer += dt;
@@ -139,6 +137,10 @@ public class Flag extends Sprite {
         setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y-getHeight()/2);
     }
 
+    /**
+     * update position and texture of the flag
+     * @param dt delta time
+     */
     public void update(float dt){
         setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y-getHeight()/2);
         changeFrame(dt);
@@ -150,6 +152,4 @@ public class Flag extends Sprite {
     public void addPoints(){
         game.getPlayer().addPoints((int)(Con.BASE_POINTS.get(type) * game.getPlayer().getMulti().get(type)));
     }
-
-
 }

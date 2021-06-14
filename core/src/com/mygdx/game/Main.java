@@ -40,82 +40,70 @@ import java.util.HashMap;
 public class Main extends Game {
 	private SpriteBatch batch;
 	private Screen currScreen;
-
-	public TextureAtlas getAtlas() {
-		return atlas;
-	}
-
 	private TextureAtlas atlas;
 	private Hud hud;
-
 	private ScreenDisplay displaying;
 	private ScreenDisplay prevDisplayed;
-
 	private SpriteManager spriteManager;
+	private InputListener inputListener;
+	private InputMultiplexer inputMultiplexer;
+	private GroundFloor groundFloor;
+	private StreetView streetView;
+	private FirstFloor firstFloor;
+	private TitleScreen titleScreen;
+	private Stage dayEnd;
+	private Stage errorNotif;
+	private Label errorLabel;
+	private Table table;
+	private Player player;
+	private boolean transition;
+	private Shop shop;
+	private Preferences pref;
+	private float fadeDelta;
+	private TextButton cont;
+	private TextButton save;
+	private Tile[][] layout;
 
 	public InputListener getInputListener() {
 		return inputListener;
 	}
-	private InputListener inputListener;
-	private InputMultiplexer inputMultiplexer;
-
-	//Screens
-	private GroundFloor groundFloor;
-	private StreetView streetView;
 
 	public FirstFloor getFirstFloor() {
 		return firstFloor;
 	}
 
-	private FirstFloor firstFloor;
-
 	public TitleScreen getTitleScreen() {
 		return titleScreen;
 	}
-
-	private TitleScreen titleScreen;
-
-	private Stage dayEnd;
-	private Stage errorNotif;
 
 	public Label getErrorLabel() {
 		return errorLabel;
 	}
 
-	private Label errorLabel;
-	private Table table;
-
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-
-	private Player player;
-	private Tile[][] layout;
 
 	public Shop getShop() {
 		return shop;
 	}
 
-	private Shop shop;
-
 	public boolean inTransition() {
 		return transition;
+	}
+
+	public TextureAtlas getAtlas() {
+		return atlas;
 	}
 
 	public void setTransition(boolean transition) {
 		this.transition = transition;
 	}
 
-	private boolean transition;
 
 	public Preferences getPref() {
 		return pref;
 	}
-
-	private Preferences pref;
-	private float fadeDelta;
-	private TextButton cont;
-	private TextButton save;
 	@Override
 	public void create () {
 		pref = Gdx.app.getPreferences(Con.SAVE_FILE);
@@ -325,6 +313,10 @@ public class Main extends Game {
 		return layout;
 	}
 
+	/**
+	 * Load the player save from the saves in preferences object
+	 * @return reconstructed player object
+	 */
 	public Player loadSave(){
 		int day = pref.getInteger(Con.DAY_NUM);
 		int point = pref.getInteger(Con.POINTS);
@@ -337,6 +329,11 @@ public class Main extends Game {
 		return save;
 	}
 
+	/**
+	 * Turn a given string into a Hashmap<String, Double></>
+	 * @param str : structured string
+	 * @return Hashmap
+	 */
 	public HashMap<String, Double> reconHashDouble(String str){
 		HashMap<String,Double> TBR = new HashMap<String,Double>();
 		String[] list = str.split(", ");
@@ -346,6 +343,11 @@ public class Main extends Game {
 		}
 		return TBR;
 	}
+	/**
+	 * Turn a given string into a Hashmap<String, Integer></>
+	 * @param str : structured string
+	 * @return Hashmap
+	 */
 	public HashMap<String, Integer> reconHashInt(String str){
 		HashMap<String,Integer> TBR = new HashMap<String,Integer>();
 		String[] list = str.split(", ");
@@ -355,24 +357,47 @@ public class Main extends Game {
 		}
 		return TBR;
 	}
+	/**
+	 * Turn a given string into a ArrayList<String></>
+	 * @param str : structured string
+	 * @return ArrayList
+	 */
 	public ArrayList<String> reconArrayList(String str){
 		String[] list = str.split(", ");
 		ArrayList<String> TBR = new ArrayList<String>(Arrays.asList(list));
 		return TBR;
 	}
+
+	/**
+	 * Turn Hashmap into a structured String
+	 * @param hm : HashMap
+	 * @return String version of the Hashmap
+	 */
 	public String H2S(HashMap hm){
 		return hm.toString().substring(1,hm.toString().length()-1);
 	}
 
+	/**
+	 * Delete existing save file
+	 */
 	public void deleteSave(){
 		if(pref.getBoolean(Con.FILE_EXISTS)) {
 			pref.clear();
 			pref.flush();
 		}
 	}
+
+	/**
+	 * Turn the transparency of the erro label to 1
+	 */
 	public void showError(){
 		errorLabel.setColor(1, 0, 0, 1);
 	}
+
+	/**
+	 * Fade the transparency lower each render
+	 * @param delta : delta time
+	 */
 	public void fadeError(float delta){
 		if(errorLabel.getColor().a == 0){
 			fadeDelta = 0;
@@ -382,6 +407,11 @@ public class Main extends Game {
 			errorLabel.setColor(1,0,0,errorLabel.getColor().a - delta);
 		}
 	}
+
+	/**
+	 * Set touchable of all day end stage buttons
+	 * @param on : Touchable.on = true, Touchable.off = false
+	 */
 	public void toggleDayEnd(boolean on){
 		Touchable touchable;
 		if(on){

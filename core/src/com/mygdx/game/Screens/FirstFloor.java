@@ -1,6 +1,5 @@
 package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -24,7 +23,7 @@ import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Sprites.Car;
 import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.Navi;
-import com.mygdx.game.Sprites.TempSprite;
+import com.mygdx.game.Sprites.People;
 import com.mygdx.game.Utils.WorldContactListener;
 
 public class FirstFloor implements Screen {
@@ -64,7 +63,10 @@ public class FirstFloor implements Screen {
             touchPos = new Vector3();
             down = new Navi(world, 528, Con.STREET_NAVI_Y - 24, myGame, ScreenDisplay.GROUND);
         }
-
+    /**
+     * Positions Updates that occur in renders
+     * @param dt delta time
+     */
     private void update(float dt)
     {
         world.step(1/60f, 6,2);
@@ -72,7 +74,7 @@ public class FirstFloor implements Screen {
             world.destroyBody(clickBody);
             clickBody = null;
         }
-        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
+        for (People sprite: myGame.getSpriteManager().getSpriteList()) {
             sprite.update(dt);
         }
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
@@ -114,7 +116,7 @@ public class FirstFloor implements Screen {
         renderer.render();
 
         myGame.getBatch().begin();
-        for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
+        for (People sprite: myGame.getSpriteManager().getSpriteList()) {
             if(sprite.getScreen() == ScreenDisplay.FFLOOR) {
                 sprite.draw(myGame.getBatch());
             }
@@ -132,7 +134,11 @@ public class FirstFloor implements Screen {
 
         box2DDebugRenderer.render(world,camera.combined);
     }
-
+    /**
+     * Creates a temporary fixture at mouse click position
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     public void clickFixture(int x, int y){
         BodyDef bodyDef = new BodyDef();
         touchPos = new Vector3(x, y, 0);

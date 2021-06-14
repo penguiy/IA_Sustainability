@@ -1,8 +1,6 @@
 //Class to handle the moving and changes of all sprites
 package com.mygdx.game.Utils;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
@@ -10,79 +8,90 @@ import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Screens.Tile;
 import com.mygdx.game.Sprites.Flag;
-import com.mygdx.game.Sprites.TempSprite;
+import com.mygdx.game.Sprites.People;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.Random;
 
 //Contain all the sprites and tell them to move
 public class SpriteManager{
 
-    private ArrayList<TempSprite> peopleList;
+    private ArrayList<People> peopleList;
     private ArrayList<int[]> taken;
     private ArrayList<int[]> notTaken;
-    public void setFlagList(ArrayList<Flag> flagList) {
-        this.flagList = flagList;
-    }
-
     private ArrayList<Flag> flagList;
 
-
     private World world;
+
     private Main game;
 
     //SpriteHandler should be the only thing changing the positions of the sprites
-
     private boolean interval = false;
 
     public SpriteManager(final Main game, Hud hud){
         this.game = game;
-        peopleList = new ArrayList<TempSprite>();
+        peopleList = new ArrayList<People>();
         flagList = new ArrayList<>();
     }
+
+    /**
+     * Clear the pathing arrayList of all people
+     */
     public void clearPathing(){
-        for(TempSprite sprite : peopleList){
+        for(People sprite : peopleList){
             sprite.setCurrPathing(new ArrayList<Tile>());
         }
     }
 
+    /**
+     * Load people into the different screens
+     */
     public void loadPeople(){
     {
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
-        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new People(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
 
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
-        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new People(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+        peopleList.add(new People(game.getFirstFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.FFLOOR));
+
     }
 }
-    public ArrayList<TempSprite> getSpriteList() {
+
+    public ArrayList<People> getSpriteList() {
         return peopleList;
     }
-
     public ArrayList<Flag> getFlagList() {
         return flagList;
     }
@@ -212,5 +221,9 @@ public class SpriteManager{
         for(Flag flag : flagList){
             flag.setClicked(true);
         }
+    }
+
+    public void setFlagList(ArrayList<Flag> flagList) {
+        this.flagList = flagList;
     }
 }

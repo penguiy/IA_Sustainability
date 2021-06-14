@@ -44,6 +44,9 @@ public class Navi extends Sprite {
         defineBody();
     }
 
+    /**
+     * Create the body and fixture for the Navi
+     */
     public void defineBody(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(getX(), getY());
@@ -57,10 +60,17 @@ public class Navi extends Sprite {
         body.createFixture(fixtureDef).setUserData(this);
     }
 
+    /**
+     * Update the position of the navi
+     * @param dt delta time
+     */
     public void update(float dt){
         setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y-getHeight()/2);
     }
 
+    /**
+     * Call the change screen method in game
+     */
     public void changeScreen(){
         game.changeScreen(changeScreen);
     }
