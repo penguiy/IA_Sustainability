@@ -92,9 +92,9 @@ public class StreetView implements Screen {
         car2.dropOff(dt);
         //Update positions of all the flags
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
-            if(myGame.getSpriteManager().getFlagList().get(i).isBodyDefined()) {
-                myGame.getSpriteManager().getFlagList().get(i).update();
-            }
+        //    if(myGame.getSpriteManager().getFlagList().get(i).isBodyDefined()) {
+                myGame.getSpriteManager().getFlagList().get(i).update(dt);
+           // }
             if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
                 //If the flag is clicked destroy that flag
                 if(myGame.getSpriteManager().getFlagList().get(i).getScreen().equals(ScreenDisplay.STREET)) {

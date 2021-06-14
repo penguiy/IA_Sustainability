@@ -146,15 +146,21 @@ public class Con {
     public static final String ATLAS_FILENAME = "sprite.atlas";
     //Flags
     public static final String WATER_STRING = "Water";
+    public static final int WATER_ANIMEND = 3;
     public static final String FOOD_STRING = "Food";
+    public static final int FOOD_ANIMEND = 9;
     public static final String LIGHT_STRING = "Light";
+    public static final int LIGHT_ANIMEND = 6;
     public static final String AC_STRING = "AC";
-    public static final String TRASH_WASTE = "Trash";
+    public static final int AC_ANIMEND = 5;
+    public static final String TRASH_STRING = "Trash";
+    public static final int TRASH_ANIMEND = 5;
     //Navi
     public static final String NAVI_SIDE_TEXTURE = "Navi Side-1.png.png";
     public static final String NAVI_VERT_TEXTURE = "";
     //Background
     public static final String PERSON_STRING = "Person";
     public static final String CAR_STRING = "Car";
+
 
 }

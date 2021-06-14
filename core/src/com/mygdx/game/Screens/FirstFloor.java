@@ -77,9 +77,9 @@ public class FirstFloor implements Screen {
             sprite.update(dt);
         }
         for(int i = 0; i < myGame.getSpriteManager().getFlagList().size(); i++) {
-            if(myGame.getSpriteManager().getFlagList().get(i).isBodyDefined()) {
-                myGame.getSpriteManager().getFlagList().get(i).update();
-            }
+           // if(myGame.getSpriteManager().getFlagList().get(i).isBodyDefined()) {
+                myGame.getSpriteManager().getFlagList().get(i).update(dt);
+            //}
             if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
                 if(myGame.getSpriteManager().getFlagList().get(i).getScreen().equals(ScreenDisplay.FFLOOR)) {
                     world.destroyBody(myGame.getSpriteManager().getFlagList().get(i).getBody());

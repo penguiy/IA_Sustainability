@@ -114,7 +114,8 @@ public class Main extends Game {
 
 	private Preferences pref;
 	private float fadeDelta;
-
+	private TextButton cont;
+	private TextButton save;
 	@Override
 	public void create () {
 		pref = Gdx.app.getPreferences(Con.SAVE_FILE);
@@ -171,8 +172,9 @@ public class Main extends Game {
 		style.up = new TextureRegionDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Con.BUTTONG_BG))));
 
 
-		final TextButton save = new TextButton("SAVE & EXIT", style);
-		final TextButton cont = new TextButton("CONTINUE", style);
+		save = new TextButton("SAVE & EXIT", style);
+		cont = new TextButton("CONTINUE", style);
+		toggleDayEnd(false);
 
 		save.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
 			@Override
@@ -199,7 +201,7 @@ public class Main extends Game {
 				spriteManager.wipe();
 				for (Flag flag: spriteManager.getFlagList()) {
 					if(flag.isBodyDefined()) {
-						flag.update();
+						flag.update(fadeDelta);
 					}
 					if(flag.isClicked()){
 						if(flag.getScreen().equals(ScreenDisplay.GROUND)) {
@@ -209,7 +211,6 @@ public class Main extends Game {
 						}
 					}
 				}
-				toggleDayEnd(false);
 				spriteManager.setFlagList(new ArrayList<Flag>());
 				displaying = ScreenDisplay.STREET;
 				return false;
@@ -396,9 +397,7 @@ public class Main extends Game {
 		} else{
 			touchable = Touchable.disabled;
 		}
-
-		for (Actor actor: dayEnd.getActors()) {
-			actor.setTouchable(touchable);
-		}
+		save.setTouchable(touchable);
+		cont.setTouchable(touchable);
 	}
 }
