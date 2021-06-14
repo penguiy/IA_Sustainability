@@ -263,23 +263,15 @@ public class Main extends Game {
 	 */
 	public void mapOut(TiledMap map) {
 
-		this.layout = new Tile[24][35];
+		this.layout = new Tile[Con.TILEMAP_HEIGHT][Con.TILEMAP_WIDTH];
 		TiledMapTileLayer passable = (TiledMapTileLayer) map.getLayers().get(Con.PASSABLE_STRING);
-		int colCount = 0;
-		for (int y = 0; y < 24; y++) {
-			for (int x = 0; x < 35; x++) {
-				TiledMapTileLayer.Cell currCell = passable.getCell(x, 23 - y);
-				colCount++;
+		for (int y = 0; y < Con.TILEMAP_HEIGHT; y++) {
+			for (int x = 0; x < Con.TILEMAP_WIDTH; x++) {
+				TiledMapTileLayer.Cell currCell = passable.getCell(x, (Con.TILEMAP_HEIGHT - 1) - y);
 				if (currCell == null) {
-					System.out.print(" X ");
 					layout[y][x] = new Tile(true, x, y);
 				} else {
-					System.out.print(" - ");
 					layout[y][x] = new Tile(false, currCell.getTile(), x, y);
-				}
-				if (colCount == 35) {
-					System.out.print("\n");
-					colCount = 0;
 				}
 			}
 		}

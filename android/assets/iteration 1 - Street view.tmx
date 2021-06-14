@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="35" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="2">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="35" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="2">
  <tileset firstgid="1" source="Tile map.tsx"/>
  <layer id="3" name="Passable" width="35" height="24">
   <data encoding="base64" compression="zlib">
    eJztllEOwiAMQPvjxgXcvIC6G0iiH+pJPIpH2VEtCU2aWhZH2TDGJi/ASOgbdGEA//iVaAHGHgltGDuARy5WF/fuMl6wnUsJl7DODvMHhzvAlVzOEd6fooQL5SNk/jVdtLw1Xb6ldo/oQPViXauEC+0L1u4zlxtS0iXAx6fEWD5v2RlbYohntEe2yIa1c7G60DsekA5polcK8mwYS7h8AvlSv2M+VhePa9A5OdGXc7xetJqxuvD1wpjnSNWuT/jUdJH7VsOlr+yiea3hwqF5rY6XdvExh1dy8e9Lm7e6DAW/A2uI/7rsu3HqznwBXZvhLQ==
   </data>
  </layer>
- <layer id="4" name="Cosmetic" width="35" height="24" visible="0">
-  <data encoding="base64" compression="zlib">
+ <group id="6" name="Cosmetic">
+  <layer id="4" name="Cosmetic" width="35" height="24">
+   <data encoding="base64" compression="zlib">
    eJztwQENAAAAwqD3T+3sARQAAAA3DSAAAQ==
   </data>
- </layer>
+  </layer>
+ </group>
  <layer id="1" name="Unpassable" width="35" height="24">
   <data encoding="base64" compression="zlib">
    eJztlsEKwjAMhnNT0LuCHnrX247bQfTFfJQ9io/SRzGFBWJJR1hqo7DAx8Z26Ef/pFsHAN3KT7MBGBM93g9Ifk3vDgiweoCt7gBPgbBlHokTcp5c6PmxvssLuWVEWpPWvSBX+Nyf3rh2wYUY056QC89kh+zbuMTJoegiZTTUdwnMJZZceEbch1eFflG58IzmXCxoXfKMJBdrLc3Is1+kOfJy4Rl5u0hn3ZqRLqNW58s/nnUtXDTfI4+MvPtFM0cVXKLwLxWWztE34D2hnSPjnhR5A+RPp3k=

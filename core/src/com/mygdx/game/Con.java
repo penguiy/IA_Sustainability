@@ -19,6 +19,10 @@ public class Con {
     public static final int FINAL_MIN = 0;
     public static final double STANDARD_TIME = 1.6;
 
+    public static final int TILEMAP_WIDTH = 35;
+    public static final int TILEMAP_HEIGHT = 24;
+
+
 
     //File Paths/Strings
     public static final String GROUND_FLOOR_MAP = "iteration 1 - Ground floor.tmx";
