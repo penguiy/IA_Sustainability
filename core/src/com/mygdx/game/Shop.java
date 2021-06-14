@@ -165,9 +165,9 @@ public class Shop implements Screen {
         infraTable.setBackground(bg);
 
         labelUpdateInfra();
-
         stageInfra.addActor(infraTable);
 
+        toggleShop(false);
     }
 
     /**

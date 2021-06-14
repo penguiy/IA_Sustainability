@@ -34,6 +34,15 @@ public class TempSprite extends Sprite {
     }
 
     private ScreenDisplay screen;
+
+    public ArrayList<Tile> getCurrPathing() {
+        return currPathing;
+    }
+
+    public void setCurrPathing(ArrayList<Tile> currPathing) {
+        this.currPathing = currPathing;
+    }
+
     private ArrayList<Tile> currPathing;
 
 

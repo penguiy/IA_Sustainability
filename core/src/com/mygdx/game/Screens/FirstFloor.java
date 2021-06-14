@@ -1,12 +1,10 @@
-//Ground level screen class
 package com.mygdx.game.Screens;
-
+//TODO Make first floor
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -16,68 +14,58 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Con;
 import com.mygdx.game.Hud;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
+import com.mygdx.game.Sprites.Car;
 import com.mygdx.game.Sprites.Flag;
 import com.mygdx.game.Sprites.Navi;
 import com.mygdx.game.Sprites.TempSprite;
 import com.mygdx.game.Utils.WorldContactListener;
 
-import java.util.Iterator;
+public class FirstFloor implements Screen {
 
-public class GroundFloor implements Screen {
+        private Main myGame;
 
-    private Main myGame;
-    private Texture stairs = new Texture("Stairs.png");
+        private TmxMapLoader mapLoader; //helps load the map
+        private TiledMap map; //the loaded map object
+        private OrthogonalTiledMapRenderer renderer; //renders the map
+        private OrthographicCamera camera;
+        private Viewport viewport;
 
+        private Hud hud;
+        private World world;
+        private Box2DDebugRenderer box2DDebugRenderer;
 
-    private TmxMapLoader mapLoader; //helps load the map
-    private TiledMap map; //the loaded map object
-    private OrthogonalTiledMapRenderer renderer; //renders the map
-    private OrthographicCamera camera;
-    private Viewport viewport;
+        private Vector3 touchPos;
+        private Body clickBody;
 
-    private Hud hud;
-    private World world;
-    private Box2DDebugRenderer box2DDebugRenderer;
+        private Navi down;
 
-    private Body clickBody;
-    //Navi sprites to move around
-    private Vector3 touchPos;
+        private Car car;
+        private Car car2;
+        public FirstFloor(Main game) {
+            this.myGame = game;
+            this.hud = game.getHud();
+            this.world = new World(new Vector2(0, 0), true);
+            world.setContactListener(new WorldContactListener(game));
+            box2DDebugRenderer = new Box2DDebugRenderer();
 
-    private Navi streetNavi;
-    private Navi firstFloorNavi;
+            mapLoader = new TmxMapLoader(); //create an instance of built-in map loader object
+            map = mapLoader.load(Con.FIRST_FLOOR_MAP); //using map loader object, load the tiled map that you made
+            renderer = new OrthogonalTiledMapRenderer(map); //render the map.
+            camera = new OrthographicCamera();
+            viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera);
+            camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
+            touchPos = new Vector3();
+            down = new Navi(world, 528, Con.STREET_NAVI_Y - 24, myGame, ScreenDisplay.GROUND);
+        }
 
-
-    public GroundFloor(Main game){
-        this.myGame = game;
-        this.hud = game.getHud();
-        this.world = new World(new Vector2(0, 0), true);
-        world.setContactListener(new WorldContactListener(game));
-        box2DDebugRenderer = new Box2DDebugRenderer();
-
-        mapLoader = new TmxMapLoader(); //create an instance of built-in map loader object
-        map = mapLoader.load(Con.GROUND_FLOOR_MAP); //using map loader object, load the tiled map that you made
-        renderer = new OrthogonalTiledMapRenderer(map); //render the map.
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, camera);
-        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0); //set initial camera position
-
-        touchPos = new Vector3();
-        streetNavi = new Navi(world, 32,Con.STREET_NAVI_Y, myGame, ScreenDisplay.STREET);
-        firstFloorNavi = new Navi(world, 528, Con.STREET_NAVI_Y-24, myGame, ScreenDisplay.FFLOOR);
-
-    }
     private void update(float dt)
     {
         world.step(1/60f, 6,2);
@@ -93,11 +81,11 @@ public class GroundFloor implements Screen {
                 myGame.getSpriteManager().getFlagList().get(i).update();
             }
             if(myGame.getSpriteManager().getFlagList().get(i).isClicked()){
-                if(myGame.getSpriteManager().getFlagList().get(i).getScreen().equals(ScreenDisplay.GROUND)) {
+                if(myGame.getSpriteManager().getFlagList().get(i).getScreen().equals(ScreenDisplay.FFLOOR)) {
                     world.destroyBody(myGame.getSpriteManager().getFlagList().get(i).getBody());
                 }
             }
-            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()&& myGame.getSpriteManager().getFlagList().get(i).getScreen() == ScreenDisplay.GROUND){
+            if(myGame.getSpriteManager().getFlagList().get(i).isClicked()&& myGame.getSpriteManager().getFlagList().get(i).getScreen() == ScreenDisplay.FFLOOR){
                 myGame.getSpriteManager().getFlagList().remove(i);
                 i--;
             }
@@ -120,8 +108,7 @@ public class GroundFloor implements Screen {
         if(myGame.getErrorLabel().getColor().a >0) {
             myGame.fadeError(delta);
         }
-        streetNavi.update(delta);
-        firstFloorNavi.update(delta);
+        down.update(delta);
         Gdx.gl.glClearColor(0, 1, 1 ,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -129,18 +116,16 @@ public class GroundFloor implements Screen {
 
         myGame.getBatch().begin();
         for (TempSprite sprite: myGame.getSpriteManager().getSpriteList()) {
-            if(sprite.getScreen() == ScreenDisplay.GROUND) {
+            if(sprite.getScreen() == ScreenDisplay.FFLOOR) {
                 sprite.draw(myGame.getBatch());
             }
         }
         for (Flag flag: myGame.getSpriteManager().getFlagList()) {
-            if(!flag.isClicked() && flag.getScreen() == ScreenDisplay.GROUND) {
+            if(!flag.isClicked() && flag.getScreen() == ScreenDisplay.FFLOOR) {
                 flag.draw(myGame.getBatch());
             }
         }
-
-        firstFloorNavi.draw(myGame.getBatch());
-        streetNavi.draw(myGame.getBatch());
+        down.draw(myGame.getBatch());
         myGame.getBatch().end();
 
         hud.getStage().draw();

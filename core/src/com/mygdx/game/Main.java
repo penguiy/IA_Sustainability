@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,8 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.game.Screens.BaseScreen;
 import com.mygdx.game.Screens.Fade;
+import com.mygdx.game.Screens.FirstFloor;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.Tile;
@@ -63,6 +62,12 @@ public class Main extends Game {
 	//Screens
 	private GroundFloor groundFloor;
 	private StreetView streetView;
+
+	public FirstFloor getFirstFloor() {
+		return firstFloor;
+	}
+
+	private FirstFloor firstFloor;
 
 	public TitleScreen getTitleScreen() {
 		return titleScreen;
@@ -136,16 +141,18 @@ public class Main extends Game {
 		spriteManager = new SpriteManager(this, hud);
 		inputListener = new InputListener(this);
 		groundFloor = new GroundFloor(this);
+		firstFloor = new FirstFloor(this);
 		streetView = new StreetView(this);
 
 		titleScreen = new TitleScreen(this);
 		spriteManager.loadPeople();
 		shop = new Shop(this);
 
-		displaying = ScreenDisplay.TITLE;
-		prevDisplayed = ScreenDisplay.TITLE;;
-		//currScreen = new Fade(this);
+		displaying = ScreenDisplay.FFLOOR;
+		prevDisplayed = ScreenDisplay.FFLOOR;;
+
 		currScreen = titleScreen;
+
 		setScreen(currScreen);
 		render();
 		inputMultiplexer = new InputMultiplexer();
@@ -164,8 +171,8 @@ public class Main extends Game {
 		style.up = new TextureRegionDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Con.BUTTONG_BG))));
 
 
-		TextButton save = new TextButton("SAVE & EXIT", style);
-		TextButton cont = new TextButton("CONTINUE", style);
+		final TextButton save = new TextButton("SAVE & EXIT", style);
+		final TextButton cont = new TextButton("CONTINUE", style);
 
 		save.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
 			@Override
@@ -202,6 +209,7 @@ public class Main extends Game {
 						}
 					}
 				}
+				toggleDayEnd(false);
 				spriteManager.setFlagList(new ArrayList<Flag>());
 				displaying = ScreenDisplay.STREET;
 				return false;

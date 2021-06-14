@@ -43,17 +43,35 @@ public class SpriteManager{
         peopleList = new ArrayList<TempSprite>();
         flagList = new ArrayList<>();
     }
+    public void clearPathing(){
+        for(TempSprite sprite : peopleList){
+            sprite.setCurrPathing(new ArrayList<Tile>());
+        }
+    }
 
     public void loadPeople(){
     {
-        //TODO make sure layout is correct on loading when rendering the sprites
-
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
+        peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
         peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
         peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
         peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
         peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
         peopleList.add(new TempSprite(game.getStreetView().getWorld(), game, new float[]{294,180},ScreenDisplay.STREET));
 
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
+        peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
         peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
         peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
         peopleList.add(new TempSprite(game.getGroundFloor().getWorld(), game, new float[]{294,168},ScreenDisplay.GROUND));
@@ -95,17 +113,21 @@ public class SpriteManager{
                     int[] yx;
                     int ground = 0;
                     int street = 0;
+                    int ffloor = 0;
                     for(Flag flagg : flagList) {
                         taken.add(flagg.getPosition());
                         if(flagg.getScreen().equals(ScreenDisplay.GROUND)){
                             ground++;
                         }else if(flagg.getScreen().equals(ScreenDisplay.STREET)){
                             street++;
+                        }else if(flagg.getScreen().equals(ScreenDisplay.FFLOOR)){
+                            ffloor++;
                         }
                     }
                     ArrayList<ScreenDisplay> places = new ArrayList<ScreenDisplay>(){{
                         add(ScreenDisplay.GROUND);
                         add(ScreenDisplay.STREET);
+                        add(ScreenDisplay.FFLOOR);
                     }};
                     if(ground == Con.FULL){
                         places.remove(ScreenDisplay.GROUND);
@@ -113,13 +135,18 @@ public class SpriteManager{
                     if(street == Con.FULL){
                         places.remove(ScreenDisplay.STREET);
                     }
+                    if(ffloor == Con.FULL){
+                        places.remove(ScreenDisplay.FFLOOR);
+                    }
                     if(!places.isEmpty()) {//Make bubble appear
                         int location = random.nextInt(places.size());
-                        for (Flag flagg : flagList) {
-                            taken.add(flagg.getPosition());
-                        }
                         switch (places.get(location)) {
                             case STREET:
+                                for (Flag flagg : flagList) {
+                                    if(flagg.getScreen().equals(ScreenDisplay.STREET)) {
+                                        taken.add(flagg.getPosition());
+                                    }
+                                }
                                 for (int[] pos : Con.STREET_POSITIONS) {
                                     if (!taken.contains(pos)) {
                                         notTaken.add(pos);
@@ -132,6 +159,11 @@ public class SpriteManager{
                                 }
                                 break;
                             case GROUND:
+                                for (Flag flagg : flagList) {
+                                    if(flagg.getScreen().equals(ScreenDisplay.GROUND)) {
+                                        taken.add(flagg.getPosition());
+                                    }
+                                }
                                 for (int[] pos : Con.GROUND_FLOOR_POSITIONS) {
                                     if (!taken.contains(pos)) {
                                         notTaken.add(pos);
@@ -143,6 +175,22 @@ public class SpriteManager{
                                             ScreenDisplay.GROUND));
                                 }
                                 break;
+                            case FFLOOR:
+                                for (Flag flagg : flagList) {
+                                    if(flagg.getScreen().equals(ScreenDisplay.FFLOOR)) {
+                                        taken.add(flagg.getPosition());
+                                    }
+                                }
+                                for(int[] pos : Con.FIRST_FLOOR_POSITIONS){
+                                    if (!taken.contains(pos)) {
+                                        notTaken.add(pos);
+                                    }
+                                }
+                                if (!notTaken.isEmpty()){
+                                    yx = notTaken.get(random.nextInt(notTaken.size()));
+                                    flagList.add(new Flag(game.getFirstFloor().getWorld(), yx, game, Con.TRIGGERS[index],
+                                            ScreenDisplay.FFLOOR));
+                                }
                         }
                     }
                 } else {

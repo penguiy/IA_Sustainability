@@ -71,6 +71,7 @@ public class StreetView implements Screen {
         //Temps
         car = new Car(world, 115,0-(36+18), myGame);
         car2 = new Car(world, 115,0-(150+18), myGame);
+
         Gdx.input.setInputProcessor(game.getInputListener());
     }
 

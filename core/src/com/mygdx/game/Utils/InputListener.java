@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 import com.mygdx.game.Screens.Fade;
+import com.mygdx.game.Screens.FirstFloor;
 import com.mygdx.game.Screens.GroundFloor;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.TitleScreen;
@@ -59,6 +60,8 @@ public class InputListener implements InputProcessor {
                 ((StreetView) game.getScreen()).clickFixture(x,y);
             }else if(game.getScreen() instanceof GroundFloor){
                 ((GroundFloor) game.getScreen()).clickFixture(x,y);
+            } else if(game.getScreen() instanceof FirstFloor){
+                ((FirstFloor) game.getScreen()).clickFixture(x,y);
             }
         }
         return false;

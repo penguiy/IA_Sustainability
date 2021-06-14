@@ -23,7 +23,7 @@ public class Con {
     //File Paths/Strings
     public static final String GROUND_FLOOR_MAP = "iteration 1 - Ground floor.tmx";
     public static final String STREET_VIEW_MAP = "iteration 1 - Street view.tmx";
-    public static final String SECOND_FLOOR_MAP = "iteration 1 - Second floor.tmx";
+    public static final String FIRST_FLOOR_MAP = "iteration 1 - Second floor.tmx";
     public static final String DAY_ICON = "icons8-calendar-30.png";
     public static final String SETTINGS_ICON = "icons8-settings-48.png";
     public static final String TIME_ICON = "icons8-clock-24.png";
@@ -104,6 +104,22 @@ public class Con {
             add(new int[]{20, 27});
             add(new int[]{19,11});
     }};
+    //First floor positions
+    public static final ArrayList<int[]> FIRST_FLOOR_POSITIONS = new ArrayList<int[]>(){{
+        add(new int[]{4, 9});//Class
+        add(new int[]{4, 13});//Class
+        add(new int[]{4, 28});//Bathroom
+        add(new int[]{4, 32});//Bathroom
+
+        add(new int[]{16, 9});//Cafeteria 1
+        add(new int[]{18, 32});//Cafeteria 2
+        add(new int[]{20, 25}); //Cafeteria
+        add(new int[]{17, 17}); //Cafeteria
+
+        add(new int[]{11, 6});//Hallway 1
+        add(new int[]{11, 27});//Hallway 2
+        add(new int[]{9, 20});//Hallway 3
+    }};
     //Maximum amount of flags on a screen
     public static final int FULL = 11;
     //Amount multiplier grows by with each purchase
@@ -141,5 +157,4 @@ public class Con {
     public static final String PERSON_STRING = "Person";
     public static final String CAR_STRING = "Car";
 
-    public static final int[][] FFLOOR_POSITIONS = new int[4][4];
 }

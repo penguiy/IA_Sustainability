@@ -48,8 +48,11 @@ public class Fade implements Screen {
                 case STREET:
                     game.getStreetView().render(delta);
                     break;
+                case FFLOOR:
+                    game.getFirstFloor().render(delta);
             }
             if(totalDeltaTime <= 0) {
+                game.getSpriteManager().clearPathing();
                 switch (to) {
                     case GROUND:
                         totalDeltaTime = 0;
@@ -63,6 +66,12 @@ public class Fade implements Screen {
                         game.getSpriteManager().setWorld(game.getStreetView().getWorld());
                         game.setScreen(game.getStreetView());
                         break;
+                    case FFLOOR:
+                        totalDeltaTime = 0;
+                        game.mapOut(game.getFirstFloor().getMap());
+                        game.getSpriteManager().setWorld(game.getFirstFloor().getWorld());
+                        game.setScreen(game.getFirstFloor());
+
                 }
             }
         }
@@ -78,6 +87,7 @@ public class Fade implements Screen {
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }
+
 
     @Override
     public void resize(int width, int height) {
