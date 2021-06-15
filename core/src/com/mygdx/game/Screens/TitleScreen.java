@@ -61,6 +61,7 @@ public class TitleScreen implements Screen {
 
     private TextButton start;
     private TextButton delete;
+    
 
     public TitleScreen(final Main game) {
         this.myGame = game;

@@ -210,6 +210,7 @@ public class Main extends Game {
 		dayEnd.addActor(table);
 
 		inputMultiplexer.addProcessor(inputListener);
+		inputMultiplexer.addProcessor(hud.getStage());
 		inputMultiplexer.addProcessor(shop.getStageFirst());
 		inputMultiplexer.addProcessor(shop.getStageClass());
 		inputMultiplexer.addProcessor(shop.getStageInfra());

@@ -411,7 +411,6 @@ public class Shop implements Screen {
         } else{
             touchable = Touchable.disabled;
         }
-
         for (Actor actor: stageFirst.getActors()) {
             actor.setTouchable(touchable);
 

@@ -29,7 +29,7 @@ public class Con {
     public static final String STREET_VIEW_MAP = "iteration 1 - Street view.tmx";
     public static final String FIRST_FLOOR_MAP = "iteration 1 - Second floor.tmx";
     public static final String DAY_ICON = "icons8-calendar-30.png";
-    public static final String SETTINGS_ICON = "icons8-settings-48.png";
+    public static final String MENU_ICON = "icons8-menu-64.png";
     public static final String TIME_ICON = "icons8-clock-24.png";
     public static final String BUTTONG_BG = "Button.png";
 

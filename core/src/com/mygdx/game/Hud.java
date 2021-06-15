@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -41,6 +45,12 @@ public class Hud extends Actor {
     private Image dayIcon;
     private Image timeIcon;
 
+    public ImageButton getDetails() {
+        return details;
+    }
+
+    private ImageButton details;
+
     public Hud(Main myGame) {
         game = myGame;
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, new OrthographicCamera());
@@ -65,7 +75,18 @@ public class Hud extends Actor {
         dayIcon = new Image(new Texture(Con.DAY_ICON));
         timeIcon = new Image(new TextureRegionDrawable(new Texture(Con.TIME_ICON)));
 
-        Drawable settingsDrawable = new TextureRegionDrawable(new Texture(Con.SETTINGS_ICON));
+        Drawable detailsDrawable = new TextureRegionDrawable(new Texture(Con.MENU_ICON));
+        details = new ImageButton(detailsDrawable);
+        details.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                //TODO OPEN A STAGE SHOWING PROGRESS AND percent to fully automating school
+                if(!(game.getDisplaying().equals(ScreenDisplay.PAUSE) ||game.getDisplaying().equals(ScreenDisplay.DAYEND))){
+                    System.out.println("Press");
+                }
+                return false;
+            }
+        });
 
         table.add(dayIcon);
         table.add(day).padLeft(8).padRight(18);
@@ -79,8 +100,9 @@ public class Hud extends Actor {
         table.add();
         table.add();
         table.add();
-
         table.add(money).padRight(4);
+        table.row();
+        table.add(details).size(24).padLeft(4);
 
         stage.addActor(table);
     }
