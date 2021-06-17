@@ -201,6 +201,7 @@ public class Main extends Game {
 				}
 				spriteManager.setFlagList(new ArrayList<Flag>());
 				displaying = ScreenDisplay.STREET;
+				toggleDayEnd(false);
 				return false;
 			}
 		});

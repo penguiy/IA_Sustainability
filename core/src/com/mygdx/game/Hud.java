@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,6 +21,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.ArrayList;
 
 public class Hud extends Actor {
 
@@ -51,6 +54,18 @@ public class Hud extends Actor {
 
     private ImageButton details;
 
+    private Group progressWater;
+    private Group progressLight;
+    private Group progressAC;
+    private Group progressTrash;
+    private Group progressFood;
+
+    private Label progressWaterLabel;
+    private Label progressLightLabel;
+    private Label progressACLabel;
+    private Label progressTrashLabel;
+    private Label progressFoodLabel;
+
     public Hud(Main myGame) {
         game = myGame;
         viewport = new FitViewport(Con.WIDTH, Con.HEIGHT, new OrthographicCamera());
@@ -75,14 +90,27 @@ public class Hud extends Actor {
         dayIcon = new Image(new Texture(Con.DAY_ICON));
         timeIcon = new Image(new TextureRegionDrawable(new Texture(Con.TIME_ICON)));
 
+
+        progressWater = new Group();
+        progressLight = new Group();
+        progressAC = new Group();
+        progressTrash = new Group();
+        progressFood = new Group();
+
+        progressWaterLabel = new Label(game.getPlayer().getOdds().get("WATER").toString() + "%", labelStyle);
+        progressLightLabel = new Label(game.getPlayer().getOdds().get("LIGHT").toString() + "%", labelStyle);
+        progressACLabel = new Label(game.getPlayer().getOdds().get("AC").toString() + "%", labelStyle);
+        progressTrashLabel = new Label(game.getPlayer().getOdds().get("TRASH").toString() + "%", labelStyle);
+        progressFoodLabel = new Label(game.getPlayer().getOdds().get("FOOD").toString() + "%", labelStyle);
+
         Drawable detailsDrawable = new TextureRegionDrawable(new Texture(Con.MENU_ICON));
         details = new ImageButton(detailsDrawable);
         details.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //TODO OPEN A STAGE SHOWING PROGRESS AND percent to fully automating school
+                //TODO make all the groups visible
                 if(!(game.getDisplaying().equals(ScreenDisplay.PAUSE) ||game.getDisplaying().equals(ScreenDisplay.DAYEND))){
-                    System.out.println("Press");
+                    System.out.println(progressWaterLabel.getText());
                 }
                 return false;
             }
@@ -103,7 +131,6 @@ public class Hud extends Actor {
         table.add(money).padRight(4);
         table.row();
         table.add(details).size(24).padLeft(4);
-
         stage.addActor(table);
     }
 
@@ -146,6 +173,12 @@ public class Hud extends Actor {
                 totalDeltaTime = 0;
             }
             money.setText(game.getPlayer().getPoints());
+            progressWaterLabel.setText(game.getPlayer().getOdds().get("WATER").toString() + "%");
+            progressLightLabel.setText(game.getPlayer().getOdds().get("LIGHT").toString() + "%");
+            progressACLabel.setText(game.getPlayer().getOdds().get("AC").toString() + "%");
+            progressTrashLabel.setText(game.getPlayer().getOdds().get("TRASH").toString() + "%");
+            progressFoodLabel.setText(game.getPlayer().getOdds().get("FOOD").toString() + "%");
+
         }
     }
 
