@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -23,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
+
 
 public class Hud extends Actor {
 
@@ -54,11 +56,13 @@ public class Hud extends Actor {
 
     private ImageButton details;
 
-    private Group progressWater;
-    private Group progressLight;
-    private Group progressAC;
-    private Group progressTrash;
-    private Group progressFood;
+    ArrayList<Table> progress;
+
+    private Table progressWater;
+    private Table progressLight;
+    private Table progressAC;
+    private Table progressTrash;
+    private Table progressFood;
 
     private Label progressWaterLabel;
     private Label progressLightLabel;
@@ -90,18 +94,49 @@ public class Hud extends Actor {
         dayIcon = new Image(new Texture(Con.DAY_ICON));
         timeIcon = new Image(new TextureRegionDrawable(new Texture(Con.TIME_ICON)));
 
-
-        progressWater = new Group();
-        progressLight = new Group();
-        progressAC = new Group();
-        progressTrash = new Group();
-        progressFood = new Group();
+        progressWater = new Table();
+        progressLight = new Table();
+        progressAC = new Table();
+        progressTrash = new Table();
+        progressFood = new Table();
 
         progressWaterLabel = new Label(game.getPlayer().getOdds().get("WATER").toString() + "%", labelStyle);
         progressLightLabel = new Label(game.getPlayer().getOdds().get("LIGHT").toString() + "%", labelStyle);
         progressACLabel = new Label(game.getPlayer().getOdds().get("AC").toString() + "%", labelStyle);
         progressTrashLabel = new Label(game.getPlayer().getOdds().get("TRASH").toString() + "%", labelStyle);
         progressFoodLabel = new Label(game.getPlayer().getOdds().get("FOOD").toString() + "%", labelStyle);
+
+        progressWater.add(new Image(new TextureRegion(this.game.getAtlas().findRegion(Con.WATER_STRING), 0, 0, 25,
+                25)));
+        progressWater.add(progressWaterLabel).pad(1);
+
+        progressLight.add(new Image(new TextureRegion(this.game.getAtlas().findRegion(Con.LIGHT_STRING), 0, 0, 25,
+                25)));
+        progressLight.add(progressLightLabel).pad(1);
+
+        progressAC.add(new Image(new TextureRegion(this.game.getAtlas().findRegion(Con.AC_STRING), 0, 0, 25,
+                25)));
+        progressAC.add(progressACLabel).pad(1);
+
+        progressTrash.add(new Image(new TextureRegion(this.game.getAtlas().findRegion(Con.TRASH_STRING), 0, 0, 25,
+                25)));
+        progressTrash.add(progressTrashLabel).pad(1);
+
+        progressFood.add(new Image(new TextureRegion(this.game.getAtlas().findRegion(Con.FOOD_STRING), 0, 0, 25,
+                25)));
+        progressFood.add(progressFoodLabel).pad(1);
+
+        progress = new ArrayList<Table>(){{
+           add(progressAC);
+           add(progressFood);
+           add(progressLight);
+           add(progressWater);
+           add(progressTrash);
+        }};
+
+        for (Table table : progress) {
+            table.setVisible(false);
+        }
 
         Drawable detailsDrawable = new TextureRegionDrawable(new Texture(Con.MENU_ICON));
         details = new ImageButton(detailsDrawable);
@@ -110,28 +145,38 @@ public class Hud extends Actor {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //TODO make all the groups visible
                 if(!(game.getDisplaying().equals(ScreenDisplay.PAUSE) ||game.getDisplaying().equals(ScreenDisplay.DAYEND))){
-                    System.out.println(progressWaterLabel.getText());
+                    boolean visiblility = true;
+                    if(progressWater.isVisible()) {
+                        visiblility = false;
+                    }
+                    for (Table table : progress) {
+                        table.setVisible(visiblility);
+                    }
                 }
                 return false;
             }
         });
 
         table.add(dayIcon);
-        table.add(day).padLeft(8).padRight(18);
+        table.add(day).padLeft(8);
         table.add(timeIcon).center().padRight(8);
         table.add(time);
-        table.add(new Label("    ", labelStyle)).expandX();
+        table.add(new Label("    ", labelStyle)).expandX().colspan(4);
         table.add(new Label("    ", labelStyle)).size(100,2).right();
         table.row();
+        table.add(details).size(24).pad(2);
+        table.add(progressWater).pad(2);
+        table.add(progressFood).pad(2);
+        table.add(progressLight).pad(2);
+        table.add(progressAC).pad(2);
+        table.add(progressTrash).pad(2);
         table.add();
-        table.add();
-        table.add();
-        table.add();
-        table.add();
+        table.add().expandX();
         table.add(money).padRight(4);
         table.row();
-        table.add(details).size(24).padLeft(4);
+
         stage.addActor(table);
+
     }
 
     /**
