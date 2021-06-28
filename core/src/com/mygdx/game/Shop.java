@@ -185,7 +185,8 @@ public class Shop implements Screen {
      */
     public void infraClick(String str) {
         //If player has enough funds or if odds are already maxed
-        if (game.getPlayer().getPoints() >= game.getPlayer().getInfraPrice(str) && game.getPlayer().getOdds().get(str) < 100) {
+        if (/*game.getPlayer().getPoints() >= game.getPlayer().getInfraPrice(str) && */game.getPlayer().getOdds().get
+        (str) < 100) {
             game.getPlayer().setOdds(str, 10);
             //Use this to trigger Screen classes to render infrastructure Layers
             if (!game.getPlayer().getInfraPurchase().contains(str)) {

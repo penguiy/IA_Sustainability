@@ -387,6 +387,8 @@ public class Main extends Game {
 			pref.clear();
 			pref.flush();
 		}
+		player = new Player();
+		hud.update(0);
 	}
 
 	/**

@@ -217,6 +217,7 @@ public class Hud extends Actor {
                 time.setText(hourString + ":" + minuteString);
                 totalDeltaTime = 0;
             }
+            day.setText("Day " + game.getPlayer().getDayNum());
             money.setText(game.getPlayer().getPoints());
             progressWaterLabel.setText(game.getPlayer().getOdds().get("WATER").toString() + "%");
             progressLightLabel.setText(game.getPlayer().getOdds().get("LIGHT").toString() + "%");
