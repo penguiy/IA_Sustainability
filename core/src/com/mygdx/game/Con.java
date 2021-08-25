@@ -32,6 +32,7 @@ public class Con {
     public static final String MENU_ICON = "icons8-menu-64.png";
     public static final String TIME_ICON = "icons8-clock-24.png";
     public static final String BUTTONG_BG = "Button.png";
+    public static final String ARROW_ICON = "Navi Side-1.png.png";
 
     //Temporary Data
     public static final String CAR_TEXTURE = "Car base-4.png.png";

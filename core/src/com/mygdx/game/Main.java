@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Screens.Fade;
 import com.mygdx.game.Screens.FirstFloor;
 import com.mygdx.game.Screens.GroundFloor;
+import com.mygdx.game.Screens.InfoScreen;
 import com.mygdx.game.Screens.StreetView;
 import com.mygdx.game.Screens.Tile;
 import com.mygdx.game.Screens.TitleScreen;
@@ -51,6 +52,12 @@ public class Main extends Game {
 	private StreetView streetView;
 	private FirstFloor firstFloor;
 	private TitleScreen titleScreen;
+
+	public InfoScreen getInfoScreen() {
+		return infoScreen;
+	}
+
+	private InfoScreen infoScreen;
 	private Stage dayEnd;
 	private Stage errorNotif;
 	private Label errorLabel;
@@ -134,6 +141,7 @@ public class Main extends Game {
 		streetView = new StreetView(this);
 
 		titleScreen = new TitleScreen(this);
+		infoScreen = new InfoScreen(this);
 		spriteManager.loadPeople();
 		shop = new Shop(this);
 
@@ -216,6 +224,7 @@ public class Main extends Game {
 		inputMultiplexer.addProcessor(shop.getStageClass());
 		inputMultiplexer.addProcessor(shop.getStageInfra());
 		inputMultiplexer.addProcessor(titleScreen.getStage());
+		inputMultiplexer.addProcessor(infoScreen.getStage());
 		inputMultiplexer.addProcessor(dayEnd);
 
 		Gdx.input.setInputProcessor(inputMultiplexer);
