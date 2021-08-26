@@ -218,7 +218,7 @@ public class Shop implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height); //viewport gets adjusted accordingly
     }
 
     @Override

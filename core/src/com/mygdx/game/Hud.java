@@ -143,7 +143,6 @@ public class Hud extends Actor {
         details.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //TODO make all the groups visible
                 if(!(game.getDisplaying().equals(ScreenDisplay.PAUSE) ||game.getDisplaying().equals(ScreenDisplay.DAYEND))){
                     boolean visiblility = true;
                     if(progressWater.isVisible()) {

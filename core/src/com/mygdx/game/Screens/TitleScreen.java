@@ -122,7 +122,7 @@ public class TitleScreen implements Screen {
 
         menuTable.add(start).size(150,30).padTop(50);
         menuTable.row();
-        menuTable.add(delete).size(150,30).padTop(50);
+        menuTable.add(delete).size(150,30).padTop(50).row();
         menuTable.center();
         menuTable.add(more).size(150,30).padTop(50);
         menuTable.center();

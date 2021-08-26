@@ -71,7 +71,9 @@ public class InfoScreen implements Screen {
         back.addListener(new com.badlogic.gdx.scenes.scene2d.InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                myGame.setScreen(game.getTitleScreen());
+                if(game.getScreen().equals(this)) {
+                    myGame.setScreen(game.getTitleScreen());
+                }
                 return false;
             }
         });
