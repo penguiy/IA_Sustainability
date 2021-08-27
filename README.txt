@@ -1,3 +1,8 @@
-BUGS TO BE FIXED:
-Weird screen glitch at the start when loading a new screen for the first tiem
--> also the cause of crashing if clicking on the unrendered screen
+Author: Matthew Lee
+Project Name: Sustainability Game
+Date: 27th August 2021
+
+------ How to Run ------
+Run DesktopLauncher.java in order to start the game.
+------ Dependencies ------
+libGDX and box2D library
