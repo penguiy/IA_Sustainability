@@ -116,6 +116,7 @@ public class TitleScreen implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 myGame.setScreen(game.getInfoScreen());
+                more.setTouchable(Touchable.disabled);
                 return false;
             }
         });
