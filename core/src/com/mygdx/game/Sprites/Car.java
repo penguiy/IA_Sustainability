@@ -14,7 +14,6 @@ import com.mygdx.game.Con;
 import com.mygdx.game.Main;
 import com.mygdx.game.ScreenDisplay;
 
-//Meme animations that i'll have to redo and spent way too long on so i could feel like i was being productive
 public class Car extends Sprite {
     private World world;
     private Main game;
@@ -43,7 +42,6 @@ public class Car extends Sprite {
         body = world.createBody(bodyDef);
     }
 
-    //TODO:Use similar idea to code different sequences, Use when reach "X" position change what im rendering
     public void dropOff(float delta) {
         if(true/* If no other car is in anim */) {
             if (getY() <= 220/*110*/ && !turning) {
